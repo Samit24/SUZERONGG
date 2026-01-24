@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Samit Pudasaini | SOC Analyst & Cyber Defense</title>
+    
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
     <meta name="description" content="Portfolio of Samit Pudasaini, a SOC Analyst specializing in CrowdStrike Falcon, Threat Hunting, and Digital Forensics.">
     <meta name="keywords" content="SOC Analyst, Cybersecurity, CrowdStrike, Python Automation, Threat Intelligence, Nepal">
     <meta name="author" content="Samit Pudasaini">
@@ -19,45 +22,19 @@
 
     <canvas id="bg-canvas"></canvas>
 
-    <div id="boot-screen" onclick="accelerateBoot()">
-        <div class="boot-terminal">
-           <pre class="ascii-logo">
- ____  _   _ _____ _____ ____   ___  _   _ 
-/ ___|| | | |__  /| ____|  _ \ / _ \| \ | |
-\___ \| | | | / / |  _| | |_) | | | |  \| |
- ___) | |_| |/ /_ | |___|  _ &lt;| |_| | |\  |
-|____/ \___//____||_____|_| \_\\___/|_| \_|
-</pre>
-
-            <div class="boot-log">
-                <p>> SYSTEM_TIME: <span id="sys-time">CALCULATING...</span> <span class="dim">| UTC</span></p>
-                <p>> OS_KERNEL: <span id="sys-os">DETECTING...</span> <span class="highlight">[ OK ]</span></p>
-                <p>> INTEGRITY: <span id="sys-int">CHECKING...</span> <span class="highlight">[ OK ]</span></p>
-                <p>> CONNECTION: <span id="net-status" class="dim">HANDSHAKING...</span></p>
-            </div>
-            <br>
-            <p style="margin-bottom: 5px;">> LOADING_MODULES...</p>
-            <div class="progress-wrapper">
-                <div class="progress-bar-outline">
-                    <div id="progress-fill"></div>
-                </div>
-                <div id="boot-percent">0%</div>
-            </div>
-            <div class="bypass-msg">
-                <span class="blink">> PRESS ANY KEY OR CLICK TO EXECUTE_</span>
-            </div>
-        </div>
-    </div>
-
-    <div id="main-interface" style="opacity: 0;">
+    <div id="main-interface">
         
         <nav class="navbar glass">
-            <a href="#" class="logo accent-text">SUZERON<span class="blink">_</span></a>
+            <a href="#" class="logo accent-text">
+                <img src="img/favicon.png" alt="Suzeron" class="nav-icon">
+                SUZERON<span class="blink">_</span>
+            </a>
             
             <div class="nav-links">
                 <a href="#about">ABOUT ME</a>
                 <a href="#stack">CERTIFICATIONS</a>
                 <a href="#projects">PROJECTS</a>
+                <a href="#clients">CLIENTS</a> 
                 <a href="#contact" class="highlight-link">CONTACT</a>
             </div>
             <button class="mobile-toggle" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
@@ -72,6 +49,7 @@
             <a href="#about" onclick="toggleMenu()">ABOUT ME</a>
             <a href="#stack" onclick="toggleMenu()">CERTIFICATIONS</a>
             <a href="#projects" onclick="toggleMenu()">PROJECTS</a>
+            <a href="#clients" onclick="toggleMenu()">CLIENTS</a>
             <a href="#contact" onclick="toggleMenu()">CONTACT</a>
         </div>
 
@@ -129,7 +107,7 @@
                         </div>
                     </a>
 
-                    <div class="cert-card reveal locked" style="background-image: url('img/comptia.jpg');">
+                    <div class="cert-card reveal" style="background-image: url('img/comptia.jpg');">
                         <div class="cert-overlay"></div>
                         <div class="cert-content">
                             <div class="cert-badge pending"><i data-lucide="loader"></i> IN PROGRESS</div>
@@ -228,6 +206,50 @@
             </div>
         </section>
 
+        <section id="clients" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3> // PREVIOUS ENGAGEMENTS</h3>
+                    <div class="line"></div>
+                </div>
+                
+                <p class="bio-text" style="font-size: 0.9rem; margin-bottom: 2rem;">
+                    Entities and organizations I have collaborated with or secured.
+                </p>
+
+                <div class="marquee-container reveal">
+                    <div class="marquee-track">
+                        <div class="client-box">
+                            <img src="img/raechal.jpeg" alt="Raechal">
+                        </div>
+                        <div class="client-box">
+                            <img src="img/sdb.png" alt="SDB">
+                        </div>
+                        <div class="client-box">
+                            <img src="img/icfc.png" alt="ICFC">
+                        </div>
+                        <div class="client-box">
+                            <img src="img/fonepay.png" alt="Fonepay">
+                        </div>
+
+                        <div class="client-box">
+                            <img src="img/raechal.jpeg" alt="Raechal">
+                        </div>
+                        <div class="client-box">
+                            <img src="img/sdb.png" alt="SDB">
+                        </div>
+                        <div class="client-box">
+                            <img src="img/icfc.png" alt="ICFC">
+                        </div>
+                        <div class="client-box">
+                            <img src="img/fonepay.png" alt="Fonepay">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <section id="contact" class="section">
             <div class="container center-col">
                 <h2 class="mono-subtitle">Ready to secure the network? Contact Me</h2>
@@ -275,8 +297,8 @@
                     <div id="chat-history">
                         <div class="chat-msg system">
                             > SAMIT_AI_SYSTEM v1.0 ONLINE.<br>
-                            > Type <strong>'theme red'</strong> (or green/cyan/orange/purple) to change site colors.<br>
-                            > Ask me about Samit's skills or experience.
+                            > Type <strong>'help'</strong> to see available commands.<br>
+                            > Try running <strong>'nmap'</strong> to scan for vulnerabilities.
                         </div>
                     </div>
                     <div class="chat-input-area">

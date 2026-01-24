@@ -34,41 +34,6 @@ body {
     pointer-events: none;
 }
 
-/* --- 2. BOOT SCREEN STYLES --- */
-#boot-screen {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #000; 
-    z-index: 9999; 
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; cursor: pointer;
-    font-family: var(--font-mono);
-}
-
-.boot-terminal { width: min(500px, 90%); color: #ccc; }
-
-.ascii-logo {
-    color: var(--accent); font-weight: bold; line-height: 1; margin-bottom: 1.5rem;
-    white-space: pre; text-align: center;
-    font-size: clamp(8px, 1.8vw, 14px); 
-    display: block; width: 100%;
-}
-
-.boot-log p {
-    margin: 5px 0; font-size: 0.85rem; color: var(--text-dim);
-    display: flex; justify-content: space-between;
-}
-.highlight { color: var(--accent); font-weight: bold; }
-.dim { color: #666; }
-
-.progress-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-.progress-bar-outline { flex-grow: 1; height: 14px; border: 1px solid #444; padding: 2px; }
-#progress-fill {
-    height: 100%; width: 0%; background-color: var(--accent);
-    box-shadow: 0 0 10px var(--accent-glow); transition: width 0.1s linear;
-}
-#boot-percent { font-size: 0.9rem; color: var(--accent); min-width: 40px; text-align: right; }
-.bypass-msg { text-align: center; margin-top: 20px; color: #fff; font-size: 0.9rem; }
-
 /* --- 3. GLASS MORPHISM UTILS --- */
 .glass {
     background: var(--glass-bg);
@@ -76,22 +41,31 @@ body {
     border: 1px solid var(--glass-border);
 }
 
-#main-interface { position: relative; z-index: 1; }
+#main-interface { position: relative; z-index: 1; opacity: 1; }
 
-/* --- 4. NAVBAR --- */
+/* --- 4. NAVBAR & LOGO UPDATES --- */
 .navbar {
     position: fixed; top: 0; width: 100%; 
-    padding: 1rem 5%; /* Reduced vertical padding */
+    padding: 1rem 5%;
     display: flex; justify-content: space-between; align-items: center; z-index: 100;
 }
 .logo { 
+    display: flex;          
+    align-items: center;     
+    gap: 12px;
     font-family: var(--font-typewriter);
-    font-weight: 700; 
-    font-size: 1.4rem; 
-    letter-spacing: -1px; 
+    font-weight: 800; 
+    font-size: 2rem; 
+    letter-spacing: -2px; 
     text-decoration: none;
     cursor: pointer;
     transition: color 0.3s;
+    text-transform: uppercase;
+}
+.nav-icon {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
 }
 .accent-text { color: var(--accent); transition: color 0.3s ease; }
 
@@ -115,7 +89,6 @@ body {
     min-height: 100vh; 
     display: flex; 
     align-items: center; 
-    /* Reduced top padding */
     padding-top: 60px; 
 }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
@@ -123,7 +96,7 @@ body {
 .mono-accent { 
     font-family: var(--font-mono); 
     color: var(--accent); 
-    margin-bottom: 0.5rem; /* Reduced space */
+    margin-bottom: 0.5rem;
     letter-spacing: 2px;
 }
 
@@ -132,7 +105,7 @@ h1 {
     font-size: clamp(2.5rem, 5vw, 4.5rem); 
     font-weight: 700; 
     line-height: 1.1; 
-    margin-bottom: 0.5rem; /* Reduced space */
+    margin-bottom: 0.5rem;
     position: relative;
     color: #fff;
 }
@@ -163,7 +136,7 @@ h1 {
 .mono-subtitle { 
     font-family: var(--font-mono); 
     font-size: 1.2rem; 
-    margin-bottom: 1.5rem; /* Reduced space */
+    margin-bottom: 1.5rem;
     font-weight: 400; 
     display: flex;
     flex-wrap: wrap; 
@@ -191,13 +164,13 @@ h1 {
     max-width: 600px; 
     line-height: 1.6; 
     color: var(--text-dim); 
-    margin-bottom: 2rem; /* Reduced space */
+    margin-bottom: 2rem;
     font-size: 1.05rem; 
 }
 
 .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
 .btn { 
-    display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; /* Tighter buttons */
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
     border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s;
 }
 .btn.primary { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent-glow); }
@@ -205,12 +178,12 @@ h1 {
 .btn.glass-btn { border: 1px solid var(--glass-border); color: #fff; background: rgba(255,255,255,0.05); }
 .btn.glass-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-/* --- 6. SECTIONS (TIGHTER SPACING) --- */
+/* --- 6. SECTIONS --- */
 .section { 
-    padding: 4rem 0; /* Reduced from 6rem */
+    padding: 4rem 0;
     border-bottom: 1px dashed var(--glass-border); 
 }
-.section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; /* Reduced */ }
+.section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
 .section-header h3 { font-family: var(--font-mono); color: var(--accent); font-size: 1.1rem; }
 .line { flex: 1; height: 1px; background: var(--glass-border); }
 
@@ -229,9 +202,9 @@ h1 {
 .tags span { background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); }
 
 /* --- 8. CERTIFICATES --- */
-.cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
 .cert-card {
-    height: 180px; /* Reduced height */
+    height: 180px; 
     border-radius: 12px; position: relative; overflow: hidden;
     background-color: #111; background-size: cover; background-position: center;
     border: 1px solid var(--glass-border); text-decoration: none; display: block;
@@ -268,7 +241,51 @@ h1 {
 .link-btn { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 5px; font-size: 0.9rem; transition: 0.3s; }
 .link-btn:hover { color: var(--accent); }
 
-/* --- 10. SOCIAL & FOOTER --- */
+/* --- 10. NEW CLIENTS MARQUEE --- */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 2rem 0;
+    /* Create fade edges */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 4rem; /* Spacing between logos */
+    width: max-content;
+    animation: scroll 20s linear infinite; /* Adjust time for speed */
+}
+
+.client-box {
+    width: clamp(120px, 15vw, 200px); /* Adjustable Responsive Width */
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.client-box:hover { opacity: 1; }
+
+.client-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: filter 0.3s;
+}
+
+.client-box:hover img { filter: grayscale(0%); }
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Moves halfway because we duplicated content */
+}
+
+/* --- 11. SOCIAL & FOOTER --- */
 .center-col { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .social-grid { display: flex; gap: 1.5rem; margin: 2rem 0; flex-wrap: wrap; justify-content: center; }
 .social-card {
@@ -280,7 +297,7 @@ h1 {
 .social-card:hover { border-color: var(--accent); color: #fff; transform: translateY(-5px); background: rgba(255,255,255,0.05); }
 .footer { margin-top: 2rem; font-size: 0.8rem; color: #555; font-family: var(--font-mono); }
 
-/* --- 11. TERMINAL & CHATBOT --- */
+/* --- 12. TERMINAL & CHATBOT --- */
 #term-toggle {
     position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
     background: #000; border: 1px solid var(--accent); color: var(--accent);
@@ -322,9 +339,6 @@ h1 {
 /* Chat Styles */
 #chat-history { flex: 1; overflow-y: auto; margin-bottom: 10px; font-family: var(--font-mono); font-size: 0.9rem; padding-right: 5px; }
 .chat-msg { margin-bottom: 8px; line-height: 1.4; }
-.system { color: var(--accent); }
-.user { color: #fff; }
-.ai { color: #aaa; }
 .chat-input-area { display: flex; align-items: center; border-top: 1px solid #333; padding-top: 10px; }
 .prompt { color: var(--accent); margin-right: 10px; }
 #chat-input {
@@ -344,10 +358,9 @@ h1 {
     width: 100%; background: var(--accent); border: none; padding: 6px;
     font-weight: bold; cursor: pointer;
 }
-.code-block { background: #000; padding: 10px; margin-top: 5px; font-family: var(--font-mono); color: #00ff00; font-size: 0.8rem; word-break: break-all; }
 .divider { border: 0; border-top: 1px dashed #333; margin: 1rem 0; }
 
-/* --- 12. MOBILE MENU --- */
+/* --- 13. MOBILE MENU --- */
 #mobile-menu {
     position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
     background: #000; z-index: 200; display: flex; flex-direction: column;
@@ -364,7 +377,7 @@ h1 {
 
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* --- 13. RESPONSIVE ADJUSTMENTS (TIGHTER MOBILE) --- */
+/* --- 14. RESPONSIVE ADJUSTMENTS --- */
 @media(max-width: 768px) {
     .nav-links { display: none; }
     .mobile-toggle { display: block; }
@@ -372,11 +385,11 @@ h1 {
     
     .hero { 
         padding-top: 100px; 
-        padding-bottom: 40px; /* Reduced bottom padding */
+        padding-bottom: 40px; 
         text-align: left;
         align-items: flex-start;
         display: block;
-        min-height: auto; /* Allow height to fit content on mobile */
+        min-height: auto; 
     }
     
     .container { padding: 0 1.5rem; }
@@ -393,6 +406,37 @@ h1 {
         gap: 5px;
     }
 
-    /* Tighter sections on mobile */
     .section { padding: 3rem 0; }
+}
+
+/* --- TERMINAL COLORS --- */
+.chat-msg.success { color: #00ff41; text-shadow: 0 0 5px rgba(0, 255, 65, 0.3); }
+.chat-msg.warning { color: #ff9900; }
+.chat-msg.error { color: #ff0055; }
+.chat-msg.user { color: #fff; }
+.chat-msg.ai { color: #aaa; }
+.chat-msg.system {
+    color: #00f0ff; /* Cyan */
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 4px;
+    margin-top: 10px;
+}
+.cmd {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0 4px;
+    border-radius: 4px;
+    color: #fff;
+    font-family: var(--font-mono);
+}
+.code-block {
+    background: #000;
+    padding: 10px;
+    margin-top: 5px;
+    font-family: var(--font-mono);
+    color: #00ff00;
+    font-size: 0.8rem;
+    word-break: break-all;
+    border: 1px solid #333;
+    min-height: 40px;
 }

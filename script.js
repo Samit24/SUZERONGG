@@ -1,93 +1,23 @@
-// --- 1. ADVANCED BOOT SEQUENCE ---
-let bootPercent = 0;
-let bootInterval;
-let bootSkipped = false;
-
+// --- 1. INITIALIZATION & CTF HINT ---
 window.addEventListener('load', () => {
-    runSystemRecon(); 
-    bootInterval = setInterval(incrementBoot, 20); 
+    initTypewriter(); 
+    resizeCanvas();
+    animateParticles();
+    
+    // CTF HINT: Hidden in console for developers
+    console.log("%c STOP! ", "color: red; font-size: 30px; font-weight: bold;");
+    console.log("%c If you are looking for the root password, try: 'halamadrid'", "color: #00f0ff; font-size: 14px;");
 });
 
-// System Recon Logic
-function runSystemRecon() {
-    // Time
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString('en-US', { hour12: false });
-    const dateStr = now.toLocaleDateString('en-CA');
-    const timeEl = document.getElementById('sys-time');
-    if(timeEl) timeEl.innerText = `${dateStr} ${timeStr}`;
-
-    // OS
-    const platform = navigator.platform.toUpperCase();
-    const osEl = document.getElementById('sys-os');
-    if(osEl) osEl.innerText = platform.includes('WIN') ? 'WIN_NT_KERNEL' : 'UNIX_SYSTEM';
-
-    // Resolution
-    const resEl = document.getElementById('sys-res');
-    if(resEl) resEl.innerText = `${window.innerWidth}x${window.innerHeight}`;
-    
-    // Integrity Check
-    const intEl = document.getElementById('sys-int');
-    if(intEl) intEl.innerText = "HASH_" + Math.floor(Math.random()*16777215).toString(16).toUpperCase();
-}
-
-function incrementBoot() {
-    if (bootPercent >= 100) {
-        clearInterval(bootInterval);
-        completeBoot();
-    } else {
-        bootPercent += Math.random() > 0.5 ? 1 : 2; 
-        if(bootPercent > 100) bootPercent = 100;
-        updateBootUI();
-    }
-}
-
-function updateBootUI() {
-    const fill = document.getElementById('progress-fill');
-    const text = document.getElementById('boot-percent');
-    if(fill) fill.style.width = bootPercent + "%";
-    if(text) text.innerText = bootPercent + "%";
-}
-
-function accelerateBoot() {
-    if (bootSkipped) return;
-    bootSkipped = true;
-    clearInterval(bootInterval);
-    bootPercent = 100;
-    updateBootUI();
-    setTimeout(completeBoot, 200);
-}
-document.addEventListener('keydown', () => accelerateBoot());
-
-function completeBoot() {
-    const bootScreen = document.getElementById('boot-screen');
-    const mainInterface = document.getElementById('main-interface');
-    const netStatus = document.getElementById('net-status');
-
-    if(netStatus) netStatus.innerHTML = "<span style='color: var(--accent);'>[ ESTABLISHED ]</span>";
-
-    setTimeout(() => {
-        bootScreen.style.opacity = '0';
-        bootScreen.style.transition = 'opacity 0.5s ease';
-        
-        setTimeout(() => {
-            bootScreen.style.display = 'none';
-            mainInterface.style.opacity = '1'; 
-            mainInterface.style.transition = 'opacity 1s ease';
-            initTypewriter(); 
-        }, 500);
-    }, 400);
-}
-
-// --- 2. SCROLL PROGRESS BAR ---
+// --- 2. SCROLL & CANVAS ---
 window.onscroll = function() {
     let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     let scrolled = (winScroll / height) * 100;
-    document.getElementById("scroll-bar").style.width = scrolled + "%";
+    let bar = document.getElementById("scroll-bar");
+    if(bar) bar.style.width = scrolled + "%";
 };
 
-// --- 3. CANVAS PARTICLE BACKGROUND ---
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let particlesArray;
@@ -96,9 +26,9 @@ let particleColor = '#00f0ff';
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    initParticles(); 
 }
 window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
 
 class Particle {
     constructor() {
@@ -153,42 +83,32 @@ function animateParticles() {
         }
     }
 }
-initParticles();
-animateParticles();
 
-// --- 4. SLIDING TYPEWRITER ---
+// --- 3. TYPEWRITER ---
 const typeTarget = document.getElementById('dynamic-text');
-const texts = [
-    "anomalies and alerts", 
-    "logs into actionable insights"
-];
+const texts = ["anomalies and alerts", "logs into actionable insights"];
 let count = 0;
 
 function initTypewriter() {
     if(!typeTarget) return;
-    
-    // Loop through texts
     if(count >= texts.length) count = 0;
-    
-    // Remove animation class to reset
     typeTarget.classList.remove('slide-text');
-    void typeTarget.offsetWidth; // Trigger reflow
-    
-    // Change text and re-add animation
+    void typeTarget.offsetWidth; 
     typeTarget.innerText = texts[count];
     typeTarget.classList.add('slide-text');
-    
     count++;
-    setTimeout(initTypewriter, 3000); // Change every 3 seconds
+    setTimeout(initTypewriter, 3000); 
 }
 
-// --- 5. TERMINAL & CHATBOT WITH THEMES ---
+// --- 4. ADVANCED TERMINAL & CHATBOT ---
 const chatHistory = document.getElementById('chat-history');
 const chatInput = document.getElementById('chat-input');
 const terminal = document.getElementById('terminal-modal');
 
 function toggleTerminal() {
-    terminal.style.display = (terminal.style.display === 'flex') ? 'none' : 'flex';
+    const isFlex = terminal.style.display === 'flex';
+    terminal.style.display = isFlex ? 'none' : 'flex';
+    if (!isFlex) setTimeout(() => chatInput.focus(), 100);
 }
 
 function switchTab(tab) {
@@ -198,62 +118,100 @@ function switchTab(tab) {
     event.currentTarget.classList.add('active');
 }
 
-function addMessage(text, sender) {
+function addMessage(text, type) {
     const div = document.createElement('div');
-    div.classList.add('chat-msg', sender);
-    div.innerHTML = (sender === 'user' ? '> ' : '') + text;
+    div.classList.add('chat-msg', type); // type can be 'user', 'ai', 'system', 'success', 'error'
+    div.innerHTML = (type === 'user' ? '> ' : '') + text;
     chatHistory.appendChild(div);
     chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
 function handleChat(e) {
-    if(e.key === 'Enter') sendChat();
+    if(e.key === 'Enter') processCommand();
 }
 
-async function sendChat() {
-    const text = chatInput.value.trim();
-    if(!text) return;
+async function processCommand() {
+    const input = chatInput.value.trim();
+    if(!input) return;
     
-    addMessage(text, 'user');
+    addMessage(input, 'user');
     chatInput.value = '';
 
+    const lower = input.toLowerCase();
+
+    // 1. HELP COMMAND
+    if (lower === 'help' || lower === 'ls') {
+        setTimeout(() => {
+            addMessage("AVAILABLE COMMANDS:", "system");
+            addMessage("- <span class='cmd'>about</span> : Display profile bio", "ai");
+            addMessage("- <span class='cmd'>projects</span> : Navigate to projects", "ai");
+            addMessage("- <span class='cmd'>nmap</span> : Run vulnerability scan", "ai");
+            addMessage("- <span class='cmd'>theme [color]</span> : Change UI color", "ai");
+            addMessage("- <span class='cmd'>clear</span> : Clear terminal", "ai");
+        }, 200);
+        return;
+    }
+
+    // 2. CLEAR COMMAND
+    if (lower === 'clear') {
+        chatHistory.innerHTML = '';
+        return;
+    }
+
+    // 3. NAVIGATION COMMANDS
+    if (lower.includes('project')) {
+        document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+        addMessage("Navigating to [PROJECTS] sector...", "success");
+        return;
+    }
+    if (lower.includes('contact') || lower.includes('email')) {
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        addMessage("Opening communication channels...", "success");
+        return;
+    }
+    
+    // 4. THEME COMMANDS
+    if (lower.startsWith('theme')) {
+        if(lower.includes('red')) changeTheme('#ff0055', 'rgba(255, 0, 85, 0.4)');
+        else if(lower.includes('green')) changeTheme('#00ff41', 'rgba(0, 255, 65, 0.4)');
+        else if(lower.includes('cyan')) changeTheme('#00f0ff', 'rgba(0, 240, 255, 0.4)');
+        else if(lower.includes('purple')) changeTheme('#bf00ff', 'rgba(191, 0, 255, 0.4)');
+        else if(lower.includes('orange')) changeTheme('#ff9900', 'rgba(255, 153, 0, 0.4)');
+        
+        addMessage(`Theme updated.`, "success");
+        return;
+    }
+
+    // 5. NMAP SIMULATION
+    if (lower === 'nmap' || lower === 'scan' || lower === 'run_scan') {
+        runNmapSimulation();
+        return;
+    }
+
+    // DEFAULT AI RESPONSE
     setTimeout(() => {
-        const response = getSimulatedResponse(text);
-        addMessage(response, 'ai');
-    }, 600);
+        if(lower.includes('hello')) addMessage("System Online. Ready for input.", "ai");
+        else if(lower.includes('skill')) addMessage("Loaded modules: CrowdStrike Falcon, Splunk, Python, Linux.", "ai");
+        else addMessage("Command not recognized. Type 'help' for list.", "error");
+    }, 400);
 }
 
-function getSimulatedResponse(input) {
-    const lower = input.toLowerCase();
-    
-    // --- THEME SWITCHING LOGIC ---
-    if(lower.includes('theme red')) {
-        changeTheme('#ff0055', 'rgba(255, 0, 85, 0.4)');
-        return "System theme changed to ALERT_RED.";
-    }
-    if(lower.includes('theme green')) {
-        changeTheme('#00ff41', 'rgba(0, 255, 65, 0.4)');
-        return "System theme changed to HACKER_GREEN.";
-    }
-    if(lower.includes('theme cyan') || lower.includes('theme blue')) {
-        changeTheme('#00f0ff', 'rgba(0, 240, 255, 0.4)');
-        return "System theme changed to DEFAULT_CYAN.";
-    }
-    if(lower.includes('theme orange')) {
-        changeTheme('#ff9900', 'rgba(255, 153, 0, 0.4)');
-        return "System theme changed to WARNING_ORANGE.";
-    }
-    if(lower.includes('theme purple')) {
-        changeTheme('#bf00ff', 'rgba(191, 0, 255, 0.4)');
-        return "System theme changed to NEON_PURPLE.";
-    }
+function runNmapSimulation() {
+    const steps = [
+        { text: "Starting Nmap 7.94 at 2026-01-25...", delay: 200, type: "system" },
+        { text: "Initiating Syn Stealth Scan...", delay: 800, type: "ai" },
+        { text: "Scanning 192.168.1.1 [1000 ports]", delay: 1500, type: "ai" },
+        { text: "Discovered open port 80/tcp on 192.168.1.1", delay: 2200, type: "success" },
+        { text: "Discovered open port 443/tcp on 192.168.1.1", delay: 2400, type: "success" },
+        { text: "Discovered open port 22/tcp on 192.168.1.1", delay: 2600, type: "warning" },
+        { text: "Nmap done: 1 IP address (1 host up) scanned in 3.02 seconds", delay: 3500, type: "system" }
+    ];
 
-    if(lower.includes('hello') || lower.includes('hi')) return "Greetings. I am Samit's automated assistant.";
-    if(lower.includes('skill') || lower.includes('stack')) return "Samit is proficient in CrowdStrike Falcon, Splunk, Python, and Linux Forensics.";
-    if(lower.includes('contact') || lower.includes('email')) return "You can reach him at pudasainisamit@gmail.com.";
-    if(lower.includes('project')) return "Check out the 'Projects' tab to see his Python Automation scripts.";
-    
-    return "Command not recognized. Try 'theme red', 'skills', or 'contact'.";
+    steps.forEach(step => {
+        setTimeout(() => {
+            addMessage(step.text, step.type);
+        }, step.delay);
+    });
 }
 
 function changeTheme(color, glow) {
@@ -262,7 +220,7 @@ function changeTheme(color, glow) {
     particleColor = color; 
 }
 
-// --- 6. TERMINAL TOOLS ---
+// --- 5. TERMINAL TOOLS & ROOT LOGIN ---
 function runEncrypt() {
     const inp = document.getElementById('tool-input').value;
     const out = document.getElementById('tool-output');
@@ -272,16 +230,20 @@ function runEncrypt() {
 function checkRoot() {
     const pass = document.getElementById('root-pass').value;
     const msg = document.getElementById('root-msg');
+    
     if(pass === 'halamadrid') {
-        msg.style.color = '#0f0';
-        msg.innerText = "ACCESS GRANTED. GOD MODE ENABLED.";
+        msg.innerHTML = "<span style='color:#0f0'>ACCESS GRANTED.</span>";
+        setTimeout(() => {
+            changeTheme('#00ff41', 'rgba(0, 255, 65, 0.4)');
+            addMessage("ROOT ACCESS VERIFIED. GOD MODE ENABLED.", "success");
+            switchTab('chat'); 
+        }, 1000);
     } else {
-        msg.style.color = 'red';
-        msg.innerText = "ACCESS DENIED.";
+        msg.innerHTML = "<span style='color:red'>ACCESS DENIED.</span>";
     }
 }
 
-// --- 7. SCROLL REVEAL ---
+// --- 6. SCROLL REVEAL ---
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if(entry.isIntersecting) entry.target.classList.add('active-reveal');
@@ -289,7 +251,9 @@ const observer = new IntersectionObserver(entries => {
 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// --- 8. MOBILE MENU ---
+
+// --- 7. MOBILE MENU TOGGLE ---
 function toggleMenu() {
-    document.getElementById('mobile-menu').classList.toggle('active');
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('active');
 }
