@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUZERON // TERMINAL</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="scanlines"></div>
+    <div class="crt-glow"></div>
+
+    <div id="boot-screen" onclick="accelerateBoot()">
+        <div class="boot-terminal">
+            <pre class="ascii-logo">
+ ____  _   _ _____ _____ ____   ___  _   _ 
+/ ___|| | | |__  /| ____|  _ \ / _ \| \ | |
+\___ \| | | | / / |  _| | |_) | | | |  \| |
+ ___) | |_| |/ /_ | |___|  _ <| |_| | |\  |
+|____/ \___//____||_____|_| \_\\___/|_| \_|
+            </pre>
+
+            <div class="boot-log">
+                <p>> SYSTEM_TIME: <span id="sys-time">CALCULATING...</span> <span class="dim">| UTC</span></p>
+                <p>> OS_KERNEL: <span id="sys-os">DETECTING...</span> <span class="highlight">[ OK ]</span></p>
+                <p>> DISPLAY: <span id="sys-res">CALIBRATING...</span> <span class="highlight">[ OK ]</span></p>
+                <p>> CONNECTION: <span id="net-status" class="dim">HANDSHAKING...</span></p>
+            </div>
+            <br>
+            <p style="margin-bottom: 5px;">> LOADING_MODULES...</p>
+            <div class="progress-wrapper">
+                <div class="progress-bar-outline">
+                    <div id="progress-fill"></div>
+                </div>
+                <div id="boot-percent">0%</div>
+            </div>
+            <div class="bypass-msg">
+                <span class="blink">> PRESS ANY KEY TO EXECUTE_</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-overlay" style="display: none;">
+        <div class="login-box">
+            <h3 style="color: var(--alert);">> AUTH_REQUIRED</h3>
+            <p class="dim">Enter root password to access classified modules.</p>
+            <p class="dim" style="font-size: 0.8rem;">(Hint: The alias you go by)</p>
+            
+            <input type="password" id="root-pass" placeholder="PASSWORD_" onkeydown="checkEnter(event)">
+            <div id="login-msg" style="height: 20px; font-size: 0.8rem; margin-top: 5px;"></div>
+            
+            <div style="margin-top: 1rem; display: flex; gap: 10px;">
+                <button class="nav-btn" style="border: 1px solid var(--alert); color: var(--alert); text-align: center;" onclick="attemptLogin()">AUTHENTICATE</button>
+                <button class="nav-btn" style="border: 1px solid var(--text-dim); text-align: center;" onclick="closeLogin()">ABORT</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-overlay" style="display: none;" onmousedown="jump()" ontouchstart="jump(event)">
+        <div class="game-box" onclick="event.stopPropagation()" ontouchstart="event.stopPropagation()">
+            <div class="game-header">
+                <span>>> PACKET_RUN.EXE</span>
+                <button class="close-btn" onclick="closeGame()">[ X ]</button>
+            </div>
+            <canvas id="game-canvas" width="400" height="400"></canvas>
+            <div class="game-stats">
+                <span>SCORE: <span id="game-score">0</span></span>
+                <span class="blink">STATUS: RUNNING</span>
+            </div>
+            <div class="mobile-controls">
+                <button onclick="jump()" style="width: 100%; height: 60px; margin-top: 10px; background: rgba(255,255,255,0.1); border: 1px solid var(--accent); color: var(--accent);">
+                    [ TAP TO JUMP ]
+                </button>
+            </div>
+            <p class="dim" style="font-size: 0.8rem; margin-top: 10px;">PRESS 'SPACE' OR CLICK TO JUMP</p>
+        </div>
+    </div>
+
+    <div class="app-container" id="app" style="opacity: 0;">
+        <aside>
+            <div class="mobile-header">
+                <div>
+                    <span class="dim" style="font-size: 0.8rem;">USER_ID:</span><br>
+                    <span style="font-family: 'VT323', monospace; font-size: 1.5rem;">SAMIT.SYS</span>
+                </div>
+                <button class="hamburger-btn" onclick="toggleMenu()">
+                    [ = ]
+                </button>
+            </div>
+
+            <div class="nav-container" id="nav-menu">
+                <nav>
+                    <button class="nav-btn active" onclick="router('home')">> ./HOME</button>
+                    <button class="nav-btn" onclick="router('about')">> ./ABOUT</button>
+                    <button class="nav-btn" onclick="router('skills')">> ./SKILLS</button>
+                    <button class="nav-btn" onclick="router('projects')">> ./PROJECTS</button>
+                    <button class="nav-btn" onclick="router('fun')">> ./LOGS</button>
+                    <button class="nav-btn hidden-feature" onclick="router('playground')" style="display:none; color: var(--alert);">> ./CLASSIFIED</button>
+                    <button class="nav-btn" onclick="router('contact')">> ./CONTACT</button>
+                    <button class="nav-btn" onclick="openLogin()">> ./ROOT_ACCESS</button>
+                </nav>
+                <div class="desktop-footer-info" style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2rem;">
+                    STATUS: <span style="color: var(--accent);">ONLINE</span><br>
+                    &copy; 2002 SAMIT 
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <section id="projects" class="section">
+                <h2>> /HOME/PROJECTS</h2>
+                <p class="dim">Displaying compiled binaries and case studies...</p>
+                
+                <div class="skill-grid">
+                    <div class="skill-card" onclick="window.open('https://github.com/Samit24', '_blank')">
+                        <div class="skill-icon">[ REPO ]</div>
+                        <h3>SOC_AUTOMATION_SCRIPT</h3>
+                        <p class="dim">Python script for automating log parsing in CrowdStrike.</p>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-icon">[ WEB ]</div>
+                        <h3>SUZERON_PORTFOLIO</h3>
+                        <p class="dim">This website. Pure HTML/JS with CRT emulation.</p>
+                    </div>
+                </div>
+
+                <br><br>
+                <h3 class="dim" style="border-bottom: 1px dashed #333; padding-bottom: 10px;">> INTERACTIVE_MODULES</h3>
+                
+                <div class="skill-grid">
+                    <div class="skill-card" onclick="launchGame('flappy')" style="cursor: pointer;">
+                        <div class="skill-icon" style="color: var(--alert);">[ GAME ]</div>
+                        <h3>PACKET_RUN.EXE</h3>
+                        <p class="dim">Avoid the firewalls. Space/Click to Jump.</p>
+                    </div>
+
+                    <div class="skill-card" style="cursor: default; border-color: var(--accent);">
+                        <div class="skill-icon">[ TOOL ]</div>
+                        <h3>BASE64_ENCRYPTOR</h3>
+                        <div style="margin-top: 10px;">
+                            <input type="text" id="cypher-input-proj" placeholder="Type text here..." onkeydown="checkEnterProj(event)"
+                                   style="background: #111; border: 1px solid #444; color: var(--text-main); width: 100%; padding: 5px; font-family: var(--font-body); margin-bottom: 5px;">
+                            <button onclick="simpleEncryptProj()" 
+                                    style="background: var(--accent); color: black; border: none; padding: 2px 10px; font-family: var(--font-body); cursor: pointer; font-weight: bold;">
+                                ENCODE
+                            </button>
+                            <p id="cypher-output-proj" class="highlight" style="margin-top: 5px; font-size: 0.8rem; height: 1.2em; word-break: break-all;">...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="playground" class="section">
+                <h2 style="color: var(--alert);">> TOP_SECRET // PLAYGROUND</h2>
+                <p>AUTHORIZATION VERIFIED. WELCOME, ADMINISTRATOR.</p>
+                
+                <div style="border: 1px solid var(--accent); padding: 1rem; margin-bottom: 2rem;">
+                    <h3>> APP: ENCRYPTOR_TOOL</h3>
+                    <input type="text" id="cypher-input" placeholder="Enter text to encrypt..." style="background: transparent; border: none; border-bottom: 1px solid var(--accent); color: white; width: 100%; font-family: var(--font-body); padding: 10px;">
+                    <br><br>
+                    <button class="nav-btn" style="width: auto; border: 1px solid var(--accent);" onclick="simpleEncrypt()">[ ENCODE_BASE64 ]</button>
+                    <p id="cypher-output" class="highlight" style="margin-top: 10px;"></p>
+                </div>
+
+                <div style="border: 1px solid var(--text-dim); padding: 1rem; text-align: center;">
+                    <h3>> GAME: PACKET_RUN</h3>
+                    <p class="dim">[ MODULE LOADED ]</p>
+                    <button class="nav-btn" style="width: auto; margin: 0 auto; border: 1px solid var(--accent); color: var(--accent);" onclick="launchGame('flappy')">EXECUTE PACKET_RUN.EXE</button>
+                </div>
+            </section>
+
+            <section id="home" class="section active">
+                <p class="dim">> Hello World. I am</p>
+                <h1><strong>Suzeron</strong></h1>
+                <h2 style="border: none; font-size: 1.5rem; color: var(--text-dim);">
+                    I  <span id="typing-text" class="highlight"></span><span class="cursor"></span>
+                </h2>
+                <br><br>
+                <p style="max-width: 600px;">
+                    Welcome to my digital terminal. I analyze cyber threats, identify attack patterns, and support security operations. Outside work, I enjoy watching sports and music. 
+                    This space is a collection of my professional work and personal curiosities.
+                </p>
+                <br>
+                <button class="nav-btn" style="width: auto; border: 1px solid var(--accent);" onclick="router('about')">EXECUTE INTRO SEQUENCE ></button>
+            </section>
+
+            <section id="about" class="section">
+                <h2>> WHO_AM_I</h2>
+                <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                    <div style="flex: 2; min-width: 300px;">
+                        <p>
+                            I am a <strong class="highlight">SOC Analyst</strong>. I find the needle in the haystack "where the needle is a cyber threat and the haystack is terabytes of log data".
+                        </p>
+                        <p>
+                            My background is in <strong>Bachelor of Information Technology Management (B.I.M)</strong>, which gives me a unique balance: I understand the technical infrastructure <em>and</em> the business impact of security.
+                        </p>
+                        <p>
+                            I am passionate about continuous learning and plan to pursue a <strong class="highlight">Master's in Cybersecurity</strong> to deepen my expertise and contribute more effectively to the field.
+                        </p>
+                    </div>
+                    <div style="flex: 1; border: 1px solid #333; padding: 1rem;">
+                        <h3 class="dim" style="font-size: 1rem;">> STATS</h3>
+                        <br>
+                        <ul style="list-style: none; line-height: 2;">
+                            <li>ROLE: <span class="highlight">SOC Analyst</span></li>
+                            <li>EXP: <span class="highlight">1 Year</span></li>
+                            <li>DEGREE: <span class="highlight">B.I.M </span></li>
+                            <li>LOCATION: <span class="highlight"> NEPAL</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <a href="certificates/resume.pdf" download style="text-decoration: none; border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; font-family: var(--font-body); transition: 0.3s;" onmouseover="this.style.background='var(--accent)'; this.style.color='var(--bg-color)'" onmouseout="this.style.background='transparent'; this.style.color='var(--accent)'">[ RESUME.PDF ]</a>
+                </div>
+            </section>
+
+            <section id="skills" class="section">
+                
+                <h2>> CERTIFICATIONS</h2>
+                <p class="dim">Click to verify credentials...</p>
+                <div class="cert-grid">
+                    <a href="certificates/CrowdStrike University Course Certificate.pdf" target="_blank" class="cert-card">
+                        <div class="cert-header"><span class="cert-icon">[ CERT ]</span><span class="cert-status highlight">VERIFIED</span></div>
+                        <h3>Falcon Endpoint Protection</h3><p class="dim">Crowdstrike</p>
+                    </a>
+                    <a href="certificates/Introduction to Digital Forensics-course.pdf" target="_blank" class="cert-card">
+                        <div class="cert-header"><span class="cert-icon">[ CERT ]</span><span class="cert-status highlight">VERIFIED</span></div>
+                        <h3>Digital Forensics</h3><p class="dim">Security Blue Team</p>
+                    </a>
+                    <a href="https://courses.redteamleaders.com/exam-completion/e0e9b00a636cb2f7" target="_blank" class="cert-card">
+                        <div class="cert-header"><span class="cert-icon">[ CERT ]</span><span class="cert-status highlight">VERIFIED</span></div>
+                        <h3>Cybersecurity Educator (CCEP)</h3><p class="dim">Completion Certificate</p>
+                    </a>
+                    <div class="cert-card locked">
+                        <div class="cert-header"><span class="cert-icon">[ LOCK ]</span><span class="cert-status dim">LOADING...</span></div>
+                        <h3 class="dim">COMPTIA SECURITY+</h3><p class="dim">In Progress</p>
+                    </div>
+                    <div class="cert-card locked">
+                        <div class="cert-header"><span class="cert-icon">[ DEGREE ]</span><span class="cert-status highlight">COMPLETED</span></div>
+                        <h3>B.I.M DEGREE</h3><p class="dim">Tribhuvan University</p>
+                    </div>
+                    <br><br>
+                    <h2>> MY_CAPABILITIES</h2>
+                </div>
+                <p class="dim">Running diagnostics on current skill set...</p>
+                <div class="skill-grid">
+                    <div class="skill-card"><div class="skill-icon">[ EDR ]</div><h3>CROWDSTRIKE FALCON</h3><p class="dim">Endpoint Protection & Threat Hunting</p></div>
+                    <div class="skill-card"><div class="skill-icon">[ AD ]</div><h3>ACTIVE DIRECTORY</h3><p class="dim">User Mgmt, GPO & Kerberos Analysis</p></div>
+                    <div class="skill-card"><div class="skill-icon">[ OS ]</div><h3>LINUX SYSTEMS</h3><p class="dim">Kali / Ubuntu / CLI </p></div>
+                    <div class="skill-card"><div class="skill-icon">[ NET ]</div><h3>NETWORK SECURITY</h3><p class="dim">Firewalls, IDS/IPS</p></div>
+                    <div class="skill-card"><div class="skill-icon">[ AUTO ]</div><h3>AUTOMATION</h3><p class="dim">SOAR Workflows & Scripting</p></div>
+                    <div class="skill-card"><div class="skill-icon">[ SIEM ]</div><h3>SIEM ARCHITECTURE</h3><p class="dim">Crowdstrike Querying (CQL) & Log Ingestion</p></div>
+                </div>
+            </section>
+
+            <section id="fun" class="section">
+                <h2>> /VAR/LOG/THOUGHTS</h2>
+                <p class="dim">System events, personal updates, and random dumps.</p>
+                <div class="sys-log-container">
+                    <div class="sys-log-header">
+                        <span style="color: #333;">root@suzeron:~# tail -f /var/log/life.log</span>
+                    </div>
+                    <div class="sys-log-content">
+                        <div class="log-line" style="animation-delay: 0.2s;">
+                            <span class="log-time">[2026-01-23 08:45:12]</span> <span class="log-level info">[INFO]</span> 
+                            System successfully deployed to production. Portfolio v2.0 is live.
+                        </div>
+                        <div class="log-line" style="animation-delay: 0.6s;">
+                            <span class="log-time">[2026-01-09 23:15:00]</span> <span class="log-level warn">[WARN]</span> 
+                            Sleep cycle disrupted. Excessive consumption of coffee detected.
+                        </div>
+                        <div class="log-line" style="animation-delay: 1.0s;">
+                            <span class="log-time">[2026-01-15 14:30:22]</span> <span class="log-level error">[ERR ]</span> 
+                            Manchester United defense not found. 404 Error. Retrying next season...
+                        </div>
+                        <div class="log-line" style="animation-delay: 1.4s;">
+                            <span class="log-time">[2026-01-10 09:00:01]</span> <span class="log-level info">[INFO]</span> 
+                            Started learning advanced Linux Kernel exploitation.
+                        </div>
+                        <div class="log-cursor">_</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="section">
+                <h2>> ESTABLISH_CONNECTION</h2>
+                <p>I am open to discussions regarding cyber_Security, Sports and music.</p>
+                <div style="margin-top: 3rem; font-size: 1.2rem;">
+                    <p>> EMAIL: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pudasainisamit@gmail.com" target="_blank" class="highlight" style="text-decoration: none;">pudasainisamit@gmail.com</a></p>
+                    <p>> LINKEDIN: <a href="https://www.linkedin.com/in/samit-pudasaini/" class="highlight" style="text-decoration: none;">linkedin.com/in/samit</a></p>
+                    <p>> GITHUB: <a href="https://github.com/Samit24" class="highlight" style="text-decoration: none;">github.com/samit</a></p>
+                </div>
+                <br><br>
+                <div class="funny-footer">
+                    <div class="alert-header">⚠️ CRITICAL ALERT: SYSTEM SELF-DESTRUCT SEQUENCE ⚠️</div>
+                    <div class="timer-box">T-MINUS: <span id="countdown">10.00</span>s</div>
+                    <div id="footer-status" class="dim">REASON: UNAUTHORIZED LACK OF EMAIL CONTACT ME.<br>Please send a message to abort sequence.</div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
