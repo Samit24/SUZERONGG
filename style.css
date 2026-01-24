@@ -86,7 +86,7 @@ body {
 .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
 .mono-accent { font-family: var(--font-mono); color: var(--accent); margin-bottom: 1rem; }
 h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
-.gradient-text { background: linear-gradient(90deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.gradient-text { background: linear-gradient(90deg, #fff, #94a3b8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .mono-subtitle { font-family: var(--font-mono); color: var(--text-dim); font-size: 1.2rem; margin-bottom: 2rem; font-weight: 400; }
 .bio-text { max-width: 600px; line-height: 1.6; color: var(--text-dim); margin-bottom: 2.5rem; font-size: 1.05rem; }
 
