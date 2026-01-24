@@ -1,217 +1,266 @@
-/* --- 1. CORE VARIABLES & RESET --- */
+/* --- VARIABLES --- */
 :root {
-    --bg-color: #0e0e0e;
-    --text-main: #eaeaea;
-    --text-dim: #888888;
-    --accent: #00ff9c; /* Retro Green */
-    --accent-dim: #005f3a;
-    --alert: #ff3333;
-    --font-head: 'VT323', monospace;
-    --font-body: 'IBM Plex Mono', monospace;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-    background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-body);
-    height: 100vh; overflow: hidden; display: flex; flex-direction: column;
+    --bg-dark: #050505;
+    --glass-bg: rgba(20, 20, 20, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-dim: #94a3b8;
+    --accent: #00f0ff; /* Neon Cyan */
+    --accent-glow: rgba(0, 240, 255, 0.4);
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 }
 
-/* --- 2. CRT EFFECTS --- */
-.scanlines {
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+}
+
+/* --- 1. BACKGROUND CANVAS --- */
+#bg-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; pointer-events: none;
+}
+
+/* --- 2. BOOT SCREEN STYLES --- */
+#boot-screen {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
-    background-size: 100% 4px; pointer-events: none; z-index: 100;
+    background: #000; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; cursor: pointer;
+    font-family: var(--font-mono);
 }
-.crt-glow {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: radial-gradient(circle, rgba(0,255,156,0.03) 0%, rgba(0,0,0,0) 80%);
-    pointer-events: none; z-index: 99;
+
+.boot-terminal { width: min(500px, 90%); color: #ccc; }
+
+.ascii-logo {
+    color: var(--accent); font-weight: bold; line-height: 1; margin-bottom: 1.5rem;
+    white-space: pre; text-align: center;
+    /* Responsive ASCII Font Size */
+    font-size: clamp(8px, 1.8vw, 14px); 
+    display: block; width: 100%;
 }
-.cursor {
-    display: inline-block; width: 10px; height: 1.2em; background-color: var(--accent);
-    animation: blink 1s step-end infinite; vertical-align: text-bottom; margin-left: 2px;
+
+.boot-log p {
+    margin: 5px 0; font-size: 0.85rem; color: var(--text-dim);
+    display: flex; justify-content: space-between;
 }
+.highlight { color: var(--accent); font-weight: bold; }
+.dim { color: #666; }
+
+.progress-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.progress-bar-outline { flex-grow: 1; height: 14px; border: 1px solid #444; padding: 2px; }
+#progress-fill {
+    height: 100%; width: 0%; background-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow); transition: width 0.1s linear;
+}
+#boot-percent { font-size: 0.9rem; color: var(--accent); min-width: 40px; text-align: right; }
+.bypass-msg { text-align: center; margin-top: 20px; color: #fff; font-size: 0.9rem; }
+
+/* --- 3. GLASS MORPHISM UTILS --- */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+}
+
+/* --- 4. NAVBAR --- */
+.navbar {
+    position: fixed; top: 0; width: 100%; padding: 1.2rem 5%;
+    display: flex; justify-content: space-between; align-items: center; z-index: 100;
+}
+.logo { font-family: var(--font-mono); font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; }
+.blink { animation: blink 1s infinite; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { color: var(--text-dim); text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem; transition: 0.3s; }
+.nav-links a:hover, .highlight-link { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+.mobile-toggle { display: none; background: none; border: none; color: white; cursor: pointer; }
+
+/* --- 5. HERO SECTION --- */
+.hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
+.mono-accent { font-family: var(--font-mono); color: var(--accent); margin-bottom: 1rem; }
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+.gradient-text { background: linear-gradient(90deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.mono-subtitle { font-family: var(--font-mono); color: var(--text-dim); font-size: 1.2rem; margin-bottom: 2rem; font-weight: 400; }
+.bio-text { max-width: 600px; line-height: 1.6; color: var(--text-dim); margin-bottom: 2.5rem; font-size: 1.05rem; }
+
+.btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn { 
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; 
+    border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s;
+}
+.btn.primary { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent-glow); }
+.btn.primary:hover { transform: translateY(-3px); box-shadow: 0 0 25px var(--accent-glow); }
+.btn.glass-btn { border: 1px solid var(--glass-border); color: #fff; background: rgba(255,255,255,0.05); }
+.btn.glass-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* --- 6. SECTIONS --- */
+.section { padding: 6rem 0; border-bottom: 1px dashed var(--glass-border); }
+.section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+.section-header h3 { font-family: var(--font-mono); color: var(--accent); font-size: 1.2rem; }
+.line { flex: 1; height: 1px; background: var(--glass-border); }
+
+/* --- 7. BENTO GRID --- */
+.bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.card { padding: 2rem; border-radius: 12px; transition: 0.3s; }
+.card:hover { border-color: var(--accent); transform: translateY(-5px); }
+.card.large { grid-column: span 2; }
+@media(max-width: 768px) { .card.large { grid-column: span 1; } }
+
+.card-icon { color: var(--accent); margin-bottom: 1rem; }
+.card h4 { margin-bottom: 0.5rem; font-family: var(--font-mono); }
+.card p { color: var(--text-dim); line-height: 1.5; font-size: 0.9rem; }
+.stat .number { font-size: 3rem; font-weight: 800; color: #fff; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+.tags span { background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); }
+
+/* --- 8. ADVANCED CERTIFICATES --- */
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.cert-card {
+    height: 200px; border-radius: 12px; position: relative; overflow: hidden;
+    background-color: #111; background-size: cover; background-position: center;
+    border: 1px solid var(--glass-border); text-decoration: none; display: block;
+}
+.cert-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.4));
+    transition: 0.3s;
+}
+.cert-card:hover .cert-overlay { background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,240,255,0.1)); }
+.cert-content {
+    position: relative; z-index: 2; height: 100%; padding: 1.5rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+}
+.cert-badge { 
+    position: absolute; top: 1.5rem; right: 1.5rem; 
+    font-size: 0.7rem; font-family: var(--font-mono); font-weight: bold;
+    display: flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 4px;
+}
+.verified { background: rgba(0,255,0,0.2); color: #4ade80; }
+.pending { background: rgba(255,255,0,0.2); color: #facc15; }
+.cert-content h4 { font-size: 1.2rem; margin-bottom: 5px; color: #fff; }
+.cert-content p { color: var(--text-dim); font-size: 0.9rem; }
+.locked { filter: grayscale(1); cursor: not-allowed; }
+
+/* --- 9. PROJECTS --- */
+.project-list { padding: 1.5rem; border-radius: 12px; }
+.project-row { display: flex; align-items: center; gap: 1.5rem; }
+.proj-icon { color: var(--accent); }
+.proj-info { flex: 1; }
+.proj-info h4 { font-size: 1.1rem; margin-bottom: 5px; }
+.proj-info p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 10px; }
+.tech-tag { font-size: 0.75rem; font-family: var(--font-mono); color: var(--accent); margin-right: 10px; }
+.link-btn { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 5px; font-size: 0.9rem; transition: 0.3s; }
+.link-btn:hover { color: var(--accent); }
+
+/* --- 10. SOCIAL & FOOTER --- */
+.center-col { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.social-grid { display: flex; gap: 2rem; margin: 3rem 0; flex-wrap: wrap; justify-content: center; }
+.social-card {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    width: 100px; padding: 1.5rem; background: rgba(255,255,255,0.03);
+    border-radius: 12px; text-decoration: none; color: var(--text-dim);
+    border: 1px solid var(--glass-border); transition: 0.3s;
+}
+.social-card:hover { border-color: var(--accent); color: #fff; transform: translateY(-5px); background: rgba(0,240,255,0.05); }
+.footer { margin-top: 2rem; font-size: 0.8rem; color: #555; font-family: var(--font-mono); }
+
+/* --- 11. TERMINAL & CHATBOT --- */
+#term-toggle {
+    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+    background: #000; border: 1px solid var(--accent); color: var(--accent);
+    border-radius: 50%; cursor: pointer; z-index: 500;
+    box-shadow: 0 0 20px var(--accent-glow); transition: 0.3s;
+    display: flex; align-items: center; justify-content: center;
+}
+#term-toggle:hover { transform: scale(1.1) rotate(10deg); }
+
+#terminal-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+    z-index: 600; display: none; align-items: center; justify-content: center;
+}
+.terminal-window {
+    width: min(600px, 95%); height: 500px; background: #0c0c0c;
+    border-radius: 8px; display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+.term-header {
+    background: #1a1a1a; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #333;
+}
+.term-title { font-family: var(--font-mono); font-size: 0.85rem; color: #ccc; display: flex; align-items: center; gap: 8px; }
+.green-dot { color: #00ff00; font-size: 0.8rem; }
+.term-close { background: none; border: none; color: #ff5555; cursor: pointer; }
+
+.term-tabs { display: flex; background: #111; border-bottom: 1px solid #333; }
+.tab-btn {
+    flex: 1; background: transparent; border: none; color: #666; padding: 10px;
+    font-family: var(--font-mono); cursor: pointer; border-bottom: 2px solid transparent;
+}
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(0,240,255,0.05); }
+
+.term-body { flex: 1; padding: 0; display: flex; flex-direction: column; }
+.tab-content { display: none; flex: 1; flex-direction: column; padding: 15px; overflow-y: auto; }
+.tab-content.active { display: flex; }
+
+/* Chat Styles */
+#chat-history { flex: 1; overflow-y: auto; margin-bottom: 10px; font-family: var(--font-mono); font-size: 0.9rem; padding-right: 5px; }
+.chat-msg { margin-bottom: 8px; line-height: 1.4; }
+.system { color: var(--accent); }
+.user { color: #fff; }
+.ai { color: #aaa; }
+.chat-input-area { display: flex; align-items: center; border-top: 1px solid #333; padding-top: 10px; }
+.prompt { color: var(--accent); margin-right: 10px; }
+#chat-input {
+    flex: 1; background: transparent; border: none; color: #fff; 
+    font-family: var(--font-mono); outline: none;
+}
+.send-btn { background: none; border: none; color: var(--accent); cursor: pointer; }
+
+/* Tool Styles */
+.tool-box { margin-bottom: 1rem; }
+.tool-label { font-family: var(--font-mono); color: var(--accent); font-size: 0.8rem; margin-bottom: 5px; }
+.tool-box input {
+    width: 100%; background: #222; border: 1px solid #444; color: #fff;
+    padding: 8px; font-family: var(--font-mono); margin-bottom: 5px;
+}
+.tool-box button {
+    width: 100%; background: var(--accent); border: none; padding: 6px;
+    font-weight: bold; cursor: pointer;
+}
+.code-block { background: #000; padding: 10px; margin-top: 5px; font-family: var(--font-mono); color: #00ff00; font-size: 0.8rem; word-break: break-all; }
+.divider { border: 0; border-top: 1px dashed #333; margin: 1rem 0; }
+
+/* --- 12. MOBILE MENU --- */
+#mobile-menu {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: #000; z-index: 200; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; gap: 2rem;
+    transform: translateX(100%); transition: 0.3s ease-in-out;
+}
+#mobile-menu.active { transform: translateX(0); }
+#mobile-menu a { font-size: 1.5rem; color: #fff; text-decoration: none; font-family: var(--font-mono); }
+.close-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: #fff; }
+
+/* Animation Utils */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+.active-reveal { opacity: 1; transform: translateY(0); }
+
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* --- 3. DESKTOP LAYOUT (Default) --- */
-.app-container { display: flex; flex: 1; height: 100%; max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 10; }
-aside { width: 250px; border-right: 1px solid var(--accent-dim); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; }
-main { flex: 1; padding: 3rem; overflow-y: auto; scroll-behavior: smooth; }
-
-/* Default Desktop Elements */
-.hamburger-btn { display: none; }
-.mobile-header { display: none; }
-
-/* --- 4. RESPONSIVE / MOBILE LAYOUT (HAMBURGER) --- */
-@media (max-width: 768px) {
-    .app-container {
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    /* 1. Mobile Top Bar */
-    aside {
-        width: 100%;
-        height: 60px; /* Fixed height for top bar */
-        border-right: none;
-        border-bottom: 1px solid var(--accent-dim);
-        padding: 0;
-        display: block;
-        flex-shrink: 0;
-        z-index: 50;
-        background-color: var(--bg-color);
-        position: relative;
-    }
-
-    /* 2. Mobile Header Content */
-    .mobile-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 100%;
-        padding: 0 1rem;
-    }
-
-    /* 3. Hamburger Button */
-    .hamburger-btn {
-        display: block;
-        background: transparent;
-        border: 1px solid var(--accent);
-        color: var(--accent);
-        font-family: var(--font-head);
-        font-size: 1.2rem;
-        padding: 5px 10px;
-        cursor: pointer;
-    }
-    
-    /* 4. Hide Desktop Footer Info in sidebar */
-    .desktop-footer-info { display: none; }
-
-    /* 5. Navigation Menu (Hidden by Default) */
-    .nav-container {
-        display: none; /* Hidden */
-        position: fixed;
-        top: 60px; /* Below the header */
-        left: 0;
-        width: 100%;
-        height: calc(100vh - 60px);
-        background-color: rgba(14, 14, 14, 0.95);
-        backdrop-filter: blur(10px);
-        padding: 2rem;
-        flex-direction: column;
-        z-index: 49;
-        border-bottom: 1px solid var(--accent-dim);
-    }
-
-    /* 6. Active Class to Show Menu */
-    .nav-container.mobile-active {
-        display: flex;
-        animation: slideDown 0.3s ease-out;
-    }
-
-    /* 7. Button Styling in Menu */
-    .nav-btn {
-        width: 100%;
-        padding: 1rem;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        border: 1px solid var(--text-dim);
-        text-align: center;
-    }
-    .nav-btn:hover { padding-left: 1rem; border-color: var(--accent); } /* No shift on mobile */
-
-    /* 8. Main Content Adjustment */
-    main {
-        padding: 1rem;
-        padding-top: 1rem;
-        overflow-y: auto;
-        height: 100%;
-    }
-
-    /* 9. Typography Adjustments */
-    h1 { font-size: 2rem !important; }
-    h2 { font-size: 1.5rem !important; }
-
-    /* 10. Mobile Controls for Game */
-    .mobile-controls { display: block !important; }
-
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+/* Mobile Adjustments */
+@media(max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-toggle { display: block; }
+    .project-row { flex-direction: column; align-items: flex-start; }
+    .hero { padding-top: 100px; text-align: center; }
+    .bio-text { margin: 0 auto 2rem; }
+    .btn-group { justify-content: center; }
 }
-
-/* --- 5. TYPOGRAPHY & ELEMENTS --- */
-h1, h2, h3 { font-family: var(--font-head); font-weight: 400; text-transform: uppercase; letter-spacing: 2px; }
-h1 { font-size: 3rem; margin-bottom: 0.5rem; color: var(--accent); text-shadow: 0 0 5px var(--accent-dim); }
-h2 { font-size: 2rem; margin-bottom: 1.5rem; border-bottom: 1px dashed var(--accent-dim); padding-bottom: 0.5rem; }
-p { margin-bottom: 1.5rem; line-height: 1.6; color: var(--text-main); font-size: 0.95rem; }
-.highlight { color: var(--accent); } .dim { color: var(--text-dim); }
-
-/* DEFAULT BUTTON STYLES (Desktop) */
-.nav-btn {
-    background: transparent; border: 1px solid transparent; color: var(--text-dim); font-family: var(--font-body);
-    font-size: 1rem; text-align: left; padding: 0.8rem 1rem; cursor: pointer; transition: all 0.2s ease;
-    display: block; width: 100%; margin-bottom: 0.5rem;
-}
-.nav-btn:hover { color: var(--accent); border-left: 2px solid var(--accent); padding-left: 1.5rem; background: rgba(0, 255, 156, 0.05); }
-.nav-btn.active { color: var(--bg-color); background: var(--accent); border: 1px solid var(--accent); padding-left: 1rem; font-weight: bold; }
-
-.section { display: none; animation: fadeIn 0.3s ease-in-out; }
-.section.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-/* --- 6. SKILLS & CARDS --- */
-.skill-grid, .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.skill-card, .cert-card { border: 1px solid #333; background: rgba(255, 255, 255, 0.02); padding: 1.5rem; position: relative; transition: all 0.3s ease; cursor: default; }
-.skill-card:hover, .cert-card:hover { border-color: var(--accent); background: rgba(0, 255, 156, 0.05); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); }
-.skill-card h3, .cert-card h3 { font-family: var(--font-body); font-size: 1.1rem; margin: 0.5rem 0; color: var(--text-main); }
-.skill-icon { font-family: var(--font-head); color: var(--accent); font-size: 1.2rem; margin-bottom: 0.5rem; letter-spacing: 2px; }
-.cert-card { display: block; text-decoration: none; border: 1px dashed #444; }
-.cert-header { display: flex; justify-content: space-between; margin-bottom: 0.8rem; font-size: 0.8rem; font-family: var(--font-head); }
-.cert-card.locked { opacity: 0.7; cursor: default; border-style: dotted; }
-
-/* --- 7. BOOT SCREEN --- */
-#boot-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 200; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: progress; }
-.boot-terminal { font-family: 'VT323', monospace; width: 350px; color: var(--text-main); }
-.ascii-logo { color: var(--accent); font-size: 0.7rem; line-height: 1; margin-bottom: 1.5rem; font-weight: bold; text-align: center; width: 100%; display: block; white-space: pre; }
-.progress-wrapper { display: flex; align-items: center; gap: 10px; }
-.progress-bar-outline { flex-grow: 1; height: 14px; border: 1px solid var(--text-dim); padding: 1px; }
-#progress-fill { height: 100%; width: 0%; background-color: var(--accent); transition: width 0.1s linear; }
-.blink { animation: blink 0.2s step-end infinite; }
-
-/* --- 8. LOGIN MODAL --- */
-#login-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.85); z-index: 500; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-.login-box { background: #000; border: 2px solid var(--alert); padding: 2rem; width: 300px; box-shadow: 0 0 20px rgba(255, 51, 51, 0.3); font-family: var(--font-body); }
-#root-pass { width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--text-dim); color: var(--accent); font-family: var(--font-body); font-size: 1.2rem; padding: 5px; margin-top: 1rem; outline: none; }
-#root-pass:focus { border-color: var(--alert); }
-.access-granted { display: block !important; animation: fadeIn 0.5s; }
-
-/* --- 9. GAME OVERLAY --- */
-#game-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.9); z-index: 600; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-.game-box { background: #000; border: 2px solid var(--accent); padding: 1rem; box-shadow: 0 0 30px rgba(0, 255, 156, 0.2); text-align: center; max-width: 95vw; }
-.game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; font-family: var(--font-head); font-size: 1.2rem; color: var(--accent); border-bottom: 1px dashed var(--accent-dim); padding-bottom: 0.5rem; }
-.close-btn { background: transparent; border: none; color: var(--alert); font-family: var(--font-body); cursor: pointer; font-weight: bold; }
-#game-canvas { background-color: #0a0a0a; border: 1px solid var(--text-dim); display: block; margin: 0 auto; max-width: 100%; height: auto; }
-.game-stats { margin-top: 10px; display: flex; justify-content: space-between; font-family: var(--font-head); color: var(--text-main); }
-.mobile-controls { display: none; }
-
-/* --- 10. FUNNY FOOTER --- */
-.funny-footer { border: 2px dashed var(--alert); padding: 1.5rem; display: inline-block; background: rgba(255, 51, 51, 0.05); margin-top: 2rem; font-family: var(--font-body); transition: all 0.5s ease; max-width: 500px; width: 100%; }
-.alert-header { color: var(--alert); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px; animation: blink-panic 0.3s step-end infinite; }
-.timer-box { font-size: 2.5rem; font-family: var(--font-head); color: var(--alert); margin: 1rem 0; text-shadow: 0 0 10px var(--alert); }
-@keyframes blink-panic { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-.funny-footer.safe { border-color: var(--accent) !important; background: rgba(0, 255, 156, 0.05); border-style: solid; }
-.funny-footer.safe .alert-header { color: var(--text-main); animation: none; }
-.funny-footer.safe .timer-box { color: var(--accent); text-shadow: none; font-size: 1.5rem; }
-
-/* --- 11. NEW LOGS LAYOUT --- */
-.sys-log-container { background-color: #050505; border: 1px solid #333; font-family: 'VT323', monospace; padding: 0; margin-top: 1rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
-.sys-log-header { background-color: var(--accent); padding: 5px 10px; font-size: 0.9rem; font-weight: bold; color: #000; }
-.sys-log-content { padding: 15px; font-size: 1.1rem; line-height: 1.6; overflow-x: hidden; }
-.log-line { opacity: 0; transform: translateX(-10px); margin-bottom: 8px; border-bottom: 1px solid rgba(51, 51, 51, 0.3); padding-bottom: 4px; animation: loadLog 0.3s forwards ease-out; }
-.log-time { color: var(--text-dim); font-size: 0.9rem; margin-right: 10px; }
-.log-level { font-weight: bold; margin-right: 10px; }
-.log-level.info { color: #3498db; } .log-level.warn { color: #f1c40f; } .log-level.error { color: var(--alert); }
-.log-cursor { display: inline-block; color: var(--accent); animation: blink 1s step-end infinite; }
-@keyframes loadLog { to { opacity: 1; transform: translateX(0); } }

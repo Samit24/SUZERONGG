@@ -1,193 +1,253 @@
-// --- GLOBAL VARIABLES ---
-let footerTimer = null; 
-let gameInterval;       
-let isGameRunning = false;
+// --- 1. ADVANCED BOOT SEQUENCE ---
+let bootPercent = 0;
+let bootInterval;
+let bootSkipped = false;
 
-// --- 1. BOOT SEQUENCE ---
-let bootPercent = 0; let bootInterval; let bootSkipped = false;
-window.addEventListener('load', () => { runSystemRecon(); bootInterval = setInterval(incrementBoot, 10); });
-function incrementBoot() { if (bootPercent >= 100) { clearInterval(bootInterval); completeBoot(); } else { bootPercent++; updateBootUI(); } }
-function updateBootUI() { const fill = document.getElementById('progress-fill'); const text = document.getElementById('boot-percent'); if(fill && text) { fill.style.width = bootPercent + "%"; text.innerText = bootPercent + "%"; } }
-function accelerateBoot() { if (bootSkipped) return; clearInterval(bootInterval); bootPercent = 100; updateBootUI(); setTimeout(completeBoot, 400); }
-function completeBoot() { if (bootSkipped) return; bootSkipped = true; const netStatus = document.getElementById('net-status'); if(netStatus) netStatus.innerHTML = "<span style='color: var(--accent);'>[ CONNECTED ]</span>"; const bootScreen = document.getElementById('boot-screen'); const app = document.getElementById('app'); setTimeout(() => { bootScreen.style.opacity = '0'; bootScreen.style.transition = 'opacity 0.5s'; setTimeout(() => { bootScreen.style.display = 'none'; app.style.opacity = '1'; app.style.transition = 'opacity 1s'; initTypeWriter(); }, 500); }, 500); }
-document.addEventListener('keydown', (e) => { if (!bootSkipped) accelerateBoot(); else if (e.key === "Enter" || e.key === " ") enterSite(); });
-function enterSite() { if (bootSkipped) return; bootSkipped = true; completeBoot(); }
+window.addEventListener('load', () => {
+    runSystemRecon(); 
+    bootInterval = setInterval(incrementBoot, 20); // Speed of progress bar
+});
 
-// --- 2. MOBILE MENU TOGGLE ---
-function toggleMenu() {
-    const navMenu = document.getElementById('nav-menu');
-    navMenu.classList.toggle('mobile-active');
-}
-
-// --- 3. ROUTING ---
-function router(sectionId) {
-    // 1. Hide all sections
-    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-    // 2. Remove active class from buttons
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    
-    // 3. Show target section
-    const targetSection = document.getElementById(sectionId);
-    if(targetSection) targetSection.classList.add('active');
-    
-    // 4. Highlight current button
-    document.querySelectorAll('.nav-btn').forEach(btn => { if(btn.getAttribute('onclick').includes(sectionId)) btn.classList.add('active'); });
-
-    // 5. If mobile, close menu after clicking
-    const navMenu = document.getElementById('nav-menu');
-    if(navMenu.classList.contains('mobile-active')) {
-        navMenu.classList.remove('mobile-active');
-    }
-
-    // 6. Run footer animation if contact section
-    if(sectionId === 'contact') runFunnyFooterAnimation();
-}
-
-// --- 4. FOOTER TIMER (FIXED) ---
-function runFunnyFooterAnimation() {
-    const footer = document.querySelector('.funny-footer'); const countdownEl = document.getElementById('countdown');
-    const statusEl = document.getElementById('footer-status'); const headerEl = document.querySelector('.alert-header');
-    if(!footer || !countdownEl) return;
-    if (footerTimer) clearInterval(footerTimer);
-    footer.classList.remove('safe'); 
-    headerEl.innerHTML = "⚠️ CRITICAL ALERT: SYSTEM SELF-DESTRUCT SEQUENCE ⚠️"; 
-    headerEl.style.animation = "blink-panic 0.3s step-end infinite"; 
-    statusEl.innerHTML = "REASON: UNAUTHORIZED LACK OF EMAIL CONTACT.<br>Please send a message to abort sequence."; 
-    let steps = 1000; 
-    footerTimer = setInterval(() => {
-        steps -= 10; countdownEl.textContent = (steps / 100).toFixed(2); 
-        if (steps <= 250) {
-            clearInterval(footerTimer); footer.classList.add('safe'); 
-            headerEl.innerHTML = "> SYSTEM CRISIS AVERTED"; headerEl.style.animation = "none";
-            countdownEl.textContent = "[ ABORTED ]";
-            statusEl.innerHTML = `Actually, destroying the system seems like a lot of paperwork.<br><br><span style='color: var(--accent); font-weight: bold; font-size: 1.1rem;'>Just send the email, it's easier.</span>`;
-        }
-    }, 100); 
-}
-
-// --- 5. TYPEWRITER ---
-const roles = ["Investigate anomalies and alerts", "Convert logs into actionable insight"];
-let roleIndex = 0; let charIndex = 0; let isDeleting = false; const typeSpeed = 100; const deleteSpeed = 50; const delayBetween = 2000;
-function initTypeWriter() {
-    const target = document.getElementById('typing-text'); if(!target) return;
-    const currentRole = roles[roleIndex];
-    if (isDeleting) { target.textContent = currentRole.substring(0, charIndex - 1); charIndex--; } 
-    else { target.textContent = currentRole.substring(0, charIndex + 1); charIndex++; }
-    let nextSpeed = isDeleting ? deleteSpeed : typeSpeed;
-    if (!isDeleting && charIndex === currentRole.length) { nextSpeed = delayBetween; isDeleting = true; } 
-    else if (isDeleting && charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; }
-    setTimeout(initTypeWriter, nextSpeed);
-}
-
-// --- 6. SYSTEM RECON ---
+// System Recon Logic
 function runSystemRecon() {
-    const now = new Date(); const timeEl = document.getElementById('sys-time');
-    if(timeEl) timeEl.innerText = `${now.toLocaleDateString('en-CA')} ${now.toLocaleTimeString('en-US', { hour12: false })}`;
-    const platformEl = document.getElementById('sys-os'); if(platformEl) platformEl.innerText = navigator.platform.toUpperCase();
-    const resEl = document.getElementById('sys-res'); if(resEl) resEl.innerText = `${window.innerWidth}x${window.innerHeight}_RGB`;
+    // Time
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-US', { hour12: false });
+    const dateStr = now.toLocaleDateString('en-CA');
+    const timeEl = document.getElementById('sys-time');
+    if(timeEl) timeEl.innerText = `${dateStr} ${timeStr}`;
+
+    // OS
+    const platform = navigator.platform.toUpperCase();
+    const osEl = document.getElementById('sys-os');
+    if(osEl) osEl.innerText = platform.includes('WIN') ? 'WIN_NT_KERNEL' : 'UNIX_SYSTEM';
+
+    // Resolution
+    const resEl = document.getElementById('sys-res');
+    if(resEl) resEl.innerText = `${window.innerWidth}x${window.innerHeight}`;
 }
 
-// --- 7. LOGIN SYSTEM ---
-function openLogin() { const modal = document.getElementById('login-overlay'); if(modal) { modal.style.display = 'flex'; setTimeout(() => document.getElementById('root-pass').focus(), 100); } }
-function closeLogin() { const modal = document.getElementById('login-overlay'); if(modal) modal.style.display = 'none'; document.getElementById('login-msg').innerText = ""; document.getElementById('root-pass').value = ""; }
-function attemptLogin() {
-    const input = document.getElementById('root-pass').value; const msg = document.getElementById('login-msg');
-    if(input.toLowerCase() === "halamadrid") { msg.style.color = "var(--accent)"; msg.innerText = "> ACCESS GRANTED. DECRYPTING..."; setTimeout(() => { closeLogin(); unlockClassified(); }, 1000); } 
-    else { msg.style.color = "var(--alert)"; msg.innerText = "> ACCESS DENIED. LOGGING INCIDENT."; }
-}
-function checkEnter(e) { if(e.key === "Enter") attemptLogin(); }
-function unlockClassified() {
-    const hiddenBtns = document.querySelectorAll('.hidden-feature');
-    hiddenBtns.forEach(btn => { btn.classList.add('access-granted'); btn.style.display = 'block'; });
-    alert("SYSTEM ALERT: New modules loaded into the sidebar."); router('playground');
-}
-
-// --- 8. MINI APPS (SECRET) ---
-function simpleEncrypt() {
-    const input = document.getElementById('cypher-input').value; const output = document.getElementById('cypher-output');
-    try { output.innerText = `> OUTPUT: ${btoa(input)}`; } catch(e) { output.innerText = "> ERROR: STRING INVALID"; }
-}
-
-// --- 9. PACKET RUN GAME (FLAPPY BIRD) ---
-let canvas, ctx; let bird, pipes, score, gameFrame;
-// UPDATED PHYSICS for slower gameplay
-const GRAVITY = 0.5; const JUMP = -8; const PIPE_SPEED = 2; const PIPE_SPAWN_RATE = 140;
-
-function launchGame(type) {
-    if(type === 'flappy') {
-        document.getElementById('game-overlay').style.display = 'flex';
-        canvas = document.getElementById('game-canvas'); ctx = canvas.getContext('2d');
-        initFlappy();
-        document.addEventListener('keydown', handleInput);
-        // UPDATED: Added direct touch listener to canvas as backup
-        canvas.addEventListener('touchstart', jump); 
-    }
-}
-function closeGame() {
-    document.getElementById('game-overlay').style.display = 'none';
-    isGameRunning = false; cancelAnimationFrame(gameInterval);
-    document.removeEventListener('keydown', handleInput); 
-    canvas.removeEventListener('touchstart', jump);
-}
-function initFlappy() {
-    bird = { x: 50, y: 200, velocity: 0, size: 20 }; pipes = []; score = 0; gameFrame = 0; isGameRunning = true;
-    document.getElementById('game-score').innerText = score; animate();
-}
-function handleInput(e) { if (e.code === 'Space') { jump(); e.preventDefault(); } }
-
-// UPDATED JUMP: Handles both Key presses and Touch events
-function jump(e) { 
-    // If it's a touch, stop browser scrolling
-    if (e && e.type === 'touchstart') e.preventDefault();
-    if (!isGameRunning) return; 
-    bird.velocity = JUMP; 
-}
-
-function animate() {
-    if (!isGameRunning) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    bird.velocity += GRAVITY; bird.y += bird.velocity;
-    ctx.fillStyle = '#00ff9c'; ctx.fillRect(bird.x, bird.y, bird.size, bird.size);
-    if (gameFrame % PIPE_SPAWN_RATE === 0) {
-        const gapHeight = 120; const minPipe = 50; const maxPipe = canvas.height - gapHeight - minPipe;
-        const topHeight = Math.floor(Math.random() * (maxPipe - minPipe + 1) + minPipe);
-        pipes.push({ x: canvas.width, topHeight: topHeight, bottomY: topHeight + gapHeight, width: 40, passed: false });
-    }
-    for (let i = 0; i < pipes.length; i++) {
-        let p = pipes[i]; p.x -= PIPE_SPEED;
-        ctx.fillStyle = '#ff3333'; 
-        ctx.fillRect(p.x, 0, p.width, p.topHeight);
-        ctx.fillRect(p.x, p.bottomY, p.width, canvas.height - p.bottomY);
-        if (bird.x < p.x + p.width && bird.x + bird.size > p.x && (bird.y < p.topHeight || bird.y + bird.size > p.bottomY)) { gameOver(); return; }
-        if (p.x + p.width < bird.x && !p.passed) { score++; document.getElementById('game-score').innerText = score; p.passed = true; }
-        if (p.x + p.width < 0) { pipes.shift(); i--; }
-    }
-    if (bird.y + bird.size > canvas.height || bird.y < 0) { gameOver(); return; }
-    gameFrame++; gameInterval = requestAnimationFrame(animate);
-}
-function gameOver() {
-    isGameRunning = false; cancelAnimationFrame(gameInterval);
-    ctx.fillStyle = 'rgba(0,0,0,0.8)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#fff'; ctx.font = '30px "VT323"'; ctx.textAlign = 'center';
-    ctx.fillText("PACKET DROPPED", canvas.width/2, canvas.height/2);
-    ctx.font = '20px "VT323"'; ctx.fillText("Press SPACE to Retry", canvas.width/2, canvas.height/2 + 40);
-    document.addEventListener('keydown', restartListener); canvas.addEventListener('touchstart', restartListener);
-}
-function restartListener(e) {
-    if (e.code === 'Space' || e.type === 'touchstart') {
-        document.removeEventListener('keydown', restartListener); canvas.removeEventListener('touchstart', restartListener); initFlappy();
+// Progress Bar Logic
+function incrementBoot() {
+    if (bootPercent >= 100) {
+        clearInterval(bootInterval);
+        completeBoot();
+    } else {
+        // Randomize speed for realism
+        bootPercent += Math.random() > 0.5 ? 1 : 2; 
+        if(bootPercent > 100) bootPercent = 100;
+        updateBootUI();
     }
 }
 
-// --- 10. PROJECT SECTION MINI-TOOL (PUBLIC) ---
-function simpleEncryptProj() {
-    const input = document.getElementById('cypher-input-proj').value; const output = document.getElementById('cypher-output-proj');
-    if(!input) { output.innerText = "> ERROR: EMPTY INPUT"; output.style.color = "var(--alert)"; return; }
-    try { const encrypted = btoa(input); output.style.color = "var(--accent)"; output.innerText = `> ${encrypted}`; } 
-    catch(e) { output.style.color = "var(--alert)"; output.innerText = "> ERROR: INVALID CHARACTERS"; }
+function updateBootUI() {
+    const fill = document.getElementById('progress-fill');
+    const text = document.getElementById('boot-percent');
+    if(fill) fill.style.width = bootPercent + "%";
+    if(text) text.innerText = bootPercent + "%";
 }
 
-// UPDATED: Enter Key listener for Project Tool
-function checkEnterProj(e) {
-    if(e.key === "Enter") simpleEncryptProj();
+// Skip animation
+function accelerateBoot() {
+    if (bootSkipped) return;
+    bootSkipped = true;
+    clearInterval(bootInterval);
+    bootPercent = 100;
+    updateBootUI();
+    setTimeout(completeBoot, 200);
+}
+document.addEventListener('keydown', () => accelerateBoot());
+
+function completeBoot() {
+    const bootScreen = document.getElementById('boot-screen');
+    const mainInterface = document.getElementById('main-interface');
+    const netStatus = document.getElementById('net-status');
+
+    if(netStatus) netStatus.innerHTML = "<span style='color: var(--accent);'>[ ESTABLISHED ]</span>";
+
+    setTimeout(() => {
+        bootScreen.style.opacity = '0';
+        bootScreen.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            bootScreen.style.display = 'none';
+            mainInterface.style.opacity = '1'; 
+            mainInterface.style.transition = 'opacity 1s ease';
+            initTypewriter(); // Start hero text only after boot
+        }, 500);
+    }, 400);
+}
+
+// --- 2. CANVAS PARTICLE BACKGROUND ---
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let particlesArray;
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.directionX = (Math.random() * 0.2) - 0.1;
+        this.directionY = (Math.random() * 0.2) - 0.1;
+        this.size = Math.random() * 2;
+        this.color = '#00f0ff';
+    }
+    update() {
+        if(this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+        if(this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+        this.x += this.directionX;
+        this.y += this.directionY;
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = 0.5;
+        ctx.fill();
+    }
+}
+
+function initParticles() {
+    particlesArray = [];
+    let numberOfParticles = (canvas.width * canvas.height) / 15000;
+    for(let i=0; i<numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+    }
+}
+
+function animateParticles() {
+    requestAnimationFrame(animateParticles);
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+    for(let i=0; i<particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+        
+        for(let j=i; j<particlesArray.length; j++) {
+            const dx = particlesArray[i].x - particlesArray[j].x;
+            const dy = particlesArray[i].y - particlesArray[j].y;
+            const distance = Math.sqrt(dx*dx + dy*dy);
+            if(distance < 100) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(0, 240, 255, ${1 - distance/100})`;
+                ctx.lineWidth = 0.5;
+                ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+initParticles();
+animateParticles();
+
+// --- 3. TYPEWRITER ---
+const typeTarget = document.getElementById('typewriter');
+const texts = ["investigate anomalies and alerts", "convert logs into actionable insights"];
+let count = 0; let index = 0; let currentText = ""; let letter = "";
+
+function initTypewriter() {
+    if(!typeTarget) return;
+    if(count === texts.length) count = 0;
+    currentText = texts[count];
+    letter = currentText.slice(0, ++index);
+    
+    typeTarget.textContent = letter;
+    
+    if(letter.length === currentText.length) {
+        count++; index = 0;
+        setTimeout(initTypewriter, 2000);
+    } else {
+        setTimeout(initTypewriter, 100);
+    }
+}
+
+// --- 4. TERMINAL & CHATBOT ---
+const chatHistory = document.getElementById('chat-history');
+const chatInput = document.getElementById('chat-input');
+const terminal = document.getElementById('terminal-modal');
+
+function toggleTerminal() {
+    terminal.style.display = (terminal.style.display === 'flex') ? 'none' : 'flex';
+}
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-'+tab).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+
+function addMessage(text, sender) {
+    const div = document.createElement('div');
+    div.classList.add('chat-msg', sender);
+    div.innerHTML = (sender === 'user' ? '> ' : '') + text;
+    chatHistory.appendChild(div);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+}
+
+function handleChat(e) {
+    if(e.key === 'Enter') sendChat();
+}
+
+async function sendChat() {
+    const text = chatInput.value.trim();
+    if(!text) return;
+    
+    addMessage(text, 'user');
+    chatInput.value = '';
+
+    // SIMULATED AI RESPONSE
+    setTimeout(() => {
+        const response = getSimulatedResponse(text);
+        addMessage(response, 'ai');
+    }, 600);
+}
+
+function getSimulatedResponse(input) {
+    const lower = input.toLowerCase();
+    if(lower.includes('hello') || lower.includes('hi')) return "Greetings. I am Samit's automated assistant.";
+    if(lower.includes('skill') || lower.includes('stack')) return "Samit is proficient in CrowdStrike Falcon, Splunk, Python, and Linux Forensics.";
+    if(lower.includes('contact') || lower.includes('email')) return "You can reach him at pudasainisamit@gmail.com.";
+    if(lower.includes('experience') || lower.includes('work')) return "He has 1 year of experience as a SOC Analyst dealing with real-time threat detection.";
+    if(lower.includes('project')) return "Check out the 'Projects' tab to see his Python Automation scripts.";
+    return "Command not recognized. Try asking about 'skills', 'experience', or 'contact'.";
+}
+
+// --- 5. TERMINAL TOOLS ---
+function runEncrypt() {
+    const inp = document.getElementById('tool-input').value;
+    const out = document.getElementById('tool-output');
+    if(inp) out.innerText = btoa(inp);
+}
+
+function checkRoot() {
+    const pass = document.getElementById('root-pass').value;
+    const msg = document.getElementById('root-msg');
+    if(pass === 'halamadrid') {
+        msg.style.color = '#0f0';
+        msg.innerText = "ACCESS GRANTED. GOD MODE ENABLED.";
+    } else {
+        msg.style.color = 'red';
+        msg.innerText = "ACCESS DENIED.";
+    }
+}
+
+// --- 6. SCROLL REVEAL ---
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('active-reveal');
+    });
+});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// --- 7. MOBILE MENU ---
+function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('active');
 }
