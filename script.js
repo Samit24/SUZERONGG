@@ -114,7 +114,6 @@ function toggleMenu() {
 // --- 6. INTERACTIVE THREAT LEVEL SWITCHER ---
 const threatLevels = [
     { color: '#00f0ff', glow: 'rgba(0, 240, 255, 0.4)' },  // Cyan (Secure)
-    { color: '#00ff41', glow: 'rgba(0, 255, 65, 0.4)' },   // Green (Normal/Safe)
     { color: '#ff0033', glow: 'rgba(255, 0, 51, 0.4)' }    // Red (Critical)
 ];
 let currentThreat = 0;
