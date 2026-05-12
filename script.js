@@ -114,20 +114,9 @@ function toggleMenu() {
 // --- 6. INTERACTIVE THREAT LEVEL SWITCHER ---
 const threatLevels = [
     { color: '#00f0ff', glow: 'rgba(0, 240, 255, 0.4)' },  // Cyan (Secure)
-    { color: '#ff0033', glow: 'rgba(255, 0, 51, 0.4)' }    // Red (Critical)
+    
 ];
-let currentThreat = 0;
 
-function cycleThreatLevel() {
-    // Move to the next threat level, loop back to 0 if at the end
-    currentThreat = (currentThreat + 1) % threatLevels.length;
-    const level = threatLevels[currentThreat];
-    
-    // Update CSS Custom Variables for the whole UI
-    document.documentElement.style.setProperty('--accent', level.color);
-    document.documentElement.style.setProperty('--accent-glow', level.glow);
-    
-    // Update Canvas Particle Color
-    particleColor = level.color;
-}
+
+
 

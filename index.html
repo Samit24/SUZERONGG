@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="soc-grid"></div>
+<div id="radar"></div>
 
     <canvas id="bg-canvas"></canvas>
 
@@ -34,7 +36,7 @@
                 <a href="#about">ABOUT ME</a>
                 <a href="#stack">CERTIFICATIONS</a>
                 <a href="#projects">PROJECTS</a>
-                <a href="#clients">CLIENTS</a> 
+                 
                 <a href="#contact" class="highlight-link">CONTACT</a>
             </div>
             <button class="mobile-toggle" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
@@ -49,7 +51,7 @@
             <a href="#about" onclick="toggleMenu()">ABOUT ME</a>
             <a href="#stack" onclick="toggleMenu()">CERTIFICATIONS</a>
             <a href="#projects" onclick="toggleMenu()">PROJECTS</a>
-            <a href="#clients" onclick="toggleMenu()">CLIENTS</a>
+            
             <a href="#contact" onclick="toggleMenu()">CONTACT</a>
         </div>
 
@@ -245,10 +247,7 @@
         </section>
     </div>
 
-    <!-- Interactive Threat Level Switcher Button -->
-    <button id="threat-btn" onclick="cycleThreatLevel()" title="Change Threat Level">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-    </button>
+  
 
     <script src="script.js"></script>
     <script>lucide.createIcons();</script>
