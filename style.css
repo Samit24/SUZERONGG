@@ -431,22 +431,21 @@ body::after {
         clip-path: inset(0 100% 0 0);
     }
 }
-
 @keyframes lineSweep{
     0%{
         transform:translateX(-100%);
-        opacity:0;
     }
-    40%{
-        opacity:1;
+    50%{
+        transform:translateX(100%);
     }
     100%{
-        transform:translateX(100%);
-        opacity:0;
+        transform:translateX(-100%);
     }
+@keyframes cyberPulse {
+    0%, 100% { transform: scaleX(0); opacity: 0; }
+    40%, 60% { transform: scaleX(1); opacity: 1; }
+    50% { opacity: 0.3; transform: scaleX(1.05); filter: brightness(1.5); }
 }
-
-
 /* --- SOC COMMAND CENTER BACKGROUND LAYER --- */
 
 #soc-grid {
