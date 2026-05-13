@@ -82,7 +82,7 @@ function animateParticles() {
 
 // --- 3. TYPEWRITER ---
 const typeTarget = document.getElementById('dynamic-text');
-const texts = ["anomalies and alerts", "logs into actionable insights"];
+const texts = [ "logs into actionable insights", "and mitigate security threats" ];
 let count = 0;
 
 function initTypewriter() {

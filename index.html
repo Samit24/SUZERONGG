@@ -57,20 +57,20 @@
 
         <section class="hero">
             <div class="container">
-                <p class="mono-accent">01001000 01101001</p>
+                <p class="mono-accent"></p>
 
                 <h1> <span class="glitch" data-text="Hi ">Hi </span></h1>
                 
                 <h2 class="mono-subtitle">
                     <span class="static-part accent-text">I investigate</span>
                     <div class="dynamic-wrapper">
-                        <span id="dynamic-text" class="shimmer-text slide-text">anomalies and alerts</span>
+                        <span id="dynamic-text" class="shimmer-text slide-text">and mitigate security threats</span>
                         <span class="cursor">|</span>
                     </div>
                 </h2>
                 
                 <p class="bio-text">
-                    SOC Analyst focused on SIEM monitoring, alert investigation, and translating security events into business insight.
+                    SOC Analyst specializing in SIEM monitoring, alert investigation, and translating security events into business insight.
                 </p>
                 <div class="btn-group">
                     <a href="#projects" class="btn primary">
@@ -161,7 +161,9 @@
                             <span>SIEM</span>
                             <span>Logscale Query</span>
                             <span>Linux</span>
-                            <span>Network Defense</span>
+                            <span>Network Defense</span> 
+                            <span>Python</span>
+                            
                         </div>
                         
                     </div>
@@ -169,57 +171,109 @@
                         <div class="card-icon"><i data-lucide="shield-check"></i></div>
                         <h4>Clients Secured</h4>
                         <div class="tags">
-                            <span>4+ Organizations Protected</span>
+                            <span>5+ Organizations Protected</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
         <section id="projects" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h3> // PROJECTS</h3>
-                    <div class="line"></div>
-                </div>
+    <div class="container">
+        <div class="section-header">
+            <h3> // PROJECTS</h3>
+            <div class="line"></div>
+        </div>
 
-                <div class="project-list glass reveal">
-                    <div class="project-row">
-                        <div class="proj-icon"><i data-lucide="bot"></i></div>
-                        <div class="proj-info">
-                            <h4>SOC Automation Script</h4>
-                            <p>Python script to parse CrowdStrike JSON logs, reducing manual alert triage time by ~40%.</p>
-                            <div class="proj-meta">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">REST API</span>
-                            </div>
-                        </div>
-                        <a href="https://github.com/Samit24" target="_blank" class="link-btn">
-                            <i data-lucide="github"></i> Repo
-                        </a>
+        <!-- PROJECT 1 -->
+        <div class="project-list glass reveal">
+            <div class="project-row">
+                <div class="proj-icon"><i data-lucide="shield-alert"></i></div>
+
+                <div class="proj-info">
+                    <h4>SIEM Log Analysis & Threat Detection Pipeline</h4>
+                    <p>Integrated log parsing with structured JSON analysis for faster threat detection workflows.</p>
+                    <div class="proj-meta">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">JSON Parsing</span>
+                        <span class="tech-tag">SIEM Concepts</span>
                     </div>
                 </div>
 
-                <div class="project-list glass reveal" style="margin-top: 1rem;">
-                    <div class="project-row">
-                        <div class="proj-icon"><i data-lucide="layout"></i></div>
-                        <div class="proj-info">
-                            <h4>Suzeron Portfolio v2</h4>
-                            <p>High-performance personal site with AI chat integration and canvas animations.</p>
-                            <div class="proj-meta">
-                                <span class="tech-tag">HTML5</span>
-                                <span class="tech-tag">Canvas API</span>
-                            </div>
-                        </div>
-                        <a href="#" class="link-btn">
-                            <i data-lucide="external-link"></i> Live
-                        </a>
-                    </div>
+                <div class="proj-links">
+
+                 
+
+                    <!-- Report -->
+                    <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </a>
+
                 </div>
             </div>
-        </section>
+        </div>
 
-        
+        <!-- PROJECT 2 -->
+        <div class="project-list glass reveal" style="margin-top: 1rem;">
+            <div class="project-row">
+                <div class="proj-icon"><i data-lucide="activity"></i></div>
+
+                <div class="proj-info">
+                    <h4>SOC Alert Triage Simulation System</h4>
+                    <p>Simulates real-world SOC alert triage pipeline using endpoint security logs for investigation and response practice.</p>
+                    <div class="proj-meta">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Log Analysis</span>
+                        <span class="tech-tag">Incident Response</span>
+                    </div>
+                </div>
+
+                <div class="proj-links">
+                    
+
+                    <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROJECT 3 -->
+        <div class="project-list glass reveal" style="margin-top: 1rem;">
+            <div class="project-row">
+                <div class="proj-icon"><i data-lucide="bug"></i></div>
+
+                <div class="proj-info">
+                    <h4>Network Traffic Analysis & Intrusion Detection</h4>
+                    <p>Captured and analyzed network traffic to detect suspicious patterns, unauthorized access attempts, and potential intrusions.</p>
+                    <div class="proj-meta">
+                        <span class="tech-tag">Wireshark</span>
+                        <span class="tech-tag">Network Security</span>
+                        <span class="tech-tag">Traffic Analysis</span>
+                    </div>
+                </div>
+
+                <div class="proj-links">
+                    
+
+                    <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
 
         <section id="contact" class="section">
             <div class="container center-col">

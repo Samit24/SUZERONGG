@@ -229,7 +229,7 @@ h1 {
     font-size: 0.7rem; font-family: var(--font-mono); font-weight: bold;
     display: flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 4px;
 }
-.verified { background: rgb(35, 29, 29); color: #00ff33; }
+.verified { background: rgb(8, 8, 8); color: #47ccf1; }
 .pending { background: rgba(255,255,0,0.2); color: #facc15; }
 .cert-content h4 { font-size: 1.1rem; margin-bottom: 5px; color: #fff; }
 .cert-content p { color: var(--text-dim); font-size: 0.85rem; }
@@ -461,4 +461,23 @@ body::after {
 @keyframes radarRotate {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.github-btn {
+    color: #C0C0C0;
+    transition: 0.2s ease;
+}
+
+.github-btn:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+.report-btn {
+    color: #C0C0C0;
+    transition: 0.2s ease;
+}
+
+.report-btn:hover {
+    color: #ffffff;
+    transform: scale(1.1);
 }
