@@ -20,23 +20,20 @@
 </head>
 <body>
     <div id="soc-grid"></div>
-<div id="radar"></div>
-
+    <div id="radar"></div>
     <canvas id="bg-canvas"></canvas>
 
     <div id="main-interface">
         
         <nav class="navbar glass">
-            
-    <a href="#" class="logo modern-logo">
-    SUZERON
-</a>
+            <a href="#" class="logo modern-logo">SUZERON</a>
             
             <div class="nav-links">
                 <a href="#about">ABOUT ME</a>
+                <a href="#experience">EXPERIENCE</a>
                 <a href="#stack">CERTIFICATIONS</a>
+                
                 <a href="#projects">PROJECTS</a>
-                 
                 <a href="#contact" class="highlight-link">CONTACT</a>
             </div>
             <button class="mobile-toggle" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
@@ -49,17 +46,17 @@
         <div id="mobile-menu">
             <button class="close-btn" onclick="toggleMenu()"><i data-lucide="x"></i></button>
             <a href="#about" onclick="toggleMenu()">ABOUT ME</a>
+            <a href="#experience" onclick="toggleMenu()">EXPERIENCE</a>
             <a href="#stack" onclick="toggleMenu()">CERTIFICATIONS</a>
-            <a href="#projects" onclick="toggleMenu()">PROJECTS</a>
             
+            <a href="#projects" onclick="toggleMenu()">PROJECTS</a>
             <a href="#contact" onclick="toggleMenu()">CONTACT</a>
         </div>
 
         <section class="hero">
             <div class="container">
                 <p class="mono-accent"></p>
-
-                <h1> <span class="glitch" data-text="Hi ">Hi </span></h1>
+                <h1><span class="glitch" data-text="Hi ">Hi </span></h1>
                 
                 <h2 class="mono-subtitle">
                     <span class="static-part accent-text">I investigate</span>
@@ -70,23 +67,23 @@
                 </h2>
                 
                 <p class="bio-text">
-                    SOC Analyst specializing in SIEM monitoring, alert investigation, and translating security events into business insight.
+                    Cybersecurity Analyst skilled in SIEM operations, log analysis, threat hunting, and incident response.
                 </p>
                 <div class="btn-group">
                     <a href="#projects" class="btn primary">
                         <i data-lucide="crosshair"></i> View Operations
                     </a>
                     <a href="certificates/resume.pdf" target="_blank" class="btn glass-btn">
-                        <i data-lucide="file-down"></i>  Resume
+                        <i data-lucide="file-down"></i> Resume
                     </a>
                 </div>
             </div>
         </section>
-
+        <!-- CERTIFICATIONS SECTION -->
         <section id="stack" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h3> // CERTIFICATIONS</h3>
+                    <h3>CERTIFICATIONS</h3>
                     <div class="line"></div>
                 </div>
                 
@@ -94,7 +91,6 @@
                     <a href="certificates/CrowdStrike University Course Certificate.pdf" target="_blank" class="cert-card reveal" style="background-image: url('img/crowdstrike.jpg');">
                         <div class="cert-overlay"></div>
                         <div class="cert-content">
-                            <div class="cert-badge verified"><i data-lucide="check-circle"></i> VERIFIED</div>
                             <h4>Falcon Endpoint Protection</h4>
                             <p>CrowdStrike University</p>
                         </div>
@@ -103,55 +99,56 @@
                     <a href="certificates/Introduction to Digital Forensics-course.pdf" target="_blank" class="cert-card reveal" style="background-image: url('img/forensics.jpg');">
                         <div class="cert-overlay"></div>
                         <div class="cert-content">
-                            <div class="cert-badge verified"><i data-lucide="check-circle"></i> VERIFIED</div>
                             <h4>Digital Forensics</h4>
                             <p>Security Blue Team</p>
                         </div>
                     </a>
 
-                    
                     <a href="certificates/Incident Responder.pdf" target="_blank" class="cert-card reveal" style="background-image: url('img/cd2.png');">
                         <div class="cert-overlay"></div>
                         <div class="cert-content">
-                            <div class="cert-badge verified"><i data-lucide="check-circle"></i> VERIFIED</div>
                             <h4>Incident Responder</h4>
                             <p>CrowdStrike University</p>
                         </div>
                     </a>
-
                 </div>
-                
             </div>
         </section>
 
+        <!-- ABOUT SECTION - UPDATED -->
         <section id="about" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h3>// ABOUT ME</h3>
+                    <h3>ABOUT ME</h3>
                     <div class="line"></div>
                 </div>
 
                 <div class="bento-grid">
                     <div class="card large glass reveal">
-                        <p>I specialize in analyzing security logs, alerts, and telemetry to detect threats and minimize false positives. I work with SIEM architectures, log ingestion, and endpoint data to understand attack behavior and guide effective responses. For me, cybersecurity is about insight and action, not just monitoring tools.</p>
-                    </div>
+                        <p>I specialize in analyzing security logs, alerts, and telemetry to detect threats and minimize false positives. I work with SIEM architectures, log ingestion, and endpoint data to understand attack behavior and guide effective responses. </div>
+
                     <div class="card stat glass reveal">
                         <h4>EXPERIENCE</h4>
-                        <span class="number">1<span class="small"> Year </span></span>
+                        <span class="number">1<span class="small"> Year</span></span>
+                        <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 0.5rem; font-family: var(--font-mono);">Since Sep 2024</p>
                     </div>
                     
                     <div class="card stat glass reveal">
                         <h4>
                             DEGREE
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg"
-                                 alt="Nepal"
+                                 alt="Nepal Flag"
                                  width="20"
+                                 loading="lazy"
                                  style="vertical-align: middle; margin-left: 6px;">
                         </h4>
                         <span class="tags">
                             <h4>Bachelors in Information Management (B.I.M)</h4>
                         </span>
                     </div>
+
+                    <!-- NEW: Current Role Card -->
+                    
 
                     <div class="card wide glass reveal">
                         <div class="card-icon"><i data-lucide="cpu"></i></div>
@@ -163,10 +160,9 @@
                             <span>Linux</span>
                             <span>Network Defense</span> 
                             <span>Python</span>
-                            
                         </div>
-                        
                     </div>
+
                     <div class="card wide glass reveal">
                         <div class="card-icon"><i data-lucide="shield-check"></i></div>
                         <h4>Clients Secured</h4>
@@ -177,107 +173,122 @@
                 </div>
             </div>
         </section>
+
+        <!-- EXPERIENCE TIMELINE - NEW SECTION -->
+        <section id="experience" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3>EXPERIENCE</h3>
+                    <div class="line"></div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content glass">
+                            <div class="timeline-header">
+                                <h4>Level 2 SOC Analyst</h4>
+                                <span class="timeline-badge active-badge">Current</span>
+                            </div>
+                            <p class="timeline-company"><i data-lucide="building-2"></i> Raechal Enterprise Pvt. Ltd.</p>
+                            <p class="timeline-date"><i data-lucide="calendar"></i> September 2025 — Present</p>
+                            <ul class="timeline-duties">
+                                <li>Investigate and escalate advanced security incidents beyond L1 scope</li>
+                                <li>Perform threat hunting using CrowdStrike Falcon and SIEM platforms</li>
+                                <li>Analyze malware behavior, network anomalies, and endpoint telemetry</li>
+                                <li>Develop detection rules and fine-tune alerts to reduce false positives</li>
+                                <li>Coordinate incident response across 5+ client organizations</li>
+                            </ul>
+                            <div class="tags" style="margin-top: 1rem;">
+                                <span>CrowdStrike</span>
+                                <span>SIEM</span>
+                                <span>Threat Hunting</span>
+                                <span>Incident Response</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        
+
+        <!-- PROJECTS SECTION -->
         <section id="projects" class="section">
-    <div class="container">
-        <div class="section-header">
-            <h3> // PROJECTS</h3>
-            <div class="line"></div>
-        </div>
+            <div class="container">
+                <div class="section-header">
+                    <h3>PROJECTS</h3>
+                    <div class="line"></div>
+                </div>
 
-        <!-- PROJECT 1 -->
-        <div class="project-list glass reveal">
-            <div class="project-row">
-                <div class="proj-icon"><i data-lucide="shield-alert"></i></div>
-
-                <div class="proj-info">
-                    <h4>SIEM Log Analysis & Threat Detection Pipeline</h4>
-                    <p>Integrated log parsing with structured JSON analysis for faster threat detection workflows.</p>
-                    <div class="proj-meta">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">JSON Parsing</span>
-                        <span class="tech-tag">SIEM Concepts</span>
+                <div class="project-list glass reveal">
+                    <div class="project-row">
+                        <div class="proj-icon"><i data-lucide="shield-alert"></i></div>
+                        <div class="proj-info">
+                            <h4>SIEM Log Analysis & Threat Detection Pipeline</h4>
+                            <p>Integrated log parsing with structured JSON analysis for faster threat detection workflows.</p>
+                            <div class="proj-meta">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">JSON Parsing</span>
+                                <span class="tech-tag">SIEM Concepts</span>
+                            </div>
+                        </div>
+                        <div class="proj-links">
+                            <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn" aria-label="GitHub Repository">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="proj-links">
-
-                 
-
-                    <!-- Report -->
-                    <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg>
-                    </a>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- PROJECT 2 -->
-        <div class="project-list glass reveal" style="margin-top: 1rem;">
-            <div class="project-row">
-                <div class="proj-icon"><i data-lucide="activity"></i></div>
-
-                <div class="proj-info">
-                    <h4>SOC Alert Triage Simulation System</h4>
-                    <p>Simulates real-world SOC alert triage pipeline using endpoint security logs for investigation and response practice.</p>
-                    <div class="proj-meta">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Log Analysis</span>
-                        <span class="tech-tag">Incident Response</span>
+                <div class="project-list glass reveal" style="margin-top: 1rem;">
+                    <div class="project-row">
+                        <div class="proj-icon"><i data-lucide="activity"></i></div>
+                        <div class="proj-info">
+                            <h4>SOC Alert Triage Simulation System</h4>
+                            <p>Simulates real-world SOC alert triage pipeline using endpoint security logs for investigation and response practice.</p>
+                            <div class="proj-meta">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Log Analysis</span>
+                                <span class="tech-tag">Incident Response</span>
+                            </div>
+                        </div>
+                        <div class="proj-links">
+                            <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn" aria-label="GitHub Repository">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="proj-links">
-                    
-
-                    <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- PROJECT 3 -->
-        <div class="project-list glass reveal" style="margin-top: 1rem;">
-            <div class="project-row">
-                <div class="proj-icon"><i data-lucide="bug"></i></div>
-
-                <div class="proj-info">
-                    <h4>Network Traffic Analysis & Intrusion Detection</h4>
-                    <p>Captured and analyzed network traffic to detect suspicious patterns, unauthorized access attempts, and potential intrusions.</p>
-                    <div class="proj-meta">
-                        <span class="tech-tag">Wireshark</span>
-                        <span class="tech-tag">Network Security</span>
-                        <span class="tech-tag">Traffic Analysis</span>
+                <div class="project-list glass reveal" style="margin-top: 1rem;">
+                    <div class="project-row">
+                        <div class="proj-icon"><i data-lucide="bug"></i></div>
+                        <div class="proj-info">
+                            <h4>Network Traffic Analysis & Intrusion Detection</h4>
+                            <p>Captured and analyzed network traffic to detect suspicious patterns, unauthorized access attempts, and potential intrusions.</p>
+                            <div class="proj-meta">
+                                <span class="tech-tag">Wireshark</span>
+                                <span class="tech-tag">Network Security</span>
+                                <span class="tech-tag">Traffic Analysis</span>
+                            </div>
+                        </div>
+                        <div class="proj-links">
+                            <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn" aria-label="GitHub Repository">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
-
-                <div class="proj-links">
-                    
-
-                    <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg>
-                    </a>
-                </div>
             </div>
-        </div>
+        </section>
 
-    </div>
-</section>
-
-
-
-
-
+        <!-- CONTACT SECTION - FIXED FONT -->
         <section id="contact" class="section">
             <div class="container center-col">
-                <h2 class="mono-subtitle">Ready to secure the network? Contact Me</h2>
+                <h2 class="contact-heading">Ready to secure the network? <span class="accent-text">Contact Me</span></h2>
                 
                 <div class="social-grid">
                     <a href="mailto:pudasainisamit@gmail.com" class="social-card">
@@ -295,13 +306,11 @@
                 </div>
 
                 <footer class="footer">
-                    <p>&copy; 2002 Suzeron. All rights reserved.</p>
+                    <p>&copy; 2026 Suzeron. All rights reserved.</p>
                 </footer>
             </div>
         </section>
     </div>
-
-  
 
     <script src="script.js"></script>
     <script>lucide.createIcons();</script>
