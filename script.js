@@ -5,14 +5,7 @@ window.addEventListener('load', () => {
     animateParticles();
 });
 
-// --- 2. SCROLL & CANVAS ---
-window.onscroll = function() {
-    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    let scrolled = (winScroll / height) * 100;
-    let bar = document.getElementById("scroll-bar");
-    if(bar) bar.style.width = scrolled + "%";
-};
+
 
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
