@@ -2,315 +2,647 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>Samit Pudasaini | SOC Analyst & Cyber Defense</title>
-    
-    <link rel="icon" type="image/png" href="img/favicon.png">
-    
-    <meta name="description" content="Portfolio of Samit Pudasaini, a SOC Analyst specializing in CrowdStrike Falcon, Threat Hunting, and Digital Forensics.">
-    <meta name="keywords" content="SOC Analyst, Cybersecurity, CrowdStrike, Python Automation, Threat Intelligence, Nepal">
+    <script>
+        // apply saved theme before the page paints (default: dark)
+        (function () {
+            var t = 'dark';
+            try { t = localStorage.getItem('suz-theme') || 'dark'; } catch (e) {}
+            document.documentElement.setAttribute('data-theme', t);
+            document.documentElement.classList.add('js');
+        })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO -->
+    <title>Samit Pudasaini | Security Engineer &amp; Threat Hunter in Nepal</title>
+    <meta name="description" content="Samit Pudasaini is a Security Engineer in Kathmandu, Nepal, specialising in CrowdStrike Falcon, SIEM monitoring, threat hunting with CrowdStrike Query Language (CQL) and incident response.">
+    <meta name="keywords" content="Samit Pudasaini, Security Engineer Nepal, Cybersecurity Kathmandu, CrowdStrike Falcon, Threat Hunting, Incident Response, SIEM, CrowdStrike Query Language, CQL, SOC Analyst Nepal, Suzeron">
     <meta name="author" content="Samit Pudasaini">
-    
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <link rel="canonical" href="https://www.samitpudasaini.com.np/">
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <meta name="geo.region" content="NP-P3">
+    <meta name="geo.placename" content="Kathmandu">
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="Samit Pudasaini">
+    <meta property="og:title" content="Samit Pudasaini | Security Engineer &amp; Threat Hunter">
+    <meta property="og:description" content="Threat hunting, SIEM monitoring and incident response with CrowdStrike Falcon. Based in Kathmandu, Nepal.">
+    <meta property="og:url" content="https://www.samitpudasaini.com.np/">
+    <meta property="og:image" content="https://www.samitpudasaini.com.np/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Samit Pudasaini, Security Engineer: threat hunting, SIEM and incident response">
+    <meta property="og:locale" content="en_US">
+    <meta property="profile:first_name" content="Samit">
+    <meta property="profile:last_name" content="Pudasaini">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Samit Pudasaini | Security Engineer &amp; Threat Hunter">
+    <meta name="twitter:description" content="Threat hunting, SIEM monitoring and incident response with CrowdStrike Falcon. Based in Kathmandu, Nepal.">
+    <meta name="twitter:image" content="https://www.samitpudasaini.com.np/img/og-image.png">
+
+    <!-- Icons & app manifest -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- Structured data for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.samitpudasaini.com.np/#person",
+          "name": "Samit Pudasaini",
+          "alternateName": "Suzeron",
+          "url": "https://www.samitpudasaini.com.np/",
+          "image": "https://www.samitpudasaini.com.np/img/og-image.png",
+          "email": "mailto:pudasainisamit@gmail.com",
+          "jobTitle": "Security Engineer",
+          "description": "Security Engineer specialising in CrowdStrike Falcon, SIEM monitoring, threat hunting and incident response.",
+          "worksFor": { "@type": "Organization", "name": "Raechal Enterprise Pvt. Ltd.", "address": { "@type": "PostalAddress", "addressLocality": "Kathmandu", "addressCountry": "NP" } },
+          "address": { "@type": "PostalAddress", "addressLocality": "Kathmandu", "addressRegion": "Bagmati", "postalCode": "44600", "addressCountry": "NP" },
+          "alumniOf": [
+            { "@type": "CollegeOrUniversity", "name": "Nagarjuna College of Information Technology (Tribhuvan University)" },
+            { "@type": "EducationalOrganization", "name": "Kanjirowa National Higher Secondary School" }
+          ],
+          "knowsAbout": ["Threat hunting", "Incident response", "CrowdStrike Falcon", "CrowdStrike Query Language", "SIEM", "Log analysis", "Endpoint detection and response", "Wireshark", "Nmap", "PowerShell", "Bash"],
+          "knowsLanguage": ["Nepali", "English", "Hindi"],
+          "hasCredential": [
+            { "@type": "EducationalOccupationalCredential", "name": "CrowdStrike Threat Hunter", "credentialCategory": "certificate", "recognizedBy": { "@type": "Organization", "name": "CrowdStrike" } },
+            { "@type": "EducationalOccupationalCredential", "name": "CrowdStrike Incident Responder", "credentialCategory": "certificate", "recognizedBy": { "@type": "Organization", "name": "CrowdStrike" } },
+            { "@type": "EducationalOccupationalCredential", "name": "Falcon Administrator", "credentialCategory": "certificate", "recognizedBy": { "@type": "Organization", "name": "CrowdStrike" } },
+            { "@type": "EducationalOccupationalCredential", "name": "Google Cybersecurity Professional Certificate", "credentialCategory": "certificate", "recognizedBy": { "@type": "Organization", "name": "Google" } },
+            { "@type": "EducationalOccupationalCredential", "name": "Bachelor of Information Management (B.I.M.)", "credentialCategory": "degree", "recognizedBy": { "@type": "CollegeOrUniversity", "name": "Tribhuvan University" } }
+          ],
+          "sameAs": ["https://linkedin.com/in/samit-pudasaini", "https://github.com/Samit24"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.samitpudasaini.com.np/#website",
+          "url": "https://www.samitpudasaini.com.np/",
+          "name": "Samit Pudasaini",
+          "alternateName": "Suzeron",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://www.samitpudasaini.com.np/#person" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://www.samitpudasaini.com.np/#profile",
+          "url": "https://www.samitpudasaini.com.np/",
+          "name": "Samit Pudasaini | Security Engineer & Threat Hunter in Nepal",
+          "isPartOf": { "@id": "https://www.samitpudasaini.com.np/#website" },
+          "mainEntity": { "@id": "https://www.samitpudasaini.com.np/#person" },
+          "dateModified": "2026-11-20"
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-    <div id="soc-grid"></div>
-    <div id="radar"></div>
-    <canvas id="bg-canvas"></canvas>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-crosshair" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/></symbol><symbol id="i-file-down" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M12 18v-6M9 15l3 3 3-3"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><path d="m15.48 12.89 1.51 8.53a.5.5 0 0 1-.81.47l-3.58-2.69a1 1 0 0 0-1.2 0l-3.59 2.69a.5.5 0 0 1-.81-.47l1.51-8.53"/><circle cx="12" cy="8" r="6"/></symbol><symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-shield-alert" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4M12 16h.01"/></symbol><symbol id="i-languages" viewBox="0 0 24 24"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></symbol><symbol id="i-radar" viewBox="0 0 24 24"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4 6h.01M2.29 9.62A10 10 0 1 0 21.31 8.35M16.24 7.76A6 6 0 1 0 8.23 16.67M12 18h.01M17.99 11.66A6 6 0 0 1 15.77 16.67"/><circle cx="12" cy="12" r="2"/><path d="m13.41 10.59 5.66-5.66"/></symbol><symbol id="i-network" viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"/></symbol><symbol id="i-code-2" viewBox="0 0 24 24"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z"/><path d="M22 10v6M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol><symbol id="i-school" viewBox="0 0 24 24"><path d="M14 22v-4a2 2 0 1 0-4 0v4M18 10l4 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l4-2M18 5v17M4 6l8-4 8 4M6 5v17"/><circle cx="12" cy="9" r="2"/></symbol><symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol><symbol id="i-bug" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88M14.12 3.88 16 2M9 7.13v-1a3 3 0 1 1 6 0v1M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6M12 20v-9M6.53 9C4.6 8.8 3 7.1 3 5M6 13H2M3 21c0-2.1 1.7-3.9 3.8-4M20.97 5c0 2.1-1.6 3.8-3.5 4M22 13h-4M17.2 17c2.1.1 3.8 1.9 3.8 4"/></symbol></svg>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="soc-grid" aria-hidden="true"></div>
+    <div id="radar" aria-hidden="true"></div>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <div id="main-interface">
-        
-        <nav class="navbar glass">
-            <a href="#" class="logo modern-logo">SUZERON</a>
-            
-            <div class="nav-links">
+
+        <header>
+            <nav class="navbar glass" aria-label="Main navigation">
+                <a href="#top" class="logo modern-logo" aria-label="Suzeron, Samit Pudasaini home">SUZERON</a>
+
+                <div class="nav-links">
+                    <a href="#about">ABOUT ME</a>
+                    <a href="#skills">SKILLS</a>
+                    <a href="#experience">EXPERIENCE</a>
+                    <a href="#stack">CERTIFICATIONS</a>
+                    <a href="#projects">PROJECTS</a>
+                    <a href="#contact" class="highlight-link">CONTACT</a>
+                </div>
+                <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" title="Switch theme">
+                    <svg class="ico i-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                    <svg class="ico i-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+                <button class="mobile-toggle" type="button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+                </div>
+            </nav>
+
+            <div id="mobile-menu" aria-hidden="true">
+                <button class="close-btn" type="button" aria-label="Close menu"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
                 <a href="#about">ABOUT ME</a>
+                <a href="#skills">SKILLS</a>
                 <a href="#experience">EXPERIENCE</a>
                 <a href="#stack">CERTIFICATIONS</a>
-                
                 <a href="#projects">PROJECTS</a>
-                <a href="#contact" class="highlight-link">CONTACT</a>
+                <a href="#contact">CONTACT</a>
             </div>
-            <button class="mobile-toggle" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
-            
-        </nav>
+        </header>
 
-        <div id="mobile-menu">
-            <button class="close-btn" onclick="toggleMenu()"><i data-lucide="x"></i></button>
-            <a href="#about" onclick="toggleMenu()">ABOUT ME</a>
-            <a href="#experience" onclick="toggleMenu()">EXPERIENCE</a>
-            <a href="#stack" onclick="toggleMenu()">CERTIFICATIONS</a>
-            
-            <a href="#projects" onclick="toggleMenu()">PROJECTS</a>
-            <a href="#contact" onclick="toggleMenu()">CONTACT</a>
-        </div>
+        <main id="main">
 
-        <section class="hero">
+        <section class="hero" id="top" aria-label="Introduction">
             <div class="container">
-                <p class="mono-accent"></p>
                 <h1><span class="glitch" data-text="Hi ">Hi </span></h1>
-                
-                <h2 class="mono-subtitle">
+
+                <p class="mono-subtitle">
                     <span class="static-part accent-text">I investigate</span>
-                    <div class="dynamic-wrapper">
+                    <span class="dynamic-wrapper">
                         <span id="dynamic-text" class="shimmer-text slide-text">and mitigate security threats</span>
-                        <span class="cursor">|</span>
-                    </div>
-                </h2>
-                
+                        <span class="cursor" aria-hidden="true">|</span>
+                    </span>
+                </p>
+
                 <p class="bio-text">
                     Cybersecurity Analyst skilled in SIEM operations, log analysis, threat hunting, and incident response.
                 </p>
                 <div class="btn-group">
                     <a href="#projects" class="btn primary">
-                        <i data-lucide="crosshair"></i> View Operations
+                        <svg class="ico" aria-hidden="true"><use href="#i-crosshair"/></svg> View Operations
                     </a>
-                    <a href="certificates/resume.pdf" target="_blank" class="btn glass-btn">
-                        <i data-lucide="file-down"></i> Resume
+                    <a href="certificates/resume.pdf" target="_blank" rel="noopener" class="btn glass-btn">
+                        <svg class="ico" aria-hidden="true"><use href="#i-file-down"/></svg> Resume
                     </a>
                 </div>
             </div>
         </section>
-        <!-- CERTIFICATIONS SECTION -->
-        <section id="stack" class="section">
+
+        <!-- CERTIFICATIONS -->
+        <section id="stack" class="section" aria-labelledby="certs-title">
             <div class="container">
                 <div class="section-header">
-                    <h3>CERTIFICATIONS</h3>
+                    <h2 id="certs-title">CERTIFICATIONS</h2>
                     <div class="line"></div>
                 </div>
-                
+
+                <div class="filter-bar" role="group" aria-label="Filter certifications">
+                    <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
+                    <button class="filter-btn" type="button" data-filter="crowdstrike" aria-pressed="false">CrowdStrike</button>
+                    <button class="filter-btn" type="button" data-filter="foundation" aria-pressed="false">Foundations</button>
+                    <button class="filter-btn" type="button" data-filter="progress" aria-pressed="false">In progress</button>
+                </div>
+
                 <div class="cert-grid">
-                    <a href="certificates/CrowdStrike University Course Certificate.pdf" target="_blank" class="cert-card reveal" style="background-image: url('img/crowdstrike.jpg');">
+                    <a href="certificates/Threat Hunter.pdf" target="_blank" rel="noopener" class="cert-card reveal" data-cat="crowdstrike" style="background-image: url('img/crowdstrike.jpg');">
                         <div class="cert-overlay"></div>
                         <div class="cert-content">
-                            <h4>Falcon Endpoint Protection</h4>
+                            <span class="cert-chip">View certificate</span>
+                            <h3>Threat Hunter</h3>
                             <p>CrowdStrike University</p>
                         </div>
                     </a>
-                    
 
-                    <a href="certificates/Introduction to Digital Forensics-course.pdf" target="_blank" class="cert-card reveal" style="background-image: url('img/forensics.jpg');">
+                    <a href="certificates/Incident Responder.pdf" target="_blank" rel="noopener" class="cert-card reveal" data-cat="crowdstrike" style="background-image: url('img/cd2.png');">
                         <div class="cert-overlay"></div>
                         <div class="cert-content">
-                            <h4>Digital Forensics</h4>
+                            <span class="cert-chip">View certificate</span>
+                            <h3>Incident Responder</h3>
+                            <p>CrowdStrike University</p>
+                        </div>
+                    </a>
+
+                    <a href="certificates/Managing Automation Workflows with Fusion SOAR in Falcon Next-Gen SIEM.pdf" target="_blank" rel="noopener" class="cert-card reveal" data-cat="crowdstrike" style="background-image: url('img/cd.png'); background-color: #fff; background-size: 85% auto; background-repeat: no-repeat; background-position: center 25%;">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-content">
+                            <span class="cert-chip">View certificate</span>
+                            <h3>Fusion SOAR Automation Workflows</h3>
+                            <p>CrowdStrike University, Falcon Next-Gen SIEM</p>
+                        </div>
+                    </a>
+
+                    <a href="certificates/CrowdStrike University Course Certificate.pdf" target="_blank" rel="noopener" class="cert-card reveal" data-cat="crowdstrike" style="background-image: url('img/crowdstrike.jpg');">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-content">
+                            <span class="cert-chip">View certificate</span>
+                            <h3>Falcon Endpoint Protection</h3>
+                            <p>CrowdStrike University</p>
+                        </div>
+                    </a>
+
+                    <a href="certificates/Introduction to Digital Forensics-course.pdf" target="_blank" rel="noopener" class="cert-card reveal" data-cat="foundation" style="background-image: url('img/forensics.jpg');">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-content">
+                            <span class="cert-chip">View certificate</span>
+                            <h3>Introduction to Digital Forensics</h3>
                             <p>Security Blue Team</p>
                         </div>
                     </a>
 
-                    <a href="certificates/Incident Responder.pdf" target="_blank" class="cert-card reveal" style="background-image: url('img/cd2.png');">
+                    <div class="cert-card reveal" data-cat="progress" style="background-image: url('img/comptia.jpg');">
                         <div class="cert-overlay"></div>
                         <div class="cert-content">
-                            <h4>Incident Responder</h4>
-                            <p>CrowdStrike University</p>
+                            <span class="cert-chip chip-progress">In progress</span>
+                            <h3>CompTIA Security+</h3>
+                            <p>CompTIA</p>
                         </div>
-                    </a>
+                    </div>
                 </div>
+
+                <h3 class="sub-heading">Also certified</h3>
+                <ul class="badge-list">
+                    <li data-cat="crowdstrike"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> Falcon Administrator <span>CrowdStrike</span></li>
+                    <li data-cat="crowdstrike"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> Next-Gen SIEM Associate <span>CrowdStrike Champions</span></li>
+                    <li data-cat="crowdstrike"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> Core Security Professional <span>CrowdStrike Champions</span></li>
+                    <li data-cat="crowdstrike"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> Core Associate <span>CrowdStrike Champions</span></li>
+                    <li data-cat="foundation"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> Google Cybersecurity Professional Certificate <span>Coursera</span></li>
+                    <li data-cat="foundation"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> SOC Level 1 learning path <span>TryHackMe</span></li>
+                    <li data-cat="foundation"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> Introduction to Cybersecurity <span>Cisco</span></li>
+                    <li data-cat="foundation"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> AI Security</li>
+                    <li data-cat="foundation"><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> Certified Cybersecurity Educator Professional <span>CCEP</span></li>
+                </ul>
             </div>
         </section>
 
-        <!-- ABOUT SECTION - UPDATED -->
-        <section id="about" class="section">
+        <!-- ABOUT -->
+        <section id="about" class="section" aria-labelledby="about-title">
             <div class="container">
                 <div class="section-header">
-                    <h3>ABOUT ME</h3>
+                    <h2 id="about-title">ABOUT ME</h2>
                     <div class="line"></div>
                 </div>
 
                 <div class="bento-grid">
                     <div class="card large glass reveal">
-                        <p>I specialize in analyzing security logs, alerts, and telemetry to detect threats and minimize false positives. I work with SIEM architectures, log ingestion, and endpoint data to understand attack behavior and guide effective responses. </div>
+                        <p>I'm a Security Engineer based in Kathmandu, Nepal. I analyse security logs, alerts and endpoint telemetry to detect threats and cut down false positives. My work spans the full detection path: building log ingestion pipelines for SIEM, hunting threats with CrowdStrike Query Language, triaging alerts, and leading incident response through to root cause.</p>
+                        <p>I started on the platform side, deploying and administering CrowdStrike Falcon, and moved into threat hunting and incident response. I'm currently preparing for CompTIA Security+.</p>
+                    </div>
 
                     <div class="card stat glass reveal">
-                        <h4>EXPERIENCE</h4>
-                        <span class="number">1<span class="small"> Year</span></span>
-                        <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 0.5rem; font-family: var(--font-mono);">Since Sep 2024</p>
+                        <h3>EXPERIENCE</h3>
+                        <span class="number" id="exp-years">2<span class="small"> Years</span></span>
+                        <p class="stat-note" id="exp-since">Since Jul 2024</p>
                     </div>
-                    
+
                     <div class="card stat glass reveal">
-                        <h4>
+                        <h3>
                             DEGREE
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg"
-                                 alt="Nepal Flag"
-                                 width="20"
-                                 loading="lazy"
-                                 style="vertical-align: middle; margin-left: 6px;">
-                        </h4>
-                        <span class="tags">
-                            <h4>Bachelors in Information Management (B.I.M)</h4>
-                        </span>
-                    </div>
-
-                    <!-- NEW: Current Role Card -->
-                    
-
-                    <div class="card wide glass reveal">
-                        <div class="card-icon"><i data-lucide="cpu"></i></div>
-                        <h4>Skills</h4>
-                        <div class="tags">
-                            <span>CrowdStrike Falcon</span>
-                            <span>SIEM</span>
-                            <span>Logscale Query</span>
-                            <span>Linux</span>
-                            <span>Network Defense</span> 
-                            <span>Python</span>
-                        </div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg" alt="Flag of Nepal" width="20" height="24" loading="lazy" style="vertical-align: middle; margin-left: 6px;">
+                        </h3>
+                        <p class="degree-name">Bachelor of Information Management (B.I.M)</p>
+                        <p>Nagarjuna College of IT, Tribhuvan University, 2025</p>
                     </div>
 
                     <div class="card wide glass reveal">
-                        <div class="card-icon"><i data-lucide="shield-check"></i></div>
-                        <h4>Clients Secured</h4>
+                        <div class="card-icon"><svg class="ico" aria-hidden="true"><use href="#i-shield-check"/></svg></div>
+                        <h3>Clients Secured</h3>
                         <div class="tags">
                             <span>5+ Organizations Protected</span>
                         </div>
                     </div>
+
+                    <div class="card wide glass reveal">
+                        <div class="card-icon"><svg class="ico" aria-hidden="true"><use href="#i-languages"/></svg></div>
+                        <h3>Languages</h3>
+                        <div class="tags">
+                            <span>Nepali (Native)</span>
+                            <span>English (Fluent)</span>
+                            <span>Hindi (Intermediate)</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- EXPERIENCE TIMELINE - NEW SECTION -->
-        <section id="experience" class="section">
+        <!-- SKILLS -->
+        <section id="skills" class="section" aria-labelledby="skills-title">
             <div class="container">
                 <div class="section-header">
-                    <h3>EXPERIENCE</h3>
+                    <h2 id="skills-title">SKILLS &amp; TOOLS</h2>
                     <div class="line"></div>
                 </div>
 
-                <div class="timeline">
-                    <div class="timeline-item reveal">
+                <div class="tools-grid">
+                    <div class="tool-card glass reveal">
+                        <div class="tool-icon"><svg class="ico" aria-hidden="true"><use href="#i-radar"/></svg></div>
+                        <h3>Detection &amp; Response</h3>
+                        <p>What I do every day</p>
+                        <div class="tags">
+                            <span class="core">CrowdStrike Falcon</span>
+                            <span class="core">CrowdStrike Query Language</span>
+                            <span class="core">SIEM Monitoring</span>
+                            <span class="core">Threat Hunting</span>
+                            <span class="core">Incident Response</span>
+                            <span>Log Analysis</span>
+                            <span>IoC Analysis</span>
+                        </div>
+                    </div>
+                    <div class="tool-card glass reveal">
+                        <div class="tool-icon"><svg class="ico" aria-hidden="true"><use href="#i-network"/></svg></div>
+                        <h3>Network &amp; Security Tools</h3>
+                        <p>Analysis, testing and monitoring</p>
+                        <div class="tags">
+                            <span>Wireshark</span>
+                            <span>Nmap</span>
+                            <span>Kali Linux</span>
+                            <span>Windows</span>
+                        </div>
+                    </div>
+                    <div class="tool-card glass reveal">
+                        <div class="tool-icon"><svg class="ico" aria-hidden="true"><use href="#i-code-2"/></svg></div>
+                        <h3>Scripting &amp; Web</h3>
+                        <p>Automation and building</p>
+                        <div class="tags">
+                            <span>Bash</span>
+                            <span>PowerShell</span>
+                            <span>Python</span>
+                            <span>HTML / CSS / JS</span>
+                            <span>PHP</span>
+                            <span>WordPress</span>
+                        </div>
+                    </div>
+                    <div class="tool-card glass reveal">
+                        <div class="tool-icon"><svg class="ico" aria-hidden="true"><use href="#i-cloud"/></svg></div>
+                        <h3>Cloud Platforms</h3>
+                        <p>Foundational knowledge</p>
+                        <div class="tags">
+                            <span>AWS</span>
+                            <span>Microsoft Azure</span>
+                            <span>Google Cloud</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="section" aria-labelledby="exp-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="exp-title">EXPERIENCE</h2>
+                    <div class="line"></div>
+                </div>
+
+                <ol class="timeline">
+                    <li class="timeline-item reveal">
                         <div class="timeline-dot"></div>
-                        <div class="timeline-content glass">
+                        <article class="timeline-content glass">
                             <div class="timeline-header">
-                                <h4>Level 2 SOC Analyst</h4>
+                                <h3>Security Engineer</h3>
                                 <span class="timeline-badge active-badge">Current</span>
                             </div>
-                            <p class="timeline-company"><i data-lucide="building-2"></i> Raechal Enterprise Pvt. Ltd.</p>
-                            <p class="timeline-date"><i data-lucide="calendar"></i> September 2025 — Present</p>
+                            <p class="timeline-company"><img class="company-logo" src="img/raechal.jpeg" alt="Raechal Enterprise logo" width="28" height="19" loading="lazy"> Raechal Enterprise Pvt. Ltd., Kathmandu</p>
+                            <p class="timeline-date"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg> <time datetime="2025-09">September 2025</time> — Present</p>
                             <ul class="timeline-duties">
-                                <li>Investigate and escalate advanced security incidents beyond L1 scope</li>
-                                <li>Perform threat hunting using CrowdStrike Falcon and SIEM platforms</li>
-                                <li>Analyze malware behavior, network anomalies, and endpoint telemetry</li>
-                                <li>Develop detection rules and fine-tune alerts to reduce false positives</li>
-                                <li>Coordinate incident response across 5+ client organizations</li>
+                                <li>Triage complex security alerts and lead incident response, supporting root-cause investigations and refining automated detection workflows</li>
+                                <li>Run proactive threat hunts and troubleshoot within the CrowdStrike platform to uncover hidden vulnerabilities and advanced threats</li>
+                                <li>Monitor and analyse security events across SIEM and CrowdStrike Falcon environments to detect, investigate and mitigate threats</li>
+                                <li>Use CrowdStrike Query Language (CQL) to parse large log datasets and identify suspicious patterns, anomalies and indicators of compromise</li>
                             </ul>
                             <div class="tags" style="margin-top: 1rem;">
                                 <span>CrowdStrike</span>
+                                <span>CQL</span>
                                 <span>SIEM</span>
                                 <span>Threat Hunting</span>
                                 <span>Incident Response</span>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </article>
+                    </li>
+                    <li class="timeline-item reveal">
+                        <div class="timeline-dot dot-past"></div>
+                        <article class="timeline-content glass">
+                            <div class="timeline-header">
+                                <h3>Junior Security Engineer</h3>
+                                <span class="timeline-badge past-badge">Jul 2024 – Sep 2025</span>
+                            </div>
+                            <p class="timeline-company"><img class="company-logo" src="img/raechal.jpeg" alt="" width="28" height="19" loading="lazy"> Raechal Enterprise Pvt. Ltd., Kathmandu</p>
+                            <p class="timeline-date"><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg> <time datetime="2024-07">July 2024</time> — <time datetime="2025-09">September 2025</time></p>
+                            <ul class="timeline-duties">
+                                <li>Designed and optimised log ingestion pipelines for complete, high-fidelity data collection into centralised SIEM monitoring</li>
+                                <li>Supported deployment, configuration and ongoing administration of an enterprise CrowdStrike Falcon platform</li>
+                                <li>Troubleshot complex security infrastructure issues and contributed to the architecture of internal security solutions</li>
+                            </ul>
+                            <div class="tags" style="margin-top: 1rem;">
+                                <span>Log Pipelines</span>
+                                <span>SIEM</span>
+                                <span>Falcon Administration</span>
+                            </div>
+                        </article>
+                    </li>
+                    <li class="timeline-item reveal">
+                        <div class="timeline-dot dot-past"></div>
+                        <article class="timeline-content glass">
+                            <div class="timeline-header">
+                                <h3>Education</h3>
+                                <span class="timeline-badge past-badge">2020 – 2025</span>
+                            </div>
+                            <p class="timeline-company"><svg class="ico" aria-hidden="true"><use href="#i-graduation-cap"/></svg> Bachelor of Information Management (B.I.M), Nagarjuna College of IT, Tribhuvan University (2025)</p>
+                            <p class="timeline-company"><svg class="ico" aria-hidden="true"><use href="#i-school"/></svg> NEB +2 Computer Science, Kanjirowa National Higher Secondary School (2020)</p>
+                        </article>
+                    </li>
+                </ol>
             </div>
         </section>
 
-        
-
-        
-
-        <!-- PROJECTS SECTION -->
-        <section id="projects" class="section">
+        <!-- PROJECTS -->
+        <section id="projects" class="section" aria-labelledby="projects-title">
             <div class="container">
                 <div class="section-header">
-                    <h3>PROJECTS</h3>
+                    <h2 id="projects-title">PROJECTS</h2>
                     <div class="line"></div>
                 </div>
 
-                <div class="project-list glass reveal">
+                <article class="project-list glass reveal">
                     <div class="project-row">
-                        <div class="proj-icon"><i data-lucide="shield-alert"></i></div>
+                        <div class="proj-icon"><svg class="ico" aria-hidden="true"><use href="#i-crosshair"/></svg></div>
                         <div class="proj-info">
-                            <h4>SIEM Log Analysis & Threat Detection Pipeline</h4>
-                            <p>Integrated log parsing with structured JSON analysis for faster threat detection workflows.</p>
+                            <h3>Threat Hunting with CrowdStrike Query Language</h3>
+                            <p>Built and ran proactive hunts in CrowdStrike Falcon, using CQL to parse large log datasets and surface suspicious patterns, anomalies and indicators of compromise before they turned into incidents.</p>
                             <div class="proj-meta">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">JSON Parsing</span>
-                                <span class="tech-tag">SIEM Concepts</span>
+                                <span class="tech-tag">CrowdStrike Falcon</span>
+                                <span class="tech-tag">CQL</span>
+                                <span class="tech-tag">Threat Hunting</span>
+                                <span class="tech-tag">IoC Analysis</span>
                             </div>
                         </div>
-                        <div class="proj-links">
-                            <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn" aria-label="GitHub Repository">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                            </a>
+                    </div>
+                </article>
+
+                <article class="project-list glass reveal" style="margin-top: 1rem;">
+                    <div class="project-row">
+                        <div class="proj-icon"><svg class="ico" aria-hidden="true"><use href="#i-network"/></svg></div>
+                        <div class="proj-info">
+                            <h3>Centralised SIEM Log Ingestion Pipeline</h3>
+                            <p>Designed and optimised log ingestion pipelines that feed high-fidelity, well-parsed data into centralised SIEM monitoring, giving detections complete telemetry to work from.</p>
+                            <div class="proj-meta">
+                                <span class="tech-tag">SIEM</span>
+                                <span class="tech-tag">Log Ingestion</span>
+                                <span class="tech-tag">Log Parsing</span>
+                                <span class="tech-tag">Data Onboarding</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="project-list glass reveal" style="margin-top: 1rem;">
+                <article class="project-list glass reveal" style="margin-top: 1rem;">
                     <div class="project-row">
-                        <div class="proj-icon"><i data-lucide="activity"></i></div>
+                        <div class="proj-icon"><svg class="ico" aria-hidden="true"><use href="#i-activity"/></svg></div>
                         <div class="proj-info">
-                            <h4>SOC Alert Triage Simulation System</h4>
-                            <p>Simulates real-world SOC alert triage pipeline using endpoint security logs for investigation and response practice.</p>
+                            <h3>Automated Detection & Response Workflows</h3>
+                            <p>Refined automated detection workflows to speed up triage and reduce false positives, applying Fusion SOAR automation in Falcon Next-Gen SIEM.</p>
                             <div class="proj-meta">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Log Analysis</span>
+                                <span class="tech-tag">Fusion SOAR</span>
+                                <span class="tech-tag">Next-Gen SIEM</span>
+                                <span class="tech-tag">Automation</span>
+                                <span class="tech-tag">Alert Triage</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-list glass reveal" style="margin-top: 1rem;">
+                    <div class="project-row">
+                        <div class="proj-icon"><svg class="ico" aria-hidden="true"><use href="#i-shield-alert"/></svg></div>
+                        <div class="proj-info">
+                            <h3>Incident Response & Root-Cause Investigations</h3>
+                            <p>Triaged complex security alerts and led incident response, tracing activity through endpoint telemetry back to its root cause and feeding lessons into better detections.</p>
+                            <div class="proj-meta">
                                 <span class="tech-tag">Incident Response</span>
+                                <span class="tech-tag">Endpoint Telemetry</span>
+                                <span class="tech-tag">Root-Cause Analysis</span>
                             </div>
                         </div>
-                        <div class="proj-links">
-                            <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn" aria-label="GitHub Repository">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                            </a>
-                        </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="project-list glass reveal" style="margin-top: 1rem;">
+                <article class="project-list glass reveal" style="margin-top: 1rem;">
                     <div class="project-row">
-                        <div class="proj-icon"><i data-lucide="bug"></i></div>
+                        <div class="proj-icon"><svg class="ico" aria-hidden="true"><use href="#i-shield-check"/></svg></div>
                         <div class="proj-info">
-                            <h4>Network Traffic Analysis & Intrusion Detection</h4>
-                            <p>Captured and analyzed network traffic to detect suspicious patterns, unauthorized access attempts, and potential intrusions.</p>
+                            <h3>Enterprise CrowdStrike Falcon Deployment</h3>
+                            <p>Supported the deployment, configuration and ongoing administration of an enterprise CrowdStrike Falcon platform, and troubleshot security infrastructure issues along the way.</p>
                             <div class="proj-meta">
-                                <span class="tech-tag">Wireshark</span>
-                                <span class="tech-tag">Network Security</span>
-                                <span class="tech-tag">Traffic Analysis</span>
+                                <span class="tech-tag">Falcon Administration</span>
+                                <span class="tech-tag">EDR</span>
+                                <span class="tech-tag">Configuration</span>
                             </div>
                         </div>
-                        <div class="proj-links">
-                            <a href="https://github.com/Samit24" target="_blank" class="icon-btn report-btn" aria-label="GitHub Repository">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                            </a>
-                        </div>
                     </div>
+                </article>
+
+                <p class="proj-more">Above: work projects at Raechal Enterprise Pvt. Ltd.</p>
+
+                <h3 class="sub-heading">Open-source projects</h3>
+                <div class="oss-grid">
+                    <article class="oss-card glass reveal">
+                        <div class="oss-top">
+                            <span class="oss-icon"><svg class="ico" aria-hidden="true"><use href="#i-shield-alert"/></svg></span>
+                            <a class="oss-link" href="https://github.com/Samit24/siem-log-analyzer" target="_blank" rel="noopener" aria-label="SIEM Log Analyzer on GitHub"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+                        </div>
+                        <h4><a href="https://github.com/Samit24/siem-log-analyzer" target="_blank" rel="noopener">SIEM Log Analyzer</a></h4>
+                        <p>Parses Windows security and process events from JSON logs and runs detection rules for brute force, password spraying, encoded PowerShell and new admin accounts, mapped to MITRE ATT&amp;CK.</p>
+                        <div class="proj-meta"><span class="tech-tag">Python</span><span class="tech-tag">Detection Rules</span><span class="tech-tag">MITRE ATT&amp;CK</span></div>
+                    </article>
+                    <article class="oss-card glass reveal">
+                        <div class="oss-top">
+                            <span class="oss-icon"><svg class="ico" aria-hidden="true"><use href="#i-activity"/></svg></span>
+                            <a class="oss-link" href="https://github.com/Samit24/soc-alert-triage" target="_blank" rel="noopener" aria-label="SOC Alert Triage Engine on GitHub"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+                        </div>
+                        <h4><a href="https://github.com/Samit24/soc-alert-triage" target="_blank" rel="noopener">SOC Alert Triage Engine</a></h4>
+                        <p>Scores incoming alerts using severity, asset criticality and IoC matches, then builds a prioritised P1 to P4 queue with SLA deadlines, the way a SOC shift lead would.</p>
+                        <div class="proj-meta"><span class="tech-tag">Python</span><span class="tech-tag">Alert Triage</span><span class="tech-tag">Incident Response</span></div>
+                    </article>
+                    <article class="oss-card glass reveal">
+                        <div class="oss-top">
+                            <span class="oss-icon"><svg class="ico" aria-hidden="true"><use href="#i-network"/></svg></span>
+                            <a class="oss-link" href="https://github.com/Samit24/network-traffic-analyzer" target="_blank" rel="noopener" aria-label="Network Traffic Analyzer on GitHub"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+                        </div>
+                        <h4><a href="https://github.com/Samit24/network-traffic-analyzer" target="_blank" rel="noopener">Network Traffic Analyzer</a></h4>
+                        <p>Reads Zeek conn.log flow data to spot port scans, C2-style beaconing, large outbound transfers and connections on suspicious ports.</p>
+                        <div class="proj-meta"><span class="tech-tag">Python</span><span class="tech-tag">Zeek</span><span class="tech-tag">Network Security</span></div>
+                    </article>
+                    <article class="oss-card glass reveal">
+                        <div class="oss-top">
+                            <span class="oss-icon"><svg class="ico" aria-hidden="true"><use href="#i-crosshair"/></svg></span>
+                            <a class="oss-link" href="https://github.com/Samit24/cql-threat-hunting-queries" target="_blank" rel="noopener" aria-label="CQL Threat Hunting Queries on GitHub"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+                        </div>
+                        <h4><a href="https://github.com/Samit24/cql-threat-hunting-queries" target="_blank" rel="noopener">CQL Threat Hunting Queries</a></h4>
+                        <p>A library of CrowdStrike Query Language hunts for Falcon LogScale and Next-Gen SIEM, each mapped to a MITRE ATT&amp;CK technique with notes on triage.</p>
+                        <div class="proj-meta"><span class="tech-tag">CQL</span><span class="tech-tag">CrowdStrike Falcon</span><span class="tech-tag">Threat Hunting</span></div>
+                    </article>
                 </div>
+                <p class="proj-more">More code and experiments on <a href="https://github.com/Samit24" target="_blank" rel="noopener">github.com/Samit24</a>.</p>
             </div>
         </section>
 
-        <!-- CONTACT SECTION - FIXED FONT -->
-        <section id="contact" class="section">
+        <!-- CONTACT -->
+        <section id="contact" class="section" aria-labelledby="contact-title">
             <div class="container center-col">
-                <h2 class="contact-heading">Ready to secure the network? <span class="accent-text">Contact Me</span></h2>
-                
+                <h2 class="contact-heading" id="contact-title">Ready to secure the network? <span class="accent-text">Contact Me</span></h2>
+                <p class="contact-sub">Open to security engineering, threat hunting and SOC opportunities. Based in Kathmandu, Nepal.</p>
+
+                <div class="email-row">
+                    <a href="mailto:pudasainisamit@gmail.com" class="email-link">pudasainisamit@gmail.com</a>
+                    <button type="button" class="copy-btn" id="copy-email" data-copy="pudasainisamit@gmail.com" aria-label="Copy email address"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+                </div>
+
                 <div class="social-grid">
                     <a href="mailto:pudasainisamit@gmail.com" class="social-card">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                         <span>Email</span>
                     </a>
-                    <a href="https://linkedin.com/in/samit-pudasaini" target="_blank" class="social-card">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    <a href="https://linkedin.com/in/samit-pudasaini" target="_blank" rel="noopener me" class="social-card">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                         <span>LinkedIn</span>
                     </a>
-                    <a href="https://github.com/Samit24" target="_blank" class="social-card">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <a href="https://github.com/Samit24" target="_blank" rel="noopener me" class="social-card">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                         <span>GitHub</span>
                     </a>
+                    <a href="certificates/resume.pdf" target="_blank" rel="noopener" class="social-card">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6m0 6-3-3m3 3 3-3"></path></svg>
+                        <span>Resume</span>
+                    </a>
                 </div>
-
-                <footer class="footer">
-                    <p>&copy; 2026 Suzeron. All rights reserved.</p>
-                </footer>
             </div>
         </section>
-    </div>
 
-    <script src="script.js"></script>
-    <script>lucide.createIcons();</script>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#top" class="modern-logo footer-logo">SUZERON</a>
+                    <p>Samit Pudasaini. Security Engineer focused on threat hunting, SIEM monitoring and incident response.</p>
+                    <p class="footer-loc"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Kathmandu, Nepal</p>
+                </div>
+                <nav class="footer-col" aria-label="Footer">
+                    <h3>Explore</h3>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#stack">Certifications</a>
+                    <a href="#projects">Projects</a>
+                </nav>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <a href="mailto:pudasainisamit@gmail.com">Email</a>
+                    <a href="https://linkedin.com/in/samit-pudasaini" target="_blank" rel="noopener me">LinkedIn</a>
+                    <a href="https://github.com/Samit24" target="_blank" rel="noopener me">GitHub</a>
+                    <a href="certificates/resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="year">2026</span> Samit Pudasaini (Suzeron). All rights reserved.</p>
+                <p>Last updated <time datetime="2026-11-20">November 2026</time></p>
+            </div>
+        </footer>
+    </div>
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+    <script src="script.js" defer></script>
 </body>
 </html>
