@@ -325,3 +325,84 @@ a.contact-social {
     padding-bottom: 100px; /* clear of the bottom tab bar */
   }
 }
+
+/* =========================================
+   Contact: the one place the email lives
+   ========================================= */
+.contact-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px 28px;
+  flex-wrap: wrap;
+  margin-top: 44px;
+  padding: 30px 34px;
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(34, 211, 238, 0.14), transparent 55%),
+    linear-gradient(160deg, rgba(11, 23, 39, 0.95), rgba(6, 11, 20, 0.95)) padding-box,
+    var(--accentGradient) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 30px 80px rgba(14, 165, 233, 0.16);
+}
+.contact-card-label {
+  flex-basis: 100%;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accentLight);
+}
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  font-size: clamp(16px, 5.1vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  background: var(--accentGradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.contact-email svg {
+  flex-shrink: 0;
+  font-size: 0.7em;
+  color: var(--accentColor);
+  transition: transform 0.35s;
+}
+.contact-email:hover svg {
+  transform: translate(4px, -4px);
+}
+.contact-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--lineColor);
+  background: rgba(34, 211, 238, 0.06);
+  color: var(--textColor);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+.contact-copy:hover {
+  border-color: rgba(34, 211, 238, 0.6);
+  background: rgba(34, 211, 238, 0.12);
+}
+@media only screen and (max-width: 768px) {
+  .contact-card {
+    padding: 22px 20px;
+    border-radius: 20px;
+    margin-top: 30px;
+  }
+  .contact-copy {
+    margin-left: 0;
+  }
+}

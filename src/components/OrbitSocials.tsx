@@ -1,15 +1,10 @@
 import { CSSProperties } from "react";
-import { MdOutlineMail } from "react-icons/md";
 import { activeSocials } from "./socialIconMap";
-import { config } from "../config";
 import "./styles/OrbitSocials.css";
 
 // Social links riding a slow orbit around the 3D globe (a plain row on smaller screens).
 const OrbitSocials = () => {
-  const items = [
-    ...activeSocials.map((s) => ({ name: s.name, url: s.url, Icon: s.Icon, external: true })),
-    { name: "Email", url: `mailto:${config.contact.email}`, Icon: MdOutlineMail, external: false },
-  ];
+  const items = activeSocials.map((s) => ({ name: s.name, url: s.url, Icon: s.Icon, external: true }));
   // Start offset so no icon begins exactly beside the name or the role text.
   const start = -60;
 

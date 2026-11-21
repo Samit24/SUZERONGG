@@ -4,7 +4,6 @@ import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import Lenis from "lenis";
 import "./styles/Navbar.css";
-import { config } from "../config";
 import Logo from "./Logo";
 import { MdPersonOutline, MdTimeline, MdVerified, MdBolt, MdTerminal, MdAlternateEmail } from "react-icons/md";
 import type { IconType } from "react-icons";
@@ -99,13 +98,6 @@ const Navbar = () => {
       <div className="header">
         <a href="/#" className="navbar-title" data-cursor="disable">
           <Logo />
-        </a>
-        <a
-          href={`mailto:${config.contact.email}`}
-          className="navbar-connect"
-          data-cursor="disable"
-        >
-          {config.contact.email}
         </a>
         <div className="nav-right">
           <ul>

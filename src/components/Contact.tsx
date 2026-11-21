@@ -1,7 +1,6 @@
-import { MdArrowOutward, MdArrowUpward } from "react-icons/md";
+import { MdArrowOutward, MdArrowUpward, MdCheck, MdContentCopy } from "react-icons/md";
 import "./styles/Contact.css";
 import { config } from "../config";
-import { activeSocials } from "./socialIconMap";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useState } from "react";
@@ -11,13 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const kathmanduTime = () =>
   new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Kathmandu", hour: "2-digit", minute: "2-digit" });
-
-const footerLinks = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Career" },
-  { href: "#stack", label: "Skills" },
-  { href: "#work", label: "Work" },
-];
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
@@ -45,9 +37,9 @@ const Contact = () => {
     contactTimeline
       .fromTo(".contact-cta", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" })
       .fromTo(
-        ".contact-box",
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: "power3.out" },
+        ".contact-card",
+        { opacity: 0, y: 40, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" },
         "-=0.4"
       );
     return () => {
@@ -74,38 +66,16 @@ const Contact = () => {
           <h3>
             Ready to secure <span>the network?</span>
           </h3>
-          <div className="contact-actions">
-            <a href={`mailto:${config.contact.email}`} className="contact-btn contact-btn-primary" data-cursor="disable">
-              Contact me <MdArrowOutward />
+          <div className="contact-card">
+            <span className="contact-card-label">Email me directly</span>
+            <a href={`mailto:${config.contact.email}`} className="contact-email" data-cursor="disable">
+              {config.contact.email}
+              <MdArrowOutward aria-hidden="true" />
             </a>
-            <button type="button" className="contact-btn" onClick={copyEmail} data-cursor="disable">
-              {copied ? "Copied ✓" : "Copy email"}
+            <button type="button" className="contact-copy" onClick={copyEmail} data-cursor="disable" aria-live="polite">
+              {copied ? <MdCheck /> : <MdContentCopy />}
+              {copied ? "Copied" : "Copy"}
             </button>
-          </div>
-        </div>
-        <div className="contact-flex">
-          <div className="contact-box">
-            <h4>Email</h4>
-            <p>
-              <a href={`mailto:${config.contact.email}`} data-cursor="disable">
-                {config.contact.email}
-              </a>
-            </p>
-            <h4>Location</h4>
-            <p>
-              <span>{config.contact.location}</span>
-            </p>
-          </div>
-          <div className="contact-box">
-            <h4>Connect</h4>
-            {activeSocials.map(({ name, url }) => (
-              <a key={name} href={url} target="_blank" rel="noopener noreferrer" data-cursor="disable" className="contact-social">
-                {name} <MdArrowOutward />
-              </a>
-            ))}
-            <a href={config.contact.resume} target="_blank" rel="noopener noreferrer" data-cursor="disable" className="contact-social">
-              Resume (PDF) <MdArrowOutward />
-            </a>
           </div>
         </div>
       </div>
@@ -114,15 +84,8 @@ const Contact = () => {
         <div className="footer-row">
           <div className="footer-status">
             <span className="footer-pulse" aria-hidden="true"></span>
-            Kathmandu, Nepal · <time>{ktmTime}</time> NPT
+            {config.contact.location} · <time>{ktmTime}</time> NPT
           </div>
-          <nav className="footer-links" aria-label="Footer">
-            {footerLinks.map((l) => (
-              <a key={l.href} href={l.href} data-cursor="disable">
-                {l.label}
-              </a>
-            ))}
-          </nav>
           <button type="button" className="footer-top" onClick={toTop} aria-label="Back to top" data-cursor="disable">
             <MdArrowUpward />
           </button>

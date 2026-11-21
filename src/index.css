@@ -577,3 +577,9 @@ address {
   display: inline-block;
   white-space: pre;
 }
+
+/* nothing may push the page sideways (iOS Safari ignores overflow-x on <html> in some cases).
+   `clip` (not `hidden`) so sticky / pinned sections keep working. */
+main.main-body {
+  overflow-x: clip;
+}
