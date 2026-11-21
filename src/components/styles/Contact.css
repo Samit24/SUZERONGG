@@ -1,0 +1,206 @@
+.contact-section {
+  margin: auto;
+  padding-bottom: 150px;
+  margin-top: 0;
+  position: relative;
+  z-index: 1;
+  background-color: var(--backgroundColor);
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.contact-section h3 {
+  font-size: 32px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  margin-bottom: 30px;
+}
+.contact-flex {
+  display: flex;
+  justify-content: space-between;
+}
+.contact-flex h4 {
+  font-weight: 500;
+  margin: 0;
+  opacity: 0.6;
+  font-size: 14px;
+}
+.contact-box {
+  display: flex;
+  flex-direction: column;
+}
+.contact-flex p {
+  margin-top: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+a.contact-social {
+  font-size: 16px;
+  border-bottom: 1px solid var(--textColor);
+  margin-bottom: 8px;
+}
+.contact-box h2 {
+  font-weight: 400;
+  font-size: 16px;
+  margin: 0;
+  line-height: 22px;
+}
+.contact-box h2 > span {
+  color: var(--accentColor);
+}
+.contact-box h5 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  display: flex;
+  gap: 8px;
+  opacity: 0.5;
+}
+@media only screen and (min-width: 600px) {
+  .contact-section h3 {
+    font-size: 40px;
+  }
+  .contact-box h2 {
+    font-size: 18px;
+  }
+  a.contact-social {
+    font-size: 18px;
+  }
+  .contact-flex h4 {
+    font-size: 15px;
+  }
+  .contact-flex p {
+    font-size: 15px;
+  }
+}
+@media only screen and (min-width: 900px) {
+  .contact-section h3 {
+    font-size: 48px;
+  }
+  .contact-box h2 {
+    font-size: 20px;
+  }
+  a.contact-social {
+    font-size: 22px;
+  }
+}
+@media only screen and (min-width: 1300px) {
+  .contact-section h3 {
+    font-size: 55px;
+  }
+  .contact-box h2 {
+    font-size: 22px;
+  }
+  a.contact-social {
+    font-size: 24px;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .contact-section h3 {
+    font-size: 60px;
+    margin-bottom: 40px;
+  }
+  .contact-box h2 {
+    font-size: 23px;
+  }
+  a.contact-social {
+    font-size: 25px;
+  }
+  .contact-flex p {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  .contact-box h5 {
+    font-size: 20px;
+    line-height: 20px;
+    gap: 10px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .contact-flex {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .contact-flex p {
+    margin-bottom: 0px;
+  }
+  .contact-flex h4 {
+    margin-top: 20px;
+  }
+  .contact-section {
+    margin-top: 50px;
+    padding-bottom: 50px;
+  }
+  .contact-container {
+    width: calc(100% - 25px);
+  }
+}
+
+/* ---------- Suzeron: contact CTA ---------- */
+.contact-cta {
+  padding: 40px 0 70px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid var(--lineColor);
+}
+
+.contact-kicker {
+  font-family: var(--monoFont);
+  font-size: 13px;
+  color: var(--mutedColor);
+  margin: 0 0 18px;
+}
+
+.contact-section .contact-cta h3 {
+  font-size: clamp(40px, 7vw, 96px);
+  line-height: 1;
+  font-weight: 500;
+  text-transform: none;
+  margin-bottom: 36px;
+}
+
+.contact-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 30px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--textColor);
+  background: transparent;
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+}
+
+.contact-btn:hover {
+  transform: translateY(-3px);
+  color: #fff;
+  background: rgba(34, 211, 238, 0.08);
+}
+
+.contact-btn-primary {
+  color: #031018;
+  border: none;
+  background: var(--accentGradient);
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+}
+
+.contact-btn-primary:hover {
+  color: #031018;
+  background: var(--accentGradient);
+  box-shadow: 0 14px 40px rgba(14, 165, 233, 0.45);
+}
+
+.contact-box h5 {
+  font-family: var(--monoFont);
+}
