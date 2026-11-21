@@ -31,9 +31,9 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
     // No loading screen: play the intro as soon as the page has mounted.
-    const intro = setTimeout(initialFX, 150);
+    const intro = setTimeout(initialFX, 0);
     // Section timelines that don't depend on the 3D globe.
-    const t = setTimeout(setAllTimeline, 300);
+    const t = setTimeout(setAllTimeline, 120);
     return () => {
       clearTimeout(t);
       clearTimeout(intro);

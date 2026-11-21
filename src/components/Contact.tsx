@@ -1,15 +1,37 @@
-import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import { MdArrowOutward, MdArrowUpward } from "react-icons/md";
 import "./styles/Contact.css";
 import { config } from "../config";
 import { activeSocials } from "./socialIconMap";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useState } from "react";
+import { lenis } from "./Navbar";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const kathmanduTime = () =>
+  new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Kathmandu", hour: "2-digit", minute: "2-digit" });
+
+const footerLinks = [
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Career" },
+  { href: "#stack", label: "Skills" },
+  { href: "#work", label: "Work" },
+];
+
 const Contact = () => {
   const [copied, setCopied] = useState(false);
+  const [ktmTime, setKtmTime] = useState(() => kathmanduTime());
+
+  useEffect(() => {
+    const id = setInterval(() => setKtmTime(kathmanduTime()), 30_000);
+    return () => clearInterval(id);
+  }, []);
+
+  const toTop = () => {
+    if (lenis) lenis.scrollTo(0, { duration: 1.6 });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     const contactTimeline = gsap.timeline({
@@ -85,16 +107,34 @@ const Contact = () => {
               Resume (PDF) <MdArrowOutward />
             </a>
           </div>
-          <div className="contact-box">
-            <h2>
-              Designed and built <br /> by <span>{config.developer.fullName}</span>
-            </h2>
-            <h5>
-              <MdCopyright /> {new Date().getFullYear()} {config.developer.handle}
-            </h5>
-          </div>
         </div>
       </div>
+
+      <footer className="site-footer">
+        <div className="footer-row">
+          <div className="footer-status">
+            <span className="footer-pulse" aria-hidden="true"></span>
+            Kathmandu, Nepal · <time>{ktmTime}</time> NPT
+          </div>
+          <nav className="footer-links" aria-label="Footer">
+            {footerLinks.map((l) => (
+              <a key={l.href} href={l.href} data-cursor="disable">
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <button type="button" className="footer-top" onClick={toTop} aria-label="Back to top" data-cursor="disable">
+            <MdArrowUpward />
+          </button>
+        </div>
+        <div className="footer-word" aria-hidden="true">
+          {config.developer.handle}
+        </div>
+        <div className="footer-legal">
+          <span>© {new Date().getFullYear()} {config.developer.fullName}</span>
+          <span>Security Engineer · Threat Hunter</span>
+        </div>
+      </footer>
     </div>
   );
 };

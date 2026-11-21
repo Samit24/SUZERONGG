@@ -159,30 +159,42 @@
   background: rgba(34, 211, 238, 0.07);
   box-shadow: 0 12px 30px rgba(14, 165, 233, 0.18);
 }
-.kit-icon {
+/* official logos: neutral until hover, then the brand colour */
+.kit-logo {
   width: 34px;
   height: 34px;
-  background: var(--accentGradient);
+  background-color: #9fb4c6;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
   -webkit-mask-size: contain;
   mask-size: contain;
+  transition: background-color 0.35s, transform 0.35s;
 }
-.kit-mono {
-  min-width: 34px;
+.kit-logo-img {
+  width: 44px;
   height: 34px;
-  padding: 0 8px;
-  box-sizing: border-box;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #04121c;
-  background: var(--accentGradient);
+  object-fit: contain;
+  filter: grayscale(1) brightness(1.25) opacity(0.75);
+  transition: filter 0.35s, transform 0.35s;
+}
+.kit-tile:hover .kit-logo,
+.kit-tile:focus-within .kit-logo,
+.kit-tile:active .kit-logo {
+  background-color: var(--brand);
+  transform: scale(1.08);
+}
+.kit-tile:hover .kit-logo-img,
+.kit-tile:focus-within .kit-logo-img,
+.kit-tile:active .kit-logo-img {
+  filter: none;
+  transform: scale(1.08);
+}
+.kit-tile:hover {
+  border-color: color-mix(in srgb, var(--brand) 60%, transparent);
+  background: color-mix(in srgb, var(--brand) 9%, transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--brand) 22%, transparent);
 }
 .kit-tile-name {
   font-size: 13px;
@@ -294,18 +306,13 @@
     gap: 10px;
     padding: 10px 12px;
   }
-  .kit-icon,
-  .kit-mono {
+  .kit-logo,
+  .kit-logo-img {
     flex-shrink: 0;
-  }
-  .kit-icon {
     width: 26px;
     height: 26px;
   }
-  .kit-mono {
-    min-width: 30px;
-    height: 26px;
-    font-size: 9px;
-    padding: 0 6px;
+  .kit-logo-img {
+    width: 34px;
   }
 }

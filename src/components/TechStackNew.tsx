@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, type CSSProperties } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MdCheck } from "react-icons/md";
@@ -8,52 +8,53 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface Software {
   name: string;
-  icon?: string; // simple-icons slug
-  mono?: string; // initials shown when there is no icon
+  logo: string; // file in /img/logos
+  brand: string; // official brand colour, shown on hover
+  multicolor?: boolean; // full-colour image logo (greyed out until hover)
 }
 
-const ICON_CDN = "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/";
+const L = (file: string) => `/img/logos/${file}`;
 
-// Software & platforms, shown as icon tiles.
+// Software & platforms, shown as tiles with each product's official logo.
 const software: { group: string; items: Software[] }[] = [
   {
     group: "Security platforms",
     items: [
-      { name: "CrowdStrike Falcon", mono: "CS" },
-      { name: "Falcon LogScale", mono: "LS" },
-      { name: "Falcon Next-Gen SIEM", mono: "NG" },
-      { name: "Fusion SOAR", mono: "SOAR" },
+      { name: "CrowdStrike Falcon", logo: L("crowdstrike.png"), brand: "#e32515" },
+      { name: "Falcon LogScale", logo: L("crowdstrike.png"), brand: "#e32515" },
+      { name: "Falcon Next-Gen SIEM", logo: L("crowdstrike.png"), brand: "#e32515" },
+      { name: "Fusion SOAR", logo: L("crowdstrike.png"), brand: "#e32515" },
     ],
   },
   {
     group: "Network & analysis",
     items: [
-      { name: "Wireshark", icon: "wireshark" },
-      { name: "Nmap", mono: "NMAP" },
-      { name: "Zeek", mono: "ZEEK" },
-      { name: "Kali Linux", icon: "kalilinux" },
+      { name: "Wireshark", logo: L("wireshark.svg"), brand: "#1679a7" },
+      { name: "Nmap", logo: L("nmap.png"), brand: "#4fb3e8", multicolor: true },
+      { name: "Zeek", logo: L("zeek.png"), brand: "#29a8e0", multicolor: true },
+      { name: "Kali Linux", logo: L("kalilinux.svg"), brand: "#557c94" },
     ],
   },
   {
     group: "Systems & scripting",
     items: [
-      { name: "Windows", mono: "WIN" },
-      { name: "Linux", icon: "linux" },
-      { name: "Python", icon: "python" },
-      { name: "PowerShell", mono: "PS" },
-      { name: "Bash", icon: "gnubash" },
-      { name: "Git", icon: "git" },
+      { name: "Windows", logo: L("windows.svg"), brand: "#0078d6" },
+      { name: "Linux", logo: L("linux.svg"), brand: "#fcc624" },
+      { name: "Python", logo: L("python.svg"), brand: "#3776ab" },
+      { name: "PowerShell", logo: L("powershell.svg"), brand: "#5391fe" },
+      { name: "Bash", logo: L("gnubash.svg"), brand: "#4eaa25" },
+      { name: "Git", logo: L("git.svg"), brand: "#f05032" },
     ],
   },
   {
     group: "Cloud & web",
     items: [
-      { name: "AWS", mono: "AWS" },
-      { name: "Azure", mono: "AZ" },
-      { name: "Google Cloud", icon: "googlecloud", mono: "GCP" },
-      { name: "WordPress", icon: "wordpress" },
-      { name: "PHP", icon: "php" },
-      { name: "JavaScript", icon: "javascript" },
+      { name: "AWS", logo: L("amazonaws.svg"), brand: "#ff9900" },
+      { name: "Azure", logo: L("microsoftazure.svg"), brand: "#0078d4" },
+      { name: "Google Cloud", logo: L("googlecloud.svg"), brand: "#4285f4" },
+      { name: "WordPress", logo: L("wordpress.svg"), brand: "#21759b" },
+      { name: "PHP", logo: L("php.svg"), brand: "#777bb4" },
+      { name: "JavaScript", logo: L("javascript.svg"), brand: "#f7df1e" },
     ],
   },
 ];
@@ -76,21 +77,14 @@ const skills: { group: string; items: string[] }[] = [
 
 const languages = ["Nepali · native", "English · fluent", "Hindi · intermediate"];
 
-// Gradient-filled icon from simple-icons, or initials when there's no icon (or it fails to load).
-const SoftwareIcon = ({ item }: { item: Software }) => {
-  const [failed, setFailed] = useState(false);
-  if (!item.icon || failed) {
-    return <span className="kit-mono">{item.mono ?? item.name.slice(0, 2).toUpperCase()}</span>;
-  }
-  const src = `${ICON_CDN}${item.icon}.svg`;
-  const url = `url("${src}")`;
-  return (
-    <>
-      <span className="kit-icon" style={{ maskImage: url, WebkitMaskImage: url }} />
-      <img src={src} alt="" hidden onError={() => setFailed(true)} />
-    </>
+// Official logo: a neutral silhouette that fills with the brand colour on hover
+// (full-colour logos are shown greyed out and regain their colour instead).
+const SoftwareLogo = ({ item }: { item: Software }) =>
+  item.multicolor ? (
+    <img className="kit-logo-img" src={item.logo} alt="" loading="lazy" decoding="async" />
+  ) : (
+    <span className="kit-logo" style={{ maskImage: `url("${item.logo}")`, WebkitMaskImage: `url("${item.logo}")` }} />
   );
-};
 
 const TechStackNew = () => {
   useEffect(() => {
@@ -148,8 +142,13 @@ const TechStackNew = () => {
                 <h4>{g.group}</h4>
                 <div className="kit-tiles">
                   {g.items.map((item) => (
-                    <div className="kit-tile" key={item.name} title={item.name}>
-                      <SoftwareIcon item={item} />
+                    <div
+                      className="kit-tile"
+                      key={item.name}
+                      title={item.name}
+                      style={{ "--brand": item.brand } as CSSProperties}
+                    >
+                      <SoftwareLogo item={item} />
                       <span className="kit-tile-name">{item.name}</span>
                     </div>
                   ))}

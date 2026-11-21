@@ -608,7 +608,7 @@ h2.landing-info-h2 {
 }
 
 .globe-inline-model {
-  touch-action: pan-y; /* horizontal drag spins the globe, vertical swipe scrolls */
+  touch-action: auto; /* a finger on the globe rotates it (handled in JS); elsewhere the page scrolls */
 }
 
 .globe-inline-model canvas {
@@ -641,4 +641,14 @@ h2.landing-info-h2 {
     transform: translate(-50%, -50%);
     width: min(56vw, 62vh);
   }
+}
+
+/* ---------- globe: drag to rotate ---------- */
+body.globe-hover,
+body.globe-hover * {
+  cursor: grab !important;
+}
+body.globe-dragging,
+body.globe-dragging * {
+  cursor: grabbing !important;
 }

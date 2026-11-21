@@ -41,7 +41,12 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <!-- Fonts -->
+    <!-- Fonts: connect early, load in parallel with the app (display=swap keeps text visible) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap">
+    <!-- paint the dark background before any script runs (no white flash) -->
+    <style>html,body{background:#060b14;margin:0}</style>
     <!-- Structured data -->
     <script type="application/ld+json">
     {

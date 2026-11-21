@@ -133,12 +133,9 @@
 }
 
 /* =========================================
-   Phone menu (≤768px): toggle + full-screen panel
+   Phones (≤768px): floating bottom tab bar
    ========================================= */
-.nav-toggle {
-  display: none;
-}
-.mobile-menu {
+.tabbar {
   display: none;
 }
 
@@ -150,141 +147,82 @@
     display: none;
   }
 
-  .nav-toggle {
-    position: relative;
-    z-index: 10001;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 44px;
-    height: 44px;
-    padding: 0 11px;
-    border-radius: 50%;
-    cursor: pointer;
-    background:
-      linear-gradient(rgba(11, 23, 39, 0.85), rgba(11, 23, 39, 0.85)) padding-box,
-      var(--accentGradient) border-box;
-    border: 1.2px solid transparent;
-    backdrop-filter: blur(8px);
-  }
-  .nav-toggle span {
-    display: block;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--textColor);
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s, width 0.35s;
-  }
-  .nav-toggle span:nth-child(2) {
-    width: 70%;
-    margin-left: auto;
-  }
-  .nav-toggle.is-open span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  .nav-toggle.is-open span:nth-child(2) {
-    opacity: 0;
-  }
-  .nav-toggle.is-open span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  .mobile-menu {
+  .tabbar {
     position: fixed;
-    inset: 0;
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
     z-index: 9998;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 110px 24px 36px;
-    box-sizing: border-box;
-    background:
-      radial-gradient(circle at 85% 10%, rgba(34, 211, 238, 0.16), transparent 45%),
-      radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.14), transparent 45%),
-      rgba(6, 11, 20, 0.97);
-    backdrop-filter: blur(14px);
-    clip-path: circle(0 at calc(100% - 37px) 37px);
-    visibility: hidden;
-    transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s linear 0.6s;
-  }
-  .mobile-menu.is-open {
-    clip-path: circle(150% at calc(100% - 37px) 37px);
-    visibility: visible;
-    transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s;
-  }
-
-  .mobile-menu ol {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .mobile-menu li {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.4s, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .mobile-menu.is-open li {
-    opacity: 1;
-    transform: none;
-  }
-  .mobile-menu ol a {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    padding: 8px 0;
-    font-size: 38px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--textColor);
-    border-bottom: 1px solid var(--lineColor);
-  }
-  .mobile-menu ol a span {
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: var(--accentColor);
-  }
-  .mobile-menu ol a:active {
-    color: var(--accentLight);
-  }
-
-  .mobile-menu-foot {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .mobile-menu-foot > a {
-    font-size: 14px;
-    color: var(--mutedColor);
-  }
-  .mobile-menu-socials {
-    display: flex;
-    gap: 12px;
-  }
-  .mobile-menu-socials a {
-    width: 44px;
-    height: 44px;
     display: grid;
-    place-items: center;
-    border-radius: 50%;
-    font-size: 18px;
-    color: var(--textColor);
+    grid-template-columns: repeat(6, 1fr);
+    width: min(calc(100vw - 24px), 440px);
+    padding: 6px;
+    box-sizing: border-box;
+    border-radius: 22px;
     background:
-      linear-gradient(rgba(11, 23, 39, 0.9), rgba(11, 23, 39, 0.9)) padding-box,
-      var(--accentGradient) border-box;
-    border: 1.2px solid transparent;
+      linear-gradient(rgba(8, 16, 28, 0.86), rgba(8, 16, 28, 0.86)) padding-box,
+      linear-gradient(100deg, rgba(255, 255, 255, 0.35), rgba(34, 211, 238, 0.45), rgba(59, 130, 246, 0.45)) border-box;
+    border: 1px solid transparent;
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(34, 211, 238, 0.08);
+    animation: tabbarIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s both;
+  }
+  .tabbar a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-height: 50px;
+    border-radius: 16px;
+    color: var(--mutedColor);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.3s, background 0.3s;
+  }
+  .tabbar a svg {
+    font-size: 20px;
+    transition: transform 0.3s;
+  }
+  .tabbar a.is-active {
+    color: var(--textColor);
+    background: linear-gradient(160deg, rgba(34, 211, 238, 0.18), rgba(59, 130, 246, 0.14));
+  }
+  .tabbar a.is-active svg {
+    color: var(--accentColor);
+    transform: translateY(-1px);
+  }
+  .tabbar a.is-active::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accentColor);
+    box-shadow: 0 0 8px var(--accentColor);
+  }
+  .tabbar a:active svg {
+    transform: scale(0.9);
   }
 
-  /* lock page scroll while the menu is open */
-  body.menu-open {
-    overflow: hidden !important;
-    touch-action: none;
+  /* keep the resume tab and page bottom clear of the bar */
+  .resume-button {
+    bottom: 96px !important;
   }
 }
-@media only screen and (max-width: 768px) {
-  html:has(body.menu-open) {
-    overflow: hidden !important;
+
+@keyframes tabbarIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
 }

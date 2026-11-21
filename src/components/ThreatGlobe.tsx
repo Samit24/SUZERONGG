@@ -15,6 +15,44 @@ function randomOnSphere(r: number) {
   return new THREE.Vector3(s * Math.cos(t) * r, u * r, s * Math.sin(t) * r);
 }
 
+// Latitude/longitude (degrees) to a point on the sphere.
+function latLonToVec(lat: number, lon: number, r: number) {
+  const phi = ((90 - lat) * Math.PI) / 180;
+  const theta = ((lon + 180) * Math.PI) / 180;
+  return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
+}
+
+// World map outlines (coastlines bright, country borders faint), loaded after the globe appears.
+async function buildMapOutlines() {
+  const [{ mesh }, world] = await Promise.all([
+    import("topojson-client"),
+    import("world-atlas/countries-110m.json"),
+  ]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const topo = ((world as any).default ?? world) as any;
+  const toSegments = (lines: number[][][]) => {
+    const pts: number[] = [];
+    for (const line of lines) {
+      for (let i = 0; i < line.length - 1; i++) {
+        const a = latLonToVec(line[i][1], line[i][0], RADIUS * 1.003);
+        const b = latLonToVec(line[i + 1][1], line[i + 1][0], RADIUS * 1.003);
+        pts.push(a.x, a.y, a.z, b.x, b.y, b.z);
+      }
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
+    return geo;
+  };
+  const coast = mesh(topo, topo.objects.countries, (a, b) => a === b);
+  const borders = mesh(topo, topo.objects.countries, (a, b) => a !== b);
+  const group = new THREE.Group();
+  const coastMat = new THREE.LineBasicMaterial({ color: "#a5f3fc", transparent: true, opacity: 0 });
+  const borderMat = new THREE.LineBasicMaterial({ color: "#22d3ee", transparent: true, opacity: 0 });
+  group.add(new THREE.LineSegments(toSegments(coast.coordinates), coastMat));
+  group.add(new THREE.LineSegments(toSegments(borders.coordinates), borderMat));
+  return { group, coastMat, borderMat };
+}
+
 function buildGlobe() {
   const globe = new THREE.Group();
 
@@ -38,7 +76,7 @@ function buildGlobe() {
   shellGeo.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
   const shell = new THREE.LineSegments(
     shellGeo,
-    new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.28 })
+    new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.14 })
   );
   globe.add(shell);
 
@@ -98,7 +136,7 @@ function buildGlobe() {
   );
   ring1.add(sat);
 
-  return { globe, shell, arcs, rings, sat };
+  return { globe, core, shell, arcs, rings, sat };
 }
 
 // inline: phone/tablet version that sits inside the landing section instead of the fixed
@@ -120,10 +158,26 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
     const camera = new THREE.PerspectiveCamera(35, rect.width / rect.height, 0.1, 100);
     camera.position.set(0, 0, inline ? 8.4 : 13);
 
-    const { globe, arcs, rings, sat } = buildGlobe();
+    const { globe, core, arcs, rings, sat } = buildGlobe();
     const root = new THREE.Group(); // scroll timeline moves this
     const tilt = new THREE.Group(); // mouse moves this
-    tilt.add(globe, rings);
+    const spin = new THREE.Group(); // dragging rotates this, in any direction
+    spin.add(globe);
+    tilt.add(spin, rings);
+
+    // map outlines fade in once the (small, lazily loaded) world data arrives
+    let disposed = false;
+    let mapFade: gsap.core.Tween[] = [];
+    buildMapOutlines()
+      .then(({ group, coastMat, borderMat }) => {
+        if (disposed) return;
+        globe.add(group);
+        mapFade = [
+          gsap.to(coastMat, { opacity: 0.75, duration: 1.6, ease: "power2.out" }),
+          gsap.to(borderMat, { opacity: 0.22, duration: 1.6, ease: "power2.out" }),
+        ];
+      })
+      .catch(() => {});
     root.add(tilt);
     root.scale.setScalar(0.001);
     scene.add(root);
@@ -147,7 +201,7 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
           .to(root.rotation, { x: 0.6, ease: "none" }, 0)
           .to(host, { opacity: 0, ease: "none" }, 0.3);
       }
-    }, 400);
+    }, 60);
 
     const mouse = { x: 0, y: 0 };
     const onMouseMove = (e: MouseEvent) => {
@@ -156,27 +210,84 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
     };
     document.addEventListener("mousemove", onMouseMove);
 
-    // touch / pen: drag sideways to spin the globe (vertical swipes still scroll the page)
-    let spin = 0;
-    let spinAngle = 0;
-    let dragX: number | null = null;
+    // Drag the globe to rotate it freely (any direction), with momentum.
+    // It only grabs when the pointer is on the globe itself, so the rest of the page scrolls as usual.
+    const raycaster = new THREE.Raycaster();
+    const ndc = new THREE.Vector2();
+    const hitsGlobe = (x: number, y: number) => {
+      if (Number(getComputedStyle(host).opacity) < 0.2) return false;
+      const r = renderer.domElement.getBoundingClientRect();
+      if (x < r.left || x > r.right || y < r.top || y > r.bottom) return false;
+      ndc.set(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1);
+      raycaster.setFromCamera(ndc, camera);
+      return raycaster.intersectObject(core, false).length > 0;
+    };
+    const isControl = (el: EventTarget | null) =>
+      el instanceof Element && !!el.closest("a, button, input, textarea, select, .orbit-item");
+    let dragging = false;
+    let lastX = 0;
+    let lastY = 0;
+    const vel = { x: 0, y: 0 }; // radians per frame
+    const axisX = new THREE.Vector3(1, 0, 0);
+    const axisY = new THREE.Vector3(0, 1, 0);
+    const qTmp = new THREE.Quaternion();
+    const rotateBy = (dx: number, dy: number) => {
+      qTmp.setFromAxisAngle(axisY, dx);
+      spin.quaternion.premultiply(qTmp);
+      qTmp.setFromAxisAngle(axisX, dy);
+      spin.quaternion.premultiply(qTmp);
+    };
+    const dragStart = (x: number, y: number) => {
+      dragging = true;
+      lastX = x;
+      lastY = y;
+      vel.x = vel.y = 0;
+      document.body.classList.add("globe-dragging");
+    };
+    const dragMove = (x: number, y: number) => {
+      const k = 0.006;
+      vel.x = (x - lastX) * k;
+      vel.y = (y - lastY) * k;
+      rotateBy(vel.x, vel.y);
+      lastX = x;
+      lastY = y;
+    };
+    const dragEnd = () => {
+      if (!dragging) return;
+      dragging = false;
+      document.body.classList.remove("globe-dragging");
+    };
+    // mouse / pen
     const onPointerDown = (e: PointerEvent) => {
-      dragX = e.clientX;
+      if (e.pointerType === "touch" || e.button !== 0 || isControl(e.target)) return;
+      if (!hitsGlobe(e.clientX, e.clientY)) return;
+      e.preventDefault();
+      dragStart(e.clientX, e.clientY);
     };
     const onPointerMove = (e: PointerEvent) => {
-      if (dragX === null) return;
-      spin += (e.clientX - dragX) * 0.008;
-      dragX = e.clientX;
+      if (e.pointerType === "touch") return;
+      if (dragging) dragMove(e.clientX, e.clientY);
+      else document.body.classList.toggle("globe-hover", !isControl(e.target) && hitsGlobe(e.clientX, e.clientY));
     };
-    const onPointerUp = () => {
-      dragX = null;
+    // touch: a finger on the globe rotates it; anywhere else scrolls the page
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (e.touches.length !== 1 || isControl(e.target) || !hitsGlobe(t.clientX, t.clientY)) return;
+      dragStart(t.clientX, t.clientY);
     };
-    if (inline) {
-      host.addEventListener("pointerdown", onPointerDown);
-      window.addEventListener("pointermove", onPointerMove);
-      window.addEventListener("pointerup", onPointerUp);
-      window.addEventListener("pointercancel", onPointerUp);
-    }
+    const onTouchMove = (e: TouchEvent) => {
+      if (!dragging) return;
+      e.preventDefault();
+      dragMove(e.touches[0].clientX, e.touches[0].clientY);
+    };
+    window.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", dragEnd);
+    window.addEventListener("pointercancel", dragEnd);
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", dragEnd);
+    window.addEventListener("touchcancel", dragEnd);
 
     // stop rendering while the globe is off-screen (saves battery on phones)
     let visible = true;
@@ -201,9 +312,13 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
       frame = requestAnimationFrame(animate);
       if (!visible) return;
       const t = clock.getElapsedTime();
-      spin *= 0.97; // drag momentum eases off
-      spinAngle += spin * 0.1;
-      globe.rotation.y = t * 0.12 + spinAngle;
+      if (!dragging) {
+        // momentum after a drag eases off, and the slow auto-spin carries on
+        vel.x *= 0.95;
+        vel.y *= 0.95;
+        if (Math.abs(vel.x) + Math.abs(vel.y) > 0.0001) rotateBy(vel.x, vel.y);
+        globe.rotation.y += 0.002;
+      }
       rings.rotation.z = t * 0.2;
       sat.position.set(Math.cos(t * 0.9) * 1.6 * 1.32, Math.sin(t * 0.9) * 1.6 * 1.32, 0);
       tilt.rotation.y += (mouse.x * 0.35 - tilt.rotation.y) * 0.05;
@@ -230,10 +345,17 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
       cancelAnimationFrame(frame);
       io.disconnect();
       ro.disconnect();
-      host.removeEventListener("pointerdown", onPointerDown);
+      disposed = true;
+      mapFade.forEach((tw) => tw.kill());
+      window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerUp);
-      window.removeEventListener("pointercancel", onPointerUp);
+      window.removeEventListener("pointerup", dragEnd);
+      window.removeEventListener("pointercancel", dragEnd);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", dragEnd);
+      window.removeEventListener("touchcancel", dragEnd);
+      document.body.classList.remove("globe-dragging", "globe-hover");
       document.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
       renderer.dispose();

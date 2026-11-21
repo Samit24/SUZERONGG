@@ -6,32 +6,38 @@ import Lenis from "lenis";
 import "./styles/Navbar.css";
 import { config } from "../config";
 import Logo from "./Logo";
-import { activeSocials } from "./socialIconMap";
+import { MdPersonOutline, MdTimeline, MdVerified, MdBolt, MdTerminal, MdAlternateEmail } from "react-icons/md";
+import type { IconType } from "react-icons";
 
 gsap.registerPlugin(ScrollTrigger);
 export let lenis: Lenis | null = null;
 
 // in page order
-const navLinks = [
-  { href: "#about", label: "ABOUT" },
-  { href: "#experience", label: "CAREER" },
-  { href: "#certifications", label: "CERTS" },
-  { href: "#stack", label: "SKILLS" },
-  { href: "#work", label: "WORK" },
-  { href: "#contact", label: "CONTACT" },
+const navLinks: { href: string; label: string; Icon: IconType }[] = [
+  { href: "#about", label: "ABOUT", Icon: MdPersonOutline },
+  { href: "#experience", label: "CAREER", Icon: MdTimeline },
+  { href: "#certifications", label: "CERTS", Icon: MdVerified },
+  { href: "#stack", label: "SKILLS", Icon: MdBolt },
+  { href: "#work", label: "WORK", Icon: MdTerminal },
+  { href: "#contact", label: "CONTACT", Icon: MdAlternateEmail },
 ];
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  // phone menu: lock page scroll while open, close on Escape
+  // phones: highlight the tab for the section currently on screen
+  const [active, setActive] = useState("");
   useEffect(() => {
-    document.body.classList.toggle("menu-open", menuOpen);
-    if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [menuOpen]);
+    const sections = navLinks
+      .map((l) => document.querySelector<HTMLElement>(l.href))
+      .filter((el): el is HTMLElement => !!el);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => e.isIntersecting && setActive(`#${e.target.id}`));
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     // Initialize Lenis smooth scroll
@@ -111,53 +117,25 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        <button
-          type="button"
-          className={`nav-toggle ${menuOpen ? "is-open" : ""}`}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
 
-      {/* phone menu (outside .header, whose transform would trap a fixed panel) */}
-      <nav id="mobile-menu" className={`mobile-menu ${menuOpen ? "is-open" : ""}`} aria-hidden={!menuOpen}>
-        <ol>
-          {navLinks.map((l, i) => (
-            <li key={l.href} style={{ transitionDelay: menuOpen ? `${0.08 + i * 0.05}s` : "0s" }}>
-              <a
-                href={l.href}
-                tabIndex={menuOpen ? 0 : -1}
-                onClick={(e) => {
-                  // close first (unlocks page scroll), then glide to the section
-                  e.preventDefault();
-                  setMenuOpen(false);
-                  setTimeout(() => document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" }), 60);
-                }}
-              >
-                <span>0{i + 1}</span>
-                {l.label.charAt(0) + l.label.slice(1).toLowerCase()}
-              </a>
-            </li>
-          ))}
-        </ol>
-        <div className="mobile-menu-foot">
-          <a href={`mailto:${config.contact.email}`} tabIndex={menuOpen ? 0 : -1}>
-            {config.contact.email}
+      {/* phones: floating bottom tab bar (outside .header, whose transform would trap a fixed element) */}
+      <nav className="tabbar" aria-label="Sections">
+        {navLinks.map(({ href, label, Icon }) => (
+          <a
+            key={href}
+            href={href}
+            className={active === href ? "is-active" : ""}
+            aria-current={active === href ? "true" : undefined}
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <Icon aria-hidden="true" />
+            <span>{label.charAt(0) + label.slice(1).toLowerCase()}</span>
           </a>
-          <div className="mobile-menu-socials">
-            {activeSocials.map(({ name, url, Icon }) => (
-              <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={name} tabIndex={menuOpen ? 0 : -1}>
-                <Icon />
-              </a>
-            ))}
-          </div>
-        </div>
+        ))}
       </nav>
 
       <div className="landing-circle1"></div>
