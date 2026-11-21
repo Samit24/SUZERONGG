@@ -141,6 +141,42 @@ export const config = {
         "[HIGH]     'sysupdate' added to 'sudo'",
       ],
     },
+    {
+      title: "SIEM Log Analyzer",
+      category: "Open source · Detection",
+      technologies: "Python, detection rules, MITRE ATT&CK",
+      description:
+        "Parses Windows security and process events from JSON logs and runs detection rules for brute force, password spraying, encoded PowerShell and new admin accounts.",
+      link: "https://github.com/Samit24/siem-log-analyzer",
+      snippet: ["$ python -m siem_analyzer security.jsonl", "[HIGH] T1110 brute force: 42 failed logons", "[HIGH] T1059.001 encoded PowerShell", "[MED]  T1136 new admin account created"],
+    },
+    {
+      title: "SOC Alert Triage Engine",
+      category: "Open source · Triage",
+      technologies: "Python, alert scoring, SLA queue",
+      description:
+        "Scores incoming alerts by severity, asset criticality and IoC matches, then builds a prioritised P1 to P4 queue with SLA deadlines.",
+      link: "https://github.com/Samit24/soc-alert-triage",
+      snippet: ["$ python -m triage alerts.json", "P1  score 94  dc01  sla 15m", "P2  score 71  web03 sla 1h", "P4  score 18  lab07 sla 24h"],
+    },
+    {
+      title: "Network Traffic Analyzer",
+      category: "Open source · Network",
+      technologies: "Python, Zeek conn.log, network security",
+      description:
+        "Reads Zeek flow data to spot port scans, C2-style beaconing, large outbound transfers and connections on suspicious ports.",
+      link: "https://github.com/Samit24/network-traffic-analyzer",
+      snippet: ["$ python -m nta conn.log", "scan     10.0.4.12 -> 254 hosts", "beacon   10.0.2.8 every 60s ±2s", "exfil    1.8 GB to 185.x.x.x"],
+    },
+    {
+      title: "CQL Threat Hunting Queries",
+      category: "Open source · Hunting",
+      technologies: "CQL, CrowdStrike Falcon, LogScale",
+      description:
+        "A library of CrowdStrike Query Language hunts for Falcon LogScale and Next-Gen SIEM, each mapped to a MITRE ATT&CK technique with triage notes.",
+      link: "https://github.com/Samit24/cql-threat-hunting-queries",
+      snippet: ["#event_simpleName=ProcessRollup2", "| ImageFileName=/powershell\\.exe/i", "| CommandLine=/-enc/i", "| groupBy([ComputerName])"],
+    },
   ],
   certifications: [
     { name: "Threat Hunter", issuer: "CrowdStrike University", file: "/certificates/Threat Hunter.pdf", image: "/img/crowdstrike.jpg" },
