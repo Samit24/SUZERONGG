@@ -18,17 +18,9 @@ const L = (file: string) => `/img/logos/${file}`;
 // Software & platforms, shown as tiles with each product's official logo.
 const software: { group: string; items: Software[] }[] = [
   {
-    group: "Security platforms",
+    group: "Security & network",
     items: [
       { name: "CrowdStrike Falcon", logo: L("crowdstrike.png"), brand: "#e32515" },
-      { name: "Falcon LogScale", logo: L("crowdstrike.png"), brand: "#e32515" },
-      { name: "Falcon Next-Gen SIEM", logo: L("crowdstrike.png"), brand: "#e32515" },
-      { name: "Fusion SOAR", logo: L("crowdstrike.png"), brand: "#e32515" },
-    ],
-  },
-  {
-    group: "Network & analysis",
-    items: [
       { name: "Wireshark", logo: L("wireshark.svg"), brand: "#1679a7" },
       { name: "Nmap", logo: L("nmap.png"), brand: "#4fb3e8", multicolor: true },
       { name: "Zeek", logo: L("zeek.png"), brand: "#29a8e0", multicolor: true },

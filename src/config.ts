@@ -28,7 +28,7 @@ export const config = {
   about: {
     title: "About Me",
     paragraphs: [
-      "I'm a Security Engineer based in Kathmandu, Nepal. I analyse security logs, alerts and endpoint telemetry to detect threats and cut down false positives. My work spans the full detection path: building log ingestion pipelines for SIEM, hunting threats with CrowdStrike Query Language, triaging alerts, and leading incident response through to root cause.",
+      "I'm a Security Engineer based in Kathmandu, Nepal. I turn noisy security telemetry into clear, trustworthy detections, and I care as much about cutting false positives as about catching real threats. I also share the detection tools I build as open source.",
     ],
     stats: [
       { value: "2+", label: "Years in security" },
@@ -41,15 +41,13 @@ export const config = {
       title: "DETECT & HUNT",
       description: "Finding threats before they become incidents",
       details:
-        "Proactive threat hunting across CrowdStrike Falcon and SIEM, using CQL to parse large log datasets and surface suspicious patterns, anomalies and indicators of compromise.",
-      tools: ["CrowdStrike Falcon", "CQL", "SIEM Monitoring", "Threat Hunting", "Log Analysis", "IoC Analysis", "Wireshark", "Nmap", "Kali Linux"],
+        "Proactive hunts across endpoint and SIEM data, writing CQL queries that surface anomalies and indicators of compromise hidden in large log datasets.",
     },
     {
       title: "RESPOND & BUILD",
       description: "Incident response and security engineering",
       details:
-        "Triaging complex alerts, leading incident response to root cause, building log ingestion pipelines and automating detection workflows with Fusion SOAR.",
-      tools: ["Incident Response", "Fusion SOAR", "Log Pipelines", "Python", "PowerShell", "Bash", "AWS", "Azure", "Google Cloud"],
+        "Taking alerts from first triage to root cause, and building the log pipelines and automated SOAR workflows that make every investigation faster.",
     },
   ],
   career: [
@@ -59,7 +57,7 @@ export const config = {
       year: "NOW",
       period: "Sep 2025 – Present",
       description:
-        "Triage complex security alerts and lead incident response. Run proactive threat hunts in CrowdStrike, monitor SIEM and Falcon environments, and use CQL to find indicators of compromise in large log datasets.",
+        "Lead incident response on complex alerts, run the team's proactive threat hunts and refine its automated detection workflows.",
     },
     {
       position: "Junior Security Engineer",
@@ -67,7 +65,7 @@ export const config = {
       year: "2024",
       period: "Jul 2024 – Sep 2025",
       description:
-        "Designed log ingestion pipelines for centralised SIEM monitoring, supported the deployment and administration of an enterprise CrowdStrike Falcon platform, and troubleshot security infrastructure.",
+        "Designed log ingestion pipelines for centralised SIEM monitoring and helped deploy and administer an enterprise CrowdStrike Falcon platform.",
     },
     {
       position: "B.I.M. Degree",

@@ -316,3 +316,13 @@
     width: 34px;
   }
 }
+
+/* desktop: six tiles per row so every group fills its rows evenly */
+@media screen and (min-width: 1025px) {
+  .kit-tiles {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .kit-tile-name {
+    font-size: 12px;
+  }
+}

@@ -95,7 +95,6 @@ const Contact = () => {
         </div>
         <div className="footer-legal">
           <span>© {new Date().getFullYear()} {config.developer.fullName}</span>
-          <span>Security Engineer · Threat Hunter</span>
         </div>
       </footer>
     </div>
