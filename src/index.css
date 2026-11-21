@@ -83,15 +83,12 @@ a:hover {
   color: var(--accentColor);
 }
 
-main {
-  opacity: 1;
-  transition: 0.3s;
+main.main-body {
+  opacity: 0;
 }
 
-.main-active {
-  opacity: 0;
-  animation: fadeIn 1s 1;
-  animation-fill-mode: forwards;
+main.main-body.main-active {
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 @keyframes fadeIn {
@@ -460,4 +457,123 @@ address {
   .landing-section .landing-intro {
     top: 110px;
   }
+}
+
+/* ---------- phones: role words swap inside a clipped box (no overlap / flicker) ---------- */
+@media only screen and (max-width: 768px) {
+  .landing-section .landing-info h2,
+  .landing-section h2.landing-info-h2 {
+    position: relative !important;
+    overflow: hidden !important;
+    display: grid !important;
+    justify-items: center;
+    padding-bottom: 0.32em;
+  }
+  /* both words share one grid cell, so the box is as tall as one word */
+  .landing-section .landing-info h2 > div {
+    grid-area: 1 / 1;
+    position: static !important;
+  }
+}
+
+/* ---------- phones: globe always centred and sized to fit short screens ---------- */
+@media only screen and (max-width: 768px) {
+  .landing-section .mobile-globe {
+    width: min(92vw, 420px, 46svh);
+    margin-left: 50%;
+    translate: -50% 0;
+    flex-shrink: 0;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .landing-section .landing-intro {
+    padding-top: clamp(84px, 13svh, 120px) !important;
+  }
+  /* keep the role words clear of the bottom tab bar */
+  .landing-section .landing-info {
+    padding-bottom: 96px;
+  }
+}
+
+/* ---------- phones and tablets held sideways: text left, globe right ---------- */
+@media only screen and (max-width: 1024px) and (orientation: landscape) {
+  .landing-section {
+    height: auto !important;
+    min-height: 100svh !important;
+  }
+  .landing-section .landing-container {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    align-content: center;
+    column-gap: 24px;
+    height: auto !important;
+    min-height: 100svh;
+    padding: 72px 0 24px !important;
+    box-sizing: border-box;
+  }
+  .landing-section .landing-intro,
+  .landing-section .landing-info {
+    position: static !important;
+    transform: none !important;
+    inset: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    width: auto !important;
+    grid-column: 1;
+  }
+  .landing-section .landing-intro {
+    grid-row: 1;
+    align-self: end;
+    padding-top: 0 !important;
+  }
+  .landing-section .landing-intro h1 {
+    font-size: clamp(34px, 6vw, 52px) !important;
+  }
+  .landing-section .landing-info {
+    grid-row: 2;
+    align-self: start;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start !important;
+    margin-top: 14px !important;
+  }
+  .landing-section .landing-info h3 {
+    display: none;
+  }
+  .landing-section .landing-info h2,
+  .landing-section h2.landing-info-h2 {
+    position: relative !important;
+    display: grid !important;
+    justify-items: start;
+    overflow: hidden !important;
+    margin: 0 !important;
+    width: auto !important;
+    padding-bottom: 0.32em;
+    font-size: clamp(20px, 3.4vw, 30px) !important;
+  }
+  .landing-section .landing-info h2 > div {
+    grid-area: 1 / 1;
+    position: static !important;
+  }
+  .landing-section .mobile-globe {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    translate: none !important;
+    margin: 0 !important;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    width: min(44vw, 76svh) !important;
+  }
+}
+
+/* Landing letters must be inline-block, or the browser ignores their transforms: the rolling
+   role words then never move and both words stay drawn on top of each other (the flicker). */
+.landing-intro .split-char,
+.landing-info .split-char {
+  display: inline-block;
+  white-space: pre;
 }

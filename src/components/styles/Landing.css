@@ -643,12 +643,3 @@ h2.landing-info-h2 {
   }
 }
 
-/* ---------- globe: drag to rotate ---------- */
-body.globe-hover,
-body.globe-hover * {
-  cursor: grab !important;
-}
-body.globe-dragging,
-body.globe-dragging * {
-  cursor: grabbing !important;
-}

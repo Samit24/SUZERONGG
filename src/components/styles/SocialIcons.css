@@ -101,3 +101,14 @@ div.resume-button span {
     margin-top: -1.5px;
   }
 }
+
+/* phones: hide while the landing screen (globe + orbiting icons) is in view */
+@media only screen and (max-width: 768px) {
+  .icons-section .resume-button {
+    transition: opacity 0.4s, visibility 0.4s;
+  }
+  .icons-section.on-landing .resume-button {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

@@ -20,7 +20,7 @@ const Terminal = ({ title, lines, link }: Props) => (
         <div
           key={i}
           className={`term-line ${line.startsWith("$") || line.startsWith("#") ? "term-cmd" : ""} ${
-            /MALICIOUS|CRITICAL|HIGH/.test(line) ? "term-alert" : ""
+            /\[HIGH\]|^P1|exfil|beacon/.test(line) ? "term-alert" : ""
           }`}
           style={{ animationDelay: `${i * 0.12}s` }}
         >

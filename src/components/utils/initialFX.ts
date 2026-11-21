@@ -81,57 +81,21 @@ export function initialFX() {
   LoopText(landingText4, landingText5);
 }
 
+// Rolls between two words in the same clipped slot: the shown word slides up and out while the
+// other slides up from below. Only one word is ever at rest in the slot, so they never overlap.
+// yPercent (not px) keeps the distance right at every font size; the intro's `y` tween is separate.
 function LoopText(Text1: TextSplitter, Text2: TextSplitter) {
-  const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-  const delay = 4;
-  const delay2 = delay * 2 + 1;
+  const hold = 3.2; // seconds each word stays
+  const roll = { duration: 0.9, ease: "power3.inOut", stagger: 0.05 };
+  const OUT = -150;
+  const IN = 150;
 
-  tl.fromTo(
-    Text2.chars,
-    { opacity: 0, y: 80 },
-    {
-      opacity: 1,
-      duration: 1.2,
-      ease: "power3.inOut",
-      y: 0,
-      stagger: 0.1,
-      delay: delay,
-    },
-    0
-  )
-    .fromTo(
-      Text1.chars,
-      { y: 80 },
-      {
-        duration: 1.2,
-        ease: "power3.inOut",
-        y: 0,
-        stagger: 0.1,
-        delay: delay2,
-      },
-      1
-    )
-    .fromTo(
-      Text1.chars,
-      { y: 0 },
-      {
-        y: -80,
-        duration: 1.2,
-        ease: "power3.inOut",
-        stagger: 0.1,
-        delay: delay,
-      },
-      0
-    )
-    .to(
-      Text2.chars,
-      {
-        y: -80,
-        duration: 1.2,
-        ease: "power3.inOut",
-        stagger: 0.1,
-        delay: delay2,
-      },
-      1
-    );
+  gsap.set(Text2.chars, { yPercent: IN, opacity: 1 });
+
+  gsap
+    .timeline({ repeat: -1, delay: 1.2 })
+    .to(Text1.chars, { yPercent: OUT, ...roll }, hold)
+    .fromTo(Text2.chars, { yPercent: IN }, { yPercent: 0, ...roll }, hold)
+    .to(Text2.chars, { yPercent: OUT, ...roll }, `+=${hold}`)
+    .fromTo(Text1.chars, { yPercent: IN }, { yPercent: 0, immediateRender: false, ...roll }, "<");
 }

@@ -225,6 +225,7 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
     const isControl = (el: EventTarget | null) =>
       el instanceof Element && !!el.closest("a, button, input, textarea, select, .orbit-item");
     let dragging = false;
+    let hovering = false;
     let lastX = 0;
     let lastY = 0;
     const vel = { x: 0, y: 0 }; // radians per frame
@@ -242,7 +243,7 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
       lastX = x;
       lastY = y;
       vel.x = vel.y = 0;
-      document.body.classList.add("globe-dragging");
+      document.documentElement.style.cursor = "grabbing";
     };
     const dragMove = (x: number, y: number) => {
       const k = 0.006;
@@ -255,7 +256,7 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
     const dragEnd = () => {
       if (!dragging) return;
       dragging = false;
-      document.body.classList.remove("globe-dragging");
+      document.documentElement.style.cursor = hovering ? "grab" : "";
     };
     // mouse / pen
     const onPointerDown = (e: PointerEvent) => {
@@ -267,7 +268,13 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
     const onPointerMove = (e: PointerEvent) => {
       if (e.pointerType === "touch") return;
       if (dragging) dragMove(e.clientX, e.clientY);
-      else document.body.classList.toggle("globe-hover", !isControl(e.target) && hitsGlobe(e.clientX, e.clientY));
+      else {
+        const over = !isControl(e.target) && hitsGlobe(e.clientX, e.clientY);
+        if (over !== hovering) {
+          hovering = over;
+          document.documentElement.style.cursor = over ? "grab" : "";
+        }
+      }
     };
     // touch: a finger on the globe rotates it; anywhere else scrolls the page
     const onTouchStart = (e: TouchEvent) => {
@@ -355,7 +362,7 @@ const ThreatGlobe = ({ inline = false }: { inline?: boolean }) => {
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", dragEnd);
       window.removeEventListener("touchcancel", dragEnd);
-      document.body.classList.remove("globe-dragging", "globe-hover");
+      document.documentElement.style.cursor = "";
       document.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
       renderer.dispose();

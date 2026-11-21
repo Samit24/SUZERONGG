@@ -55,12 +55,12 @@ const Navbar = () => {
     // Start paused
     lenis.stop();
 
-    // Handle smooth scroll animation frame
-    function raf(time: number) {
-      lenis?.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    // One clock for everything: GSAP's ticker drives Lenis, and every Lenis scroll updates
+    // ScrollTrigger in the same frame, so pinned / scrubbed sections never lag a frame behind.
+    lenis.on("scroll", ScrollTrigger.update);
+    const tick = (time: number) => lenis?.raf(time * 1000);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
 
     // Handle navigation links
     const links = document.querySelectorAll(".header ul a");
@@ -90,6 +90,7 @@ const Navbar = () => {
     });
 
     return () => {
+      gsap.ticker.remove(tick);
       lenis?.destroy();
     };
   }, []);

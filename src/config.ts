@@ -86,62 +86,6 @@ export const config = {
   ],
   projects: [
     {
-      title: "Phishing Email Analyzer",
-      category: "Open source · Email security",
-      technologies: "Python, SPF/DKIM/DMARC, IoC extraction, MITRE ATT&CK",
-      description:
-        "Scores .eml files for phishing: failed SPF/DKIM/DMARC, lookalike and typosquat domains, deceptive links, double-extension and HTML-smuggling attachments, then reports the verdict and defanged IoCs.",
-      link: "https://github.com/Samit24/phishing-email-analyzer",
-      snippet: [
-        "$ python -m phish_analyzer samples",
-        "[MALICIOUS] score 100  Payment failed",
-        "  HIGH  Double extension: Invoice.pdf.exe",
-        "  HIGH  micros0ft-support.top imitates microsoft.com",
-      ],
-    },
-    {
-      title: "Sigma → CQL Converter",
-      category: "Open source · Detection engineering",
-      technologies: "Python, Sigma, CrowdStrike Query Language, Falcon LogScale",
-      description:
-        "Converts Sigma detection rules into CrowdStrike Query Language for Falcon LogScale and Next-Gen SIEM, mapping fields, modifiers and conditions, and ships an ATT&CK-mapped rule pack.",
-      link: "https://github.com/Samit24/sigma-to-cql",
-      snippet: [
-        "$ python -m sigma2cql rules/lsass_dump_comsvcs.yml",
-        "#event_simpleName=ProcessRollup2 event_platform=Win",
-        "| ImageFileName=/\\\\rundll32\\.exe$/i",
-        "| CommandLine=/comsvcs/i and CommandLine=/minidump/i",
-      ],
-    },
-    {
-      title: "IoC Enrichment CLI",
-      category: "Open source · Threat intel",
-      technologies: "Python, VirusTotal API, AbuseIPDB API",
-      description:
-        "Pulls IPs, domains, URLs, hashes and emails out of any alert or report, refangs them, checks them against VirusTotal and AbuseIPDB, and prints a defanged verdict table with CSV/JSON export.",
-      link: "https://github.com/Samit24/ioc-enrichment-cli",
-      snippet: [
-        "$ python -m ioc_enrich alert.txt",
-        "MALICIOUS   100  203[.]0[.]113[.]66   9/94",
-        "MALICIOUS    91  update-check[.]top   7/94",
-        "CLEAN         0  github[.]com         0/94",
-      ],
-    },
-    {
-      title: "Linux Auth Log Analyzer",
-      category: "Open source · Linux security",
-      technologies: "Python, sshd / sudo logs, MITRE ATT&CK",
-      description:
-        "Detects SSH brute force, password spraying, logins that succeeded after brute force, root logins, risky sudo use and backdoor accounts in auth.log, and writes a firewall-ready blocklist.",
-      link: "https://github.com/Samit24/linux-auth-log-analyzer",
-      snippet: [
-        "$ python -m authlog /var/log/auth.log",
-        "[CRITICAL] login after 9 failures 192.0.2.10",
-        "[HIGH]     SSH brute force 203.0.113.45",
-        "[HIGH]     'sysupdate' added to 'sudo'",
-      ],
-    },
-    {
       title: "SIEM Log Analyzer",
       category: "Open source · Detection",
       technologies: "Python, detection rules, MITRE ATT&CK",
